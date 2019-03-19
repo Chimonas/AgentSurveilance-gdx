@@ -2,10 +2,12 @@
   <library name="Gradle: com.ibm.icu:icu4j:50.1.1">
     <CLASSES>
       <root url="jar://C:/Gradle/gradle-4.8/caches/modules-2/files-2.1/com.ibm.icu/icu4j/50.1.1/c1267563fd08f2885bc1f934ddaca15d19c3d888/icu4j-50.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Downloads/gradle-4.8/caches/modules-2/files-2.1/com.ibm.icu/icu4j/50.1.1/c1267563fd08f2885bc1f934ddaca15d19c3d888/icu4j-50.1.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://C:/Gradle/gradle-4.8/caches/modules-2/files-2.1/com.ibm.icu/icu4j/50.1.1/145e5c32cb7a6bcf8120a134c48206d870c12394/icu4j-50.1.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Downloads/gradle-4.8/caches/modules-2/files-2.1/com.ibm.icu/icu4j/50.1.1/145e5c32cb7a6bcf8120a134c48206d870c12394/icu4j-50.1.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -13,7 +13,7 @@ public class BuilderTools {
     TextButton wallbtn, sentryTowerbtn;
 
     public BuilderTools() {
-        Skin skin = new Skin(Gdx.files.internal("core\\assets\\commodore64\\skin\\uiskin.json"));
+        Skin skin = new Skin(Gdx.files.internal("core/assets/commodore64/skin/uiskin.json"));
         this.stage = new Stage();
 
         this.wallbtn = new TextButton("Wall", skin);

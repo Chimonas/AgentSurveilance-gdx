@@ -2,10 +2,12 @@
   <library name="Gradle: org.eclipse.jetty:jetty-jndi:9.2.14.v20151106">
     <CLASSES>
       <root url="jar://C:/Gradle/gradle-4.8/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-jndi/9.2.14.v20151106/c5fb5420a99b8aee335a3ff804c6094eb9034d04/jetty-jndi-9.2.14.v20151106.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Downloads/gradle-4.8/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-jndi/9.2.14.v20151106/c5fb5420a99b8aee335a3ff804c6094eb9034d04/jetty-jndi-9.2.14.v20151106.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://C:/Gradle/gradle-4.8/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-jndi/9.2.14.v20151106/c0cbc65f72ca2e5b2fcbc2123a9a2b907179d53/jetty-jndi-9.2.14.v20151106-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Downloads/gradle-4.8/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-jndi/9.2.14.v20151106/c0cbc65f72ca2e5b2fcbc2123a9a2b907179d53/jetty-jndi-9.2.14.v20151106-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
