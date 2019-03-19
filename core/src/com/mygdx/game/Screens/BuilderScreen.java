@@ -53,7 +53,7 @@ public class BuilderScreen implements Screen {
 
         //Setup the builder tools stage
         batch.begin();
-        batch.draw(new Texture("core\\assets\\GreyArea.png"),Gdx.graphics.getWidth()*4/5,0,Gdx.graphics.getWidth()/5,Gdx.graphics.getHeight());
+        batch.draw(new Texture("core/assets/GreyArea.png"),Gdx.graphics.getWidth()*4/5,0,Gdx.graphics.getWidth()/5,Gdx.graphics.getHeight());
         map.render(batch);
         batch.end();
 

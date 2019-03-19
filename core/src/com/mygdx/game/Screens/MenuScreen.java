@@ -30,7 +30,7 @@ public class MenuScreen implements Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        Skin skin = new Skin(Gdx.files.internal("core\\assets\\commodore64\\skin\\uiskin.json"));
+        Skin skin = new Skin(Gdx.files.internal("core/assets/commodore64/skin/uiskin.json"));
         createGame = new TextButton("Create Game", skin);
         createGame.setPosition(500 - createGame.getWidth()/2,350);
 
