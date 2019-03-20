@@ -23,7 +23,7 @@ public class BuilderScreen implements Screen {
     private BuilderTools builderTools;
     private Map map;
     OrthographicCamera cam;
-    TextButton runGame;
+    TextButton runGame, returnBtn;
 
 
     public BuilderScreen(SurveilanceSystem surveilance) {
@@ -39,7 +39,13 @@ public class BuilderScreen implements Screen {
 
         Skin skin = new Skin(Gdx.files.internal("core/assets/commodore64/skin/uiskin.json"));
         runGame = new TextButton("Run", skin);
-        runGame.setPosition(Gdx.graphics.getWidth()*4/5 + 10,Gdx.graphics.getHeight()-150);
+        runGame.setPosition(Gdx.graphics.getWidth()*4/5 + 10,Gdx.graphics.getHeight()-650);
+        returnBtn = new TextButton( "Return", skin);
+        returnBtn.setPosition(Gdx.graphics.getWidth()*4/5 + 10,Gdx.graphics.getHeight()-750);
+
+        this.runGame.setSize( 180,40);
+        this.returnBtn.setSize(180,40);
+
 
 //        System.out.println("Builder Screen is created");
         class runGameListener extends ChangeListener {
@@ -59,6 +65,23 @@ public class BuilderScreen implements Screen {
         }
         runGame.addListener(new runGameListener(surveilance,this));
 
+        class returnListener extends ChangeListener {
+            SurveilanceSystem surveilance;
+            Screen screen;
+
+            public returnListener(SurveilanceSystem surveilance, Screen screen) {
+                this.surveilance = surveilance;
+                this.screen = screen;
+            }
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+//                System.out.println("Pressed");
+                this.surveilance.setScreen(new MenuScreen(surveilance));
+                this.screen.dispose();
+            }
+
+        }
+        returnBtn.addListener(new returnListener(surveilance, this));
         //add Actors
         //stage.addActor(runGame);
     }
@@ -81,6 +104,7 @@ public class BuilderScreen implements Screen {
 
         //Add extra buttons
         stage.addActor(runGame);
+        stage.addActor(returnBtn);
 
         //Getting the components from the BuildTools
         stage = builderTools.getStage();
