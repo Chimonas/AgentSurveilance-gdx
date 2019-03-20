@@ -10,9 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.mygdx.game.GameLogic.AreaFactory;
 import com.mygdx.game.GameLogic.BuilderTools;
 import com.mygdx.game.GameLogic.Map;
 import com.mygdx.game.SurveilanceSystem;
+
+import java.awt.*;
 
 
 public class BuilderScreen implements Screen {
@@ -23,21 +26,56 @@ public class BuilderScreen implements Screen {
     private BuilderTools builderTools;
     private Map map;
     OrthographicCamera cam;
+    TextButton returnBtn;
 
 
     public BuilderScreen(SurveilanceSystem surveilance) {
         this.batch = new SpriteBatch();
         this.surveilance = surveilance;
         builderTools = new BuilderTools();
-        map = new Map(200,200);
+        map = new Map(200, 200);
+
 
 
         //Camera does absolutely nothing
         this.cam = new OrthographicCamera();
         this.cam.setToOrtho(false, surveilance.VIRTUAL_WIDTH, surveilance.VIRTUAL_HEIGHT);
+//
 
-//        System.out.println("Builder Screen is created");
+//     System.out.println("Builder Screen is created");
+
+
+        Skin skin = new Skin(Gdx.files.internal("core/assets/commodore64/skin/uiskin.json"));
+        returnBtn = new TextButton("Return", skin);
+
+        returnBtn.setPosition(Gdx.graphics.getWidth()*4/5 +10, Gdx.graphics.getHeight()-750);
+
+        this.returnBtn.setSize(180,40);
+
+        class returnListener extends ChangeListener {
+
+            SurveilanceSystem surveilance;
+            Screen screen;
+
+            public returnListener(SurveilanceSystem surveilance, Screen screen) {
+                this.surveilance = surveilance;
+                this.screen = screen;
+            }
+
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+//                System.out.println("Pressed");
+                this.surveilance.setScreen(new MenuScreen(surveilance));
+                this.screen.dispose();
+            }
+        }
+
+
+        returnBtn.addListener(new returnListener(surveilance,this));
+
+
     }
+
 
     @Override
     public void show() {
@@ -56,9 +94,11 @@ public class BuilderScreen implements Screen {
         batch.draw(new Texture("core/assets/GreyArea.png"),Gdx.graphics.getWidth()*4/5,0,Gdx.graphics.getWidth()/5,Gdx.graphics.getHeight());
         map.render(batch);
         batch.end();
-
-        //Getting the components from the BuildTools
         Stage stage = builderTools.getStage();
+
+        //add the return button
+        stage.addActor(returnBtn);
+        //Getting the components from the BuildTools
 
         //Managing the Input processors
         InputProcessor mouseListener = new mouseListener();
@@ -76,6 +116,7 @@ public class BuilderScreen implements Screen {
 
     int startX, startY, endX, endY;
     boolean mouseDragging = false;
+
     class mouseListener implements InputProcessor {
 
         @Override
@@ -89,6 +130,9 @@ public class BuilderScreen implements Screen {
                 return true;
             }
 
+            if (AreaFactory.typeOfAreaOnMouseClick == "Sentry Tower"){
+                AreaFactory.addArea(4,4,7,7);
+            }
             return false;
         }
 
@@ -168,6 +212,8 @@ public class BuilderScreen implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
+
 
     }
 }

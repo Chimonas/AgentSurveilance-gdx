@@ -67,7 +67,7 @@ public class Map {
     }
 
     public void addArea(int startX, int startY, int endX, int endY) {
-        rects.add(factory.addArea(startX,startY,endX,endY));
+         rects.add(factory.addArea(startX,startY,endX,endY));
     }
 
     public Stage getStage() {

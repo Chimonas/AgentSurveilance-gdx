@@ -22,7 +22,7 @@ public class MenuScreen implements Screen {
 
 	final Game surveilance;
 	OrthographicCamera cam;
-	TextButton createGame;
+	TextButton createGameBtn, loadGameBtn;
 
 	public MenuScreen(SurveilanceSystem surveilance) {
 	    this.surveilance = surveilance;
@@ -31,8 +31,11 @@ public class MenuScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         Skin skin = new Skin(Gdx.files.internal("core/assets/commodore64/skin/uiskin.json"));
-        createGame = new TextButton("Create Game", skin);
-        createGame.setPosition(500 - createGame.getWidth()/2,350);
+        createGameBtn = new TextButton("Create Game", skin);
+        loadGameBtn = new TextButton("Load Game", skin);
+
+        createGameBtn.setPosition(Gdx.graphics.getWidth()/2 - createGameBtn.getWidth()/2,Gdx.graphics.getHeight()/2+50);
+        loadGameBtn.setPosition(Gdx.graphics.getWidth()/2 - createGameBtn.getWidth()/2+20,Gdx.graphics.getHeight()/2);
 
 
         class createGameListener extends ChangeListener {
@@ -51,11 +54,30 @@ public class MenuScreen implements Screen {
                 this.screen.dispose();
             }
         }
-        createGame.addListener(new createGameListener(surveilance,this));
 
 
+        class loadGameListener extends ChangeListener {
+
+            SurveilanceSystem surveilance;
+            Screen screen;
+
+            public loadGameListener(SurveilanceSystem surveilance, Screen screen) {
+                this.surveilance = surveilance;
+                this.screen = screen;
+            }
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+//                System.out.println("Pressed");
+                this.surveilance.setScreen(new BuilderScreen(surveilance));
+                this.screen.dispose();
+            }
+        }
+
+        loadGameBtn.addListener(new loadGameListener(surveilance,this));
+        createGameBtn.addListener(new createGameListener(surveilance,this));
         //add Actors
-        stage.addActor(createGame);
+        stage.addActor(createGameBtn);
+        stage.addActor(loadGameBtn);
     }
 
     @Override
