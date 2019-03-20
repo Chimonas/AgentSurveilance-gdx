@@ -93,6 +93,7 @@ public class AIScreen implements Screen {
 
     @Override
     public void dispose () {
-
+        batch.dispose();
+        stage.dispose();
     }
 }
