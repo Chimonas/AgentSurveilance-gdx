@@ -16,17 +16,19 @@ import com.mygdx.game.SurveilanceSystem;
 
 
 public class BuilderScreen implements Screen {
-
     SpriteBatch batch;
+    Stage stage;
 
     final SurveilanceSystem surveilance;
     private BuilderTools builderTools;
     private Map map;
     OrthographicCamera cam;
+    TextButton runGame;
 
     public BuilderScreen(SurveilanceSystem surveilance)
     {
         this.batch = new SpriteBatch();
+        stage = new Stage();
         this.surveilance = surveilance;
         builderTools = new BuilderTools();
         map = new Map(200,200);
@@ -35,7 +37,30 @@ public class BuilderScreen implements Screen {
         this.cam = new OrthographicCamera();
         this.cam.setToOrtho(false, surveilance.VIRTUAL_WIDTH, surveilance.VIRTUAL_HEIGHT);
 
+        Skin skin = new Skin(Gdx.files.internal("core/assets/commodore64/skin/uiskin.json"));
+        runGame = new TextButton("Run", skin);
+        runGame.setPosition(Gdx.graphics.getWidth()*4/5 + 10,Gdx.graphics.getHeight()-150);
+
 //        System.out.println("Builder Screen is created");
+        class runGameListener extends ChangeListener {
+            SurveilanceSystem surveilance;
+            Screen screen;
+
+            public runGameListener(SurveilanceSystem surveilance, Screen screen) {
+                this.surveilance = surveilance;
+                this.screen = screen;
+            }
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+//                System.out.println("Pressed");
+                this.surveilance.setScreen(new AIScreen(surveilance));
+                this.screen.dispose();
+            }
+        }
+        runGame.addListener(new runGameListener(surveilance,this));
+
+        //add Actors
+        //stage.addActor(runGame);
     }
 
     @Override
@@ -45,10 +70,8 @@ public class BuilderScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         Gdx.gl.glClearColor(0.196f, 0.804f, 0.196f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 
         //Setup the builder tools stage
         batch.begin();
@@ -56,8 +79,11 @@ public class BuilderScreen implements Screen {
         map.render(batch);
         batch.end();
 
+        //Add extra buttons
+        stage.addActor(runGame);
+
         //Getting the components from the BuildTools
-        Stage stage = builderTools.getStage();
+        stage = builderTools.getStage();
 
         //Managing the Input processors
         InputProcessor mouseListener = new mouseListener();
@@ -163,6 +189,8 @@ public class BuilderScreen implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();;
+        stage.dispose();
 
     }
 }

@@ -1,12 +1,9 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -14,15 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.SurveilanceSystem;
 
-import java.awt.*;
-
 public class MenuScreen implements Screen {
 	SpriteBatch batch;
 	Stage stage;
 
 	final Game surveilance;
 	OrthographicCamera cam;
-	TextButton createGame;
+	TextButton createGame, runGame;
 
 	public MenuScreen(SurveilanceSystem surveilance) {
 	    this.surveilance = surveilance;
@@ -32,10 +27,13 @@ public class MenuScreen implements Screen {
 
         Skin skin = new Skin(Gdx.files.internal("core/assets/commodore64/skin/uiskin.json"));
         createGame = new TextButton("Create Game", skin);
-        createGame.setPosition(500 - createGame.getWidth()/2,350);
+        createGame.setPosition(Gdx.graphics.getWidth()/2 - createGame.getWidth()/2,Gdx.graphics.getHeight()/2 +50);
+
+        runGame = new TextButton("Run", skin);
+        runGame.setPosition(Gdx.graphics.getWidth()/2 - runGame.getWidth()/2,Gdx.graphics.getHeight()/2 +100);
+
 
         class createGameListener extends ChangeListener {
-
             SurveilanceSystem surveilance;
             Screen screen;
 
@@ -52,9 +50,27 @@ public class MenuScreen implements Screen {
         }
         createGame.addListener(new createGameListener(surveilance,this));
 
+        class runGameListener extends ChangeListener {
+            SurveilanceSystem surveilance;
+            Screen screen;
+
+            public runGameListener(SurveilanceSystem surveilance, Screen screen) {
+                this.surveilance = surveilance;
+                this.screen = screen;
+            }
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+//                System.out.println("Pressed");
+                this.surveilance.setScreen(new AIScreen(surveilance));
+                this.screen.dispose();
+            }
+        }
+        runGame.addListener(new runGameListener(surveilance,this));
+
 
         //add Actors
         stage.addActor(createGame);
+        stage.addActor(runGame);
     }
 
     @Override
