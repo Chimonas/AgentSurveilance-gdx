@@ -13,12 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.mygdx.game.Areas.Area;
 import org.w3c.dom.css.Rect;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.MouseEvent;
 
-import java.awt.geom.Area;
 import java.util.ArrayList;
 
 public class Map {
@@ -27,7 +27,7 @@ public class Map {
     private double width,height;
     private Actor mapActor;
     private AreaFactory factory;
-    ArrayList<Rectangle> rects = new ArrayList<Rectangle>();
+    ArrayList<Area> areas = new ArrayList<Area>();
 
 
 
@@ -56,19 +56,25 @@ public class Map {
         // 2. a texture for that area
         // Use factory design pattern (AreaFactory)
 
-        for (Rectangle r : rects) {
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.RED);
-            shapeRenderer.rect(r.x ,r.y,r.width,r.height);
-            shapeRenderer.end();
+        batch.begin();
+
+        for (Area a : areas) {
+
+            batch.draw(a.getTexture(), a.x, a.y, a.width, a.height);
+
+//            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+//            shapeRenderer.setColor(Color.RED);
+//            shapeRenderer.rect(r.x ,r.y,r.width,r.height);
+//            shapeRenderer.end();
         }
 
+        batch.end();
         batch.begin();
 
     }
 
     public void addArea(int startX, int startY, int endX, int endY) {
-        rects.add(factory.addArea(startX,startY,endX,endY));
+        areas.add(factory.addArea(startX,startY,endX,endY));
     }
 
     public Stage getStage() {

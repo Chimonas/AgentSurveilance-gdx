@@ -1,6 +1,8 @@
 package com.mygdx.game.GameLogic;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.Areas.Area;
+import com.mygdx.game.Areas.Wall;
 
 
 public class AreaFactory {
@@ -12,7 +14,7 @@ public class AreaFactory {
     //Each kind of area should contain
     // 1. a rectangle(the area to be drawn that represents the shape)
     // 2. a texture for that area
-    public Rectangle addArea(int startX, int startY, int endX, int endY) {
+    public Area addArea(int startX, int startY, int endX, int endY) {
         //sort coordinates so we can attain the correct numbers for
         //rectangle constructor Rectangle(topleftX, topleftY, width, height)
         int x,y,width,height;
@@ -31,9 +33,21 @@ public class AreaFactory {
         System.out.println("Rectangle with start coordinates x: " + x + "   y: " + y);
         System.out.println("Rectangle with height: " + height + "   and width: " + width);
 
-        Rectangle rect = new Rectangle(x,y,width,height);
 
-        return rect;
+        Area area = createArea(x,y,width,height);
+
+        return area;
     }
+
+    public Area createArea(int x, int y, int width, int height) {
+        Area area;
+
+        area = new Wall(x,y,width,height);
+
+
+
+        return area;
+    }
+
 
 }
