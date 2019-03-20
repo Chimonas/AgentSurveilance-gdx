@@ -1,48 +1,35 @@
 package com.mygdx.game.GameLogic;
 
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.mygdx.game.Areas.Area;
-import org.w3c.dom.css.Rect;
-import org.w3c.dom.events.Event;
-import org.w3c.dom.events.EventListener;
-import org.w3c.dom.events.MouseEvent;
 
 import java.util.ArrayList;
 
-public class Map {
-
+public class Map
+{
     private Stage stage;
     private double width,height;
     private Actor mapActor;
     private AreaFactory factory;
-    ArrayList<Area> areas = new ArrayList<Area>();
+    ArrayList<Area> areas;
 
-
-
-    public Map(double width, double height ) {
+    public Map(double width, double height)
+    {
         factory = new AreaFactory();
         stage = new Stage();
         this.width = width;
         this.height = height;
+        areas = new ArrayList<Area>();
 
         //does nothing (for now)
 //        mapActor = new Actor();
 //        mapActor.setOrigin(250,0);
 //        stage.addActor(mapActor);
-
-
     }
 
     public void render(Batch batch) {
@@ -56,21 +43,22 @@ public class Map {
         // 2. a texture for that area
         // Use factory design pattern (AreaFactory)
 
-        batch.begin();
-
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         for (Area a : areas) {
 
-            batch.draw(a.getTexture(), a.x, a.y, a.width, a.height);
-
-//            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-//            shapeRenderer.setColor(Color.RED);
-//            shapeRenderer.rect(r.x ,r.y,r.width,r.height);
-//            shapeRenderer.end();
+            shapeRenderer.setColor(Color.BLACK);
+            Vector2 pointA = new Vector2(a.x,a.y);
+            Vector2 pointB = new Vector2(a.x,a.y+a.height);
+            Vector2 pointC = new Vector2(a.x+a.width,a.y);
+            Vector2 pointD = new Vector2(a.x+a.width,a.y+a.height);
+            shapeRenderer.line(pointA,pointB);
+            shapeRenderer.line(pointB,pointD);
+            shapeRenderer.line(pointA,pointC);
+            shapeRenderer.line(pointC,pointD);
         }
+        shapeRenderer.end();
 
-        batch.end();
         batch.begin();
-
     }
 
     public void addArea(int startX, int startY, int endX, int endY) {

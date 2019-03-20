@@ -24,13 +24,12 @@ public class BuilderScreen implements Screen {
     private Map map;
     OrthographicCamera cam;
 
-
-    public BuilderScreen(SurveilanceSystem surveilance) {
+    public BuilderScreen(SurveilanceSystem surveilance)
+    {
         this.batch = new SpriteBatch();
         this.surveilance = surveilance;
         builderTools = new BuilderTools();
         map = new Map(200,200);
-
 
         //Camera does absolutely nothing
         this.cam = new OrthographicCamera();
@@ -74,18 +73,18 @@ public class BuilderScreen implements Screen {
     }
 
 
-    int startX, startY, endX, endY;
-    boolean mouseDragging = false;
+    int startX, startY;
+    boolean drawing = false;
+
     class mouseListener implements InputProcessor {
 
         @Override
-        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        public boolean touchDown(int screenX, int screenY, int pointer, int button)
+        {
             if (screenX < 800) {
                 startX = screenX;
                 startY = screenY;
-                endX = screenX;
-                endY = screenY;
-                mouseDragging = true;
+                drawing = true;
                 return true;
             }
 
@@ -94,29 +93,12 @@ public class BuilderScreen implements Screen {
 
         @Override
         public boolean touchDragged(int screenX, int screenY, int pointer) {
-            if (mouseDragging) {
-                endX = screenX;
-                endY = screenY;
-                return true;
-            }
 
             return false;
         }
 
         @Override
         public boolean mouseMoved(int screenX, int screenY) {
-            if (mouseDragging) {
-                if (Math.abs(endX-startX) > 10 && Math.abs(endY-startY) > 10) {
-                    System.out.println("Create a rectangle now");
-                    System.out.println("With startX coordinates: " + startX);
-                    System.out.println("With startY coordinates: " + startY);
-                    System.out.println("With endX coordinates: " + endX);
-                    System.out.println("With endY coordinates: " + endY);
-                    map.addArea(startX,Gdx.graphics.getHeight() - startY,endX,Gdx.graphics.getHeight() -endY);
-                }
-                mouseDragging = false;
-                return true;
-            }
             return false;
         }
 
@@ -137,6 +119,19 @@ public class BuilderScreen implements Screen {
 
         @Override
         public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+            if (screenX < 800 && drawing) {
+                System.out.println("Create a rectangle now");
+                System.out.println("With startX coordinates: " + startX);
+                System.out.println("With startY coordinates: " + startY);
+                int endX = screenX;
+                int endY = screenY;
+                System.out.println("With endX coordinates: " + endX);
+                System.out.println("With endY coordinates: " + endY);
+                map.addArea(startX, Gdx.graphics.getHeight() - startY, endX, Gdx.graphics.getHeight() - endY);
+                drawing = false;
+            }
+
             return false;
         }
 

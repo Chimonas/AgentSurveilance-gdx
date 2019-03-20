@@ -34,7 +34,6 @@ public class MenuScreen implements Screen {
         createGame = new TextButton("Create Game", skin);
         createGame.setPosition(500 - createGame.getWidth()/2,350);
 
-
         class createGameListener extends ChangeListener {
 
             SurveilanceSystem surveilance;
