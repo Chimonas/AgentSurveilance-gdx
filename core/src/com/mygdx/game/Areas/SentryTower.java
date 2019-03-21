@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class SentryTower extends Area
 {
-    private static final double WIDTH = 8, HEIGHT = 8,INNERRADIUS = 2, OUTERRADIUS = 15;
+    private static final double WIDTH = 20, HEIGHT = 20,INNERRADIUS = 8, OUTERRADIUS = 60;
 
     public SentryTower(double[] point)
     {

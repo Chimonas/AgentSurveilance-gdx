@@ -48,4 +48,14 @@ public class Map
             if (!area.inBounds(0, 0, width, height))
                 areaList.remove(area);
     }
+
+    public double getWidth()
+    {
+        return width;
+    }
+
+    public double getHeight()
+    {
+        return height;
+    }
 }

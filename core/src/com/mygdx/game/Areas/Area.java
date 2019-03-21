@@ -83,14 +83,14 @@ public abstract class Area
 
         ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(lineColor);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(infillColor);
         shapeRenderer.rect((float) topLeft[0], (float)topLeft[1],(float)this.getWidth(),(float)this.getHeight());
         shapeRenderer.end();
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(infillColor);
-        shapeRenderer.rect((float) topLeft[0], (float)topLeft[1],(float)this.getWidth()-1,(float)this.getHeight()-1);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(lineColor);
+        shapeRenderer.rect((float) topLeft[0], (float)topLeft[1],(float)this.getWidth(),(float)this.getHeight());
         shapeRenderer.end();
 
         batch.begin();
