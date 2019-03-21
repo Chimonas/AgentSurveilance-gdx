@@ -26,8 +26,6 @@ public class AreaFactory {
             case TARGET:
 
                 break;
-            default:
-                break;
         }
 
         return area;

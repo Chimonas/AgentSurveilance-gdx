@@ -21,13 +21,11 @@ public class SentryTower extends Area
     }
 
     @Override
-    public void render(Batch batch)
+    public void render(Batch batch, ShapeRenderer shapeRenderer)
     {
-        super.render(batch);
+        super.render(batch,shapeRenderer);
 
         batch.end();
-
-        ShapeRenderer shapeRenderer = new ShapeRenderer();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(lineColor);

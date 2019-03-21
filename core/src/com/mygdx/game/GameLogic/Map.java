@@ -1,6 +1,7 @@
 package com.mygdx.game.GameLogic;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Areas.Area;
 
 import java.util.ArrayList;
@@ -23,10 +24,10 @@ public class Map
         this(MINWIDTH, MINHEIGHT);
     }
 
-    public void render(Batch batch)
+    public void render(Batch batch, ShapeRenderer shapeRenderer)
     {
         for (Area area : areaList)
-            area.render(batch);
+            area.render(batch, shapeRenderer);
     }
 
     public void addArea(Area area)

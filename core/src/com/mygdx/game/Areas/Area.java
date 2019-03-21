@@ -77,11 +77,9 @@ public abstract class Area
         return(this.topLeft[0] >= left && this.topLeft[1] >= top && this.bottomRight[0] <= right && this.bottomRight[1] <= bottom);
     }
 
-    public void render(Batch batch)
+    public void render(Batch batch, ShapeRenderer shapeRenderer)
     {
         batch.end();
-
-        ShapeRenderer shapeRenderer = new ShapeRenderer();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(infillColor);

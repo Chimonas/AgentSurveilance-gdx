@@ -5,24 +5,25 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.Areas.Area;
 import com.mygdx.game.GameLogic.AreaFactory;
 import com.mygdx.game.GameLogic.BuilderTools;
 import com.mygdx.game.GameLogic.Map;
 import com.mygdx.game.SurveilanceSystem;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 
 public class BuilderScreen implements Screen
 {
     private OrthographicCamera cam;
+    private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private Stage stage;
-
 
     private BuilderTools builderTools;
     private Map map;
@@ -33,7 +34,8 @@ public class BuilderScreen implements Screen
 
     public BuilderScreen(SurveilanceSystem surveilance)
     {
-        this.batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+        batch = new SpriteBatch();
         stage = new Stage();
         builderTools = new BuilderTools();
         map = new Map();
@@ -84,11 +86,11 @@ public class BuilderScreen implements Screen
 
         batch.begin();
         batch.setProjectionMatrix(cam.combined);
-        batch.draw(new Texture("core/assets/GreyArea.png"),Gdx.graphics.getWidth()*4/5,0,Gdx.graphics.getWidth()/5,Gdx.graphics.getHeight());
+        shapeRenderer.setProjectionMatrix(cam.combined);
 
-        map.render(batch);
+        map.render(batch,shapeRenderer);
         if(drawing)
-            drawingArea.render(batch);
+            drawingArea.render(batch, shapeRenderer);
         batch.end();
 
         //Add extra buttons
@@ -107,7 +109,6 @@ public class BuilderScreen implements Screen
         //Show the BuildTools components
         stage.act();
         stage.draw();
-
     }
 
     private double[] startPoint, endPoint;
