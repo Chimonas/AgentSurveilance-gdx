@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="571793e6-7ea5-41f7-bdfa-9be721a46547" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Areas/Area.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Areas/Area.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/Map.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Screens/BuilderScreen$mouseListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Screens/BuilderScreen$mouseListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Screens/BuilderScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Screens/BuilderScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/AI/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/AI/AI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/AIScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/AIScreen.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -30,11 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AIScreen.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AIScreen.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/AIScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="60" />
+            <state relative-caret-position="400">
+              <caret line="213" column="21" lean-forward="true" selection-start-line="213" selection-start-column="21" selection-end-line="213" selection-end-column="21" />
               <folding>
                 <element signature="e#4967#5157#0" expanded="true" />
                 <element signature="e#5156#5157#0" expanded="true" />
@@ -47,20 +52,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/AI/AI.java">
+      <file leaf-file-name="AreaFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/AreaFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="5" lean-forward="true" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
+            <state relative-caret-position="405">
+              <caret line="30" column="9" lean-forward="true" selection-start-line="14" selection-start-column="8" selection-end-line="30" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BuilderScreen.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/AI/AI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BuilderScreen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1085">
-              <caret line="15" column="60" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
+            <state relative-caret-position="1020">
+              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#resize#0;class#BuilderScreen#0" />
@@ -98,7 +112,7 @@
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/MenuScreen.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="493">
-              <caret line="66" column="9" lean-forward="true" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
+              <caret line="66" column="9" lean-forward="true" selection-start-line="52" selection-start-column="8" selection-end-line="66" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1237,12 +1251,13 @@
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Target.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/AreaFactory.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/MenuScreen.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/AIScreen.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/BuilderTools.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/Map.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/AI/AI.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/AIScreen.java" />
       </list>
     </option>
   </component>
@@ -1544,7 +1559,14 @@
       <option name="project" value="LOCAL" />
       <updated>1553178620896</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="run button">
+      <created>1553180211522</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1553180211522</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1553,13 +1575,13 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49927327" weight="0.17310087" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.4985465" weight="0.17310087" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50145346" side_tool="true" visible="true" weight="0.14196762" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5021802" side_tool="true" visible="true" weight="0.14196762" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4985465" visible="true" weight="0.14196762" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49781978" visible="true" weight="0.14196762" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
@@ -1646,7 +1668,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="gui" />
     <MESSAGE value="AI screen and AI folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="AI screen and AI folder" />
+    <MESSAGE value="run button" />
+    <option name="LAST_COMMIT_MESSAGE" value="run button" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1654,14 +1677,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/AI/AI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="5" lean-forward="true" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Wall.java" />
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/MenuScreen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -2008,27 +2023,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/MenuScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="66" column="9" lean-forward="true" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/AreaFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="20" column="49" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
-          <folding>
-            <element signature="e#1071#1072#0" expanded="true" />
-            <element signature="e#1106#1107#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Structure.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -2084,10 +2078,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#resize#0;class#BuilderScreen#0" />
+            <element signature="method#pause#0;class#BuilderScreen#0" />
+            <element signature="method#resume#0;class#BuilderScreen#0" />
+            <element signature="method#hide#0;class#BuilderScreen#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/AISettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/MenuScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="66" column="9" lean-forward="true" selection-start-line="52" selection-start-column="8" selection-end-line="66" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/AreaFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="30" column="9" lean-forward="true" selection-start-line="14" selection-start-column="8" selection-end-line="30" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/AI/AI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/AIScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="60" />
+        <state relative-caret-position="400">
+          <caret line="213" column="21" lean-forward="true" selection-start-line="213" selection-start-column="21" selection-end-line="213" selection-end-column="21" />
           <folding>
             <element signature="e#4967#5157#0" expanded="true" />
             <element signature="e#5156#5157#0" expanded="true" />
@@ -2095,20 +2134,6 @@
             <element signature="e#7717#7718#0" expanded="true" />
             <element signature="e#7820#8707#0" expanded="true" />
             <element signature="e#8706#8707#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1085">
-          <caret line="15" column="60" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#resize#0;class#BuilderScreen#0" />
-            <element signature="method#pause#0;class#BuilderScreen#0" />
-            <element signature="method#resume#0;class#BuilderScreen#0" />
-            <element signature="method#hide#0;class#BuilderScreen#0" />
           </folding>
         </state>
       </provider>
