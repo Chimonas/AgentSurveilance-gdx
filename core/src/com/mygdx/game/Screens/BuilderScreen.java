@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -13,6 +14,7 @@ import com.mygdx.game.GameLogic.AreaFactory;
 import com.mygdx.game.GameLogic.BuilderTools;
 import com.mygdx.game.GameLogic.Map;
 import com.mygdx.game.SurveilanceSystem;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 
 public class BuilderScreen implements Screen
@@ -48,25 +50,21 @@ public class BuilderScreen implements Screen
         runGame = new TextButton("Run", skin);
         runGame.setPosition(Gdx.graphics.getWidth()*4/5 + 10,Gdx.graphics.getHeight()-150);
 
-//        class runGameListener extends ChangeListener
-//        {
-//            SurveilanceSystem surveilance;
-//            Screen screen;
-//
-//            public runGameListener(SurveilanceSystem surveilance, Screen screen)
-//            {
-//                this.surveilance = surveilance;
-//                this.screen = screen;
-//            }
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor)
-//            {
-//                this.surveilance.setScreen(new AIScreen(surveilance));
-//                this.screen.dispose();
-//            }
-//        }
-//
-//        runGame.addListener(new runGameListener(surveilance,this));
+        class runGameListener extends ChangeListener {
+            SurveilanceSystem surveilance;
+            Screen screen;
+
+            public runGameListener(SurveilanceSystem surveilance, Screen screen) {
+                this.surveilance = surveilance;
+                this.screen = screen;
+            }
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                this.surveilance.setScreen(new AIScreen(surveilance));
+                this.screen.dispose();
+            }
+        }
+        runGame.addListener(new runGameListener(surveilance,this));
     }
 
     @Override
