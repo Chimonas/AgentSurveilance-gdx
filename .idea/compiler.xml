@@ -2,12 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="AgentSurveilance-gdx-core_main" target="1.6" />
-      <module name="AgentSurveilance-gdx-core_test" target="1.6" />
-      <module name="AgentSurveilance-gdx-desktop_main" target="1.6" />
-      <module name="AgentSurveilance-gdx-desktop_test" target="1.6" />
-      <module name="AgentSurveilance-gdx-html_main" target="1.6" />
-      <module name="AgentSurveilance-gdx-html_test" target="1.6" />
       <module name="core_main" target="1.6" />
       <module name="core_test" target="1.6" />
       <module name="desktop_main" target="1.6" />

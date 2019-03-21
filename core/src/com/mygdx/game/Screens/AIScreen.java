@@ -13,10 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 
 public class AIScreen implements Screen {
-    SpriteBatch batch;
-    Stage stage;
+    private SpriteBatch batch;
+    private Stage stage;
 
-    final SurveilanceSystem surveilance;
+    private final SurveilanceSystem surveilance;
     private final String TITLE = "AI Simulation Settings";
     OrthographicCamera cam;
 
@@ -33,7 +33,7 @@ public class AIScreen implements Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        Skin skin = new Skin(Gdx.files.internal("core/assets/commodore64/skin/uiskin.json"));
+        Skin skin = new Skin(Gdx.files.internal("core/assets/cloud-form/skin/cloud-form-ui.json"));
 
         //Agents
         agents = new Label("Agents",skin);

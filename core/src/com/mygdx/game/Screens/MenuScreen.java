@@ -25,7 +25,7 @@ public class MenuScreen implements Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        Skin skin = new Skin(Gdx.files.internal("core/assets/commodore64/skin/uiskin.json"));
+        Skin skin = new Skin(Gdx.files.internal("core/assets/cloud-form/skin/cloud-form-ui.json"));
         createGame = new TextButton("Create Game", skin);
         createGame.setPosition(Gdx.graphics.getWidth()/2 - createGame.getWidth()/2,Gdx.graphics.getHeight()/2 +50);
 
