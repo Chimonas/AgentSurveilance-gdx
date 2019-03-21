@@ -1,75 +1,51 @@
 package com.mygdx.game.GameLogic;
 
 import com.mygdx.game.Areas.Area;
+import com.mygdx.game.Areas.SentryTower;
 import com.mygdx.game.Areas.Structure;
+import com.mygdx.game.Areas.Target;
 
 public class AreaFactory {
 
-    public static final int STRUCTURE = 0;
-    public static final int SENTRYTOWER = 1;
-    public static final int VEGETATION = 2;
-    public static final int TARGET = 3;
+    private static Area.AreaType areaType;
+    private static Area area;
 
-    private static int areaType;
-
-    //There must be an abstract superclass called Area
-    //This method should return objects of type Area
-    //Each kind of area should contain
-    // 1. a rectangle(the area to be drawn that represents the shape)
-    // 2. a texture for that area
-    public static Area addArea(int startX, int startY, int endX, int endY) {
-        //sort coordinates so we can attain the correct numbers for
-        //rectangle constructor Rectangle(topleftX, topleftY, width, height)
-
+    public static Area newArea(double[] startPoint, double[] endPoint)
+    {
         switch (areaType)
         {
             case STRUCTURE:
-
+                area = new Structure(startPoint, endPoint);
                 break;
             case SENTRYTOWER:
-
+                area = new SentryTower(endPoint);
                 break;
             case VEGETATION:
-
+                area = new Target(startPoint, endPoint);
                 break;
             case TARGET:
 
                 break;
+            default:
+                break;
         }
-
-        int x,y,width,height;
-        if (startY < endY) {
-            y = startY;
-        } else {
-            y = endY;
-        }
-        if (startX < endX) {
-            x = startX;
-        } else {
-            x = endX;
-        }
-        height = Math.abs(endY-startY);
-        width = Math.abs(endX-startX);
-        System.out.println("Rectangle with start coordinates x: " + x + "   y: " + y);
-        System.out.println("Rectangle with height: " + height + "   and width: " + width);
-
-        Area area = createArea(x,y,width,height);
 
         return area;
     }
 
-    public static Area createArea(int x, int y, int width, int height)
+    public static Area newArea(double[] startPoint)
     {
-        Area area;
-
-        area = new Structure(x,y,width,height);
-
-        return area;
+        return newArea(startPoint,startPoint);
     }
 
-    public static void setAreaType(int type)
+    public static void setAreaType(Area.AreaType areaType)
     {
-        areaType = type;
+        AreaFactory.areaType = areaType;
+    }
+
+    public static Area.AreaType getAreaType()
+    {
+        return areaType;
     }
 
 }

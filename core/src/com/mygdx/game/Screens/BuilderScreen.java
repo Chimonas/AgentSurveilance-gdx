@@ -5,78 +5,90 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.mygdx.game.Areas.Area;
+import com.mygdx.game.GameLogic.AreaFactory;
 import com.mygdx.game.GameLogic.BuilderTools;
 import com.mygdx.game.GameLogic.Map;
 import com.mygdx.game.SurveilanceSystem;
 
 
-public class BuilderScreen implements Screen {
-    SpriteBatch batch;
-    Stage stage;
+public class BuilderScreen implements Screen
+{
+    private OrthographicCamera cam;
+    private SpriteBatch batch;
+    private Stage stage;
 
-    final SurveilanceSystem surveilance;
+
     private BuilderTools builderTools;
     private Map map;
-    OrthographicCamera cam;
-    TextButton runGame;
+    private Area drawingArea;
+    private TextButton runGame;
+
+    //    private final SurveilanceSystem surveilance;
 
     public BuilderScreen(SurveilanceSystem surveilance)
     {
         this.batch = new SpriteBatch();
         stage = new Stage();
-        this.surveilance = surveilance;
         builderTools = new BuilderTools();
-        map = new Map(200,200);
+        map = new Map();
+
+//        this.surveilance = surveilance;
 
         //Camera does absolutely nothing
-        this.cam = new OrthographicCamera();
-        this.cam.setToOrtho(false, surveilance.VIRTUAL_WIDTH, surveilance.VIRTUAL_HEIGHT);
+        cam = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        cam.translate(cam.viewportWidth/2,cam.viewportHeight/2);
 
-        Skin skin = new Skin(Gdx.files.internal("core/assets/commodore64/skin/uiskin.json"));
+        Skin skin = new Skin(Gdx.files.internal("core/assets/cloud-form/skin/cloud-form-ui.json"));
         runGame = new TextButton("Run", skin);
         runGame.setPosition(Gdx.graphics.getWidth()*4/5 + 10,Gdx.graphics.getHeight()-150);
 
-//        System.out.println("Builder Screen is created");
-        class runGameListener extends ChangeListener {
-            SurveilanceSystem surveilance;
-            Screen screen;
-
-            public runGameListener(SurveilanceSystem surveilance, Screen screen) {
-                this.surveilance = surveilance;
-                this.screen = screen;
-            }
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-//                System.out.println("Pressed");
-                this.surveilance.setScreen(new AIScreen(surveilance));
-                this.screen.dispose();
-            }
-        }
-        runGame.addListener(new runGameListener(surveilance,this));
-
-        //add Actors
-        //stage.addActor(runGame);
+//        class runGameListener extends ChangeListener
+//        {
+//            SurveilanceSystem surveilance;
+//            Screen screen;
+//
+//            public runGameListener(SurveilanceSystem surveilance, Screen screen)
+//            {
+//                this.surveilance = surveilance;
+//                this.screen = screen;
+//            }
+//            @Override
+//            public void changed(ChangeEvent event, Actor actor)
+//            {
+//                this.surveilance.setScreen(new AIScreen(surveilance));
+//                this.screen.dispose();
+//            }
+//        }
+//
+//        runGame.addListener(new runGameListener(surveilance,this));
     }
 
     @Override
-    public void show() {
-//        System.out.println("Builder screen show");
+    public void show()
+    {
+
     }
 
     @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0.196f, 0.804f, 0.196f, 1);
+    public void render(float delta)
+    {
+        Gdx.gl.glClearColor(1f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //Setup the builder tools stage
+        cam.update();
+
         batch.begin();
+        batch.setProjectionMatrix(cam.combined);
         batch.draw(new Texture("core/assets/GreyArea.png"),Gdx.graphics.getWidth()*4/5,0,Gdx.graphics.getWidth()/5,Gdx.graphics.getHeight());
+
         map.render(batch);
+        if(drawing)
+            drawingArea.render(batch);
         batch.end();
 
         //Add extra buttons
@@ -98,18 +110,19 @@ public class BuilderScreen implements Screen {
 
     }
 
-
-    int startX, startY;
+    private double[] startPoint, endPoint;
     boolean drawing = false;
+    boolean colliding;
 
-    class mouseListener implements InputProcessor {
-
+    class mouseListener implements InputProcessor
+    {
         @Override
         public boolean touchDown(int screenX, int screenY, int pointer, int button)
         {
-            if (screenX < 800) {
-                startX = screenX;
-                startY = screenY;
+            if (screenX < 800 && AreaFactory.getAreaType() != null)
+            {
+                startPoint = new double[]{screenX,Gdx.graphics.getHeight() - screenY};
+                drawingArea = AreaFactory.newArea(startPoint);
                 drawing = true;
                 return true;
             }
@@ -118,7 +131,13 @@ public class BuilderScreen implements Screen {
         }
 
         @Override
-        public boolean touchDragged(int screenX, int screenY, int pointer) {
+        public boolean touchDragged(int screenX, int screenY, int pointer)
+        {
+            if(drawing)
+            {
+                endPoint = new double[]{screenX,Gdx.graphics.getHeight() - screenY};
+                drawingArea.setCoordinates(startPoint,endPoint);
+            }
 
             return false;
         }
@@ -144,19 +163,23 @@ public class BuilderScreen implements Screen {
         }
 
         @Override
-        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        public boolean touchUp(int screenX, int screenY, int pointer, int button)
+        {
+            if (screenX < 800 && drawing)
+            {
+                colliding = false;
 
-            if (screenX < 800 && drawing) {
-                System.out.println("Create a rectangle now");
-                System.out.println("With startX coordinates: " + startX);
-                System.out.println("With startY coordinates: " + startY);
-                int endX = screenX;
-                int endY = screenY;
-                System.out.println("With endX coordinates: " + endX);
-                System.out.println("With endY coordinates: " + endY);
-                map.addArea(startX, Gdx.graphics.getHeight() - startY, endX, Gdx.graphics.getHeight() - endY);
-                drawing = false;
+                for(Area area : map.getAreaList())
+                    if(drawingArea.intersects(area))
+                    {
+                        colliding = true;
+                        System.out.println("col");
+                    }
+
+                if(!colliding)
+                    map.addArea(drawingArea);
             }
+            drawing = false;
 
             return false;
         }
@@ -188,9 +211,9 @@ public class BuilderScreen implements Screen {
     }
 
     @Override
-    public void dispose() {
-        batch.dispose();;
+    public void dispose()
+    {
+        batch.dispose();
         stage.dispose();
-
     }
 }
