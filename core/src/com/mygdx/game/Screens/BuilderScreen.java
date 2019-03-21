@@ -36,11 +36,13 @@ public class BuilderScreen implements Screen
         builderTools = new BuilderTools();
         map = new Map();
 
+        double aspectRatio = Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
+
 //        this.surveilance = surveilance;
 
         //Camera does absolutely nothing
-        cam = new OrthographicCamera(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        cam.translate(cam.viewportWidth/2,cam.viewportHeight/2);
+        cam = new OrthographicCamera((float)(map.getHeight() * aspectRatio + 200), (float)map.getHeight());
+        cam.position.set((float)map.getWidth(), (float)map.getHeight(), 0);
 
         Skin skin = new Skin(Gdx.files.internal("core/assets/cloud-form/skin/cloud-form-ui.json"));
         runGame = new TextButton("Run", skin);
@@ -148,7 +150,12 @@ public class BuilderScreen implements Screen
         }
 
         @Override
-        public boolean keyDown(int keycode) {
+        public boolean keyDown(int keycode)
+        {
+            if(keycode == Input.Keys.RIGHT)
+            {
+                cam.translate(1f,0f);
+            }
             return false;
         }
 
@@ -186,6 +193,7 @@ public class BuilderScreen implements Screen
 
         @Override
         public boolean scrolled(int amount) {
+            System.out.println(amount);
             return false;
         }
     }

@@ -1,85 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="571793e6-7ea5-41f7-bdfa-9be721a46547" name="Default" comment="gui">
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/preview.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-close-over-pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-close-over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-close-pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-close.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-over.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-pressed-over.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-pressed-over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-pressed.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-over.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-pressed-over.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-pressed-over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-pressed.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/checkbox-over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/checkbox-pressed-over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/checkbox-pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/checkbox.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/font-export.fnt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/font-export.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/font.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/list.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/list.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/minus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/plus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-circle-knob.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-circle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-horizontal-knob.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-horizontal.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-horizontal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-vertical-knob.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-vertical.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-vertical.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/radio-over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/radio-pressed-over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/radio-pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/radio.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/scrollbar-horizontal-knob.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/scrollbar-horizontal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/scrollbar-vertical-knob.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/scrollbar-vertical.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box-over.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box-over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box-pressed.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box-pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/sky.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/slider-knob-over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/slider-knob-pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/slider-knob.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/slider.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/slider.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/splitpane-horizontal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/splitpane-vertical.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/textfield-selected.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/textfield-selected.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/textfield.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/textfield.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/title.fnt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/title.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/white.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/window.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/window.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/skin/cloud-form-ui.atlas" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/skin/cloud-form-ui.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/skin/cloud-form-ui.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/skin/font-export.fnt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/skin/title.fnt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hs_err_pid6740.log" afterDir="false" />
+    <list default="true" id="571793e6-7ea5-41f7-bdfa-9be721a46547" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -122,8 +49,8 @@
       <file leaf-file-name="Area.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1054">
-              <caret line="90" column="60" selection-start-line="90" selection-start-column="60" selection-end-line="90" selection-end-column="60" />
+            <state relative-caret-position="600">
+              <caret line="87" column="111" selection-start-line="87" selection-start-column="111" selection-end-line="87" selection-end-column="111" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setCoordinates#0;class#Area#0" />
@@ -135,22 +62,26 @@
       <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/Map.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+            <state relative-caret-position="184">
+              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#543#544#0" expanded="true" />
                 <element signature="e#562#563#0" expanded="true" />
+                <element signature="e#1203#1204#0" expanded="true" />
+                <element signature="e#1231#1232#0" expanded="true" />
+                <element signature="e#1272#1273#0" expanded="true" />
+                <element signature="e#1293#1294#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BuilderScreen.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BuilderScreen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="42" column="64" selection-start-line="42" selection-start-column="64" selection-end-line="42" selection-end-column="64" />
+            <state relative-caret-position="324">
+              <caret line="96" column="23" selection-start-line="96" selection-start-column="23" selection-end-line="96" selection-end-column="23" />
               <folding>
                 <element signature="method#resize#0;class#BuilderScreen#0" />
                 <element signature="method#pause#0;class#BuilderScreen#0" />
@@ -164,7 +95,7 @@
       <file leaf-file-name="BuilderTools.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/BuilderTools.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
+            <state relative-caret-position="190">
               <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
             </state>
           </provider>
@@ -183,11 +114,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SentryTower.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SentryTower.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="187">
+              <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1327,10 +1258,10 @@
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/AreaFactory.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/MenuScreen.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/AIScreen.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/Map.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/BuilderTools.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/Map.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java" />
       </list>
     </option>
@@ -1459,26 +1390,35 @@
       <option name="project" value="LOCAL" />
       <updated>1553171042642</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="gui">
+      <created>1553171450047</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1553171450047</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-8" width="1873" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="2" />
       <window_info anchor="bottom" id="TODO" order="4" />
-      <window_info active="true" anchor="bottom" id="Messages" order="11" visible="true" weight="0.32776618" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32776618" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="8" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.0480167" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.11064718" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Designer" order="3" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.35205182" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.2546973" />
       <window_info anchor="right" id="Gradle" order="5" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1492,7 +1432,6 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Build" order="10" weight="0.32876712" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.2546973" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="2" />
@@ -1617,6 +1556,10 @@
             <element signature="imports" expanded="true" />
             <element signature="e#543#544#0" expanded="true" />
             <element signature="e#562#563#0" expanded="true" />
+            <element signature="e#1203#1204#0" expanded="true" />
+            <element signature="e#1231#1232#0" expanded="true" />
+            <element signature="e#1272#1273#0" expanded="true" />
+            <element signature="e#1293#1294#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1680,6 +1623,10 @@
             <element signature="imports" expanded="true" />
             <element signature="e#543#544#0" expanded="true" />
             <element signature="e#562#563#0" expanded="true" />
+            <element signature="e#1203#1204#0" expanded="true" />
+            <element signature="e#1231#1232#0" expanded="true" />
+            <element signature="e#1272#1273#0" expanded="true" />
+            <element signature="e#1293#1294#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1900,16 +1847,6 @@
     <entry file="file://$PROJECT_DIR$/core/assets/GreyArea.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Structure.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1923,8 +1860,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="90" column="60" selection-start-line="90" selection-start-column="60" selection-end-line="90" selection-end-column="60" />
+        <state relative-caret-position="600">
+          <caret line="87" column="111" selection-start-line="87" selection-start-column="111" selection-end-line="87" selection-end-column="111" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setCoordinates#0;class#Area#0" />
@@ -1934,32 +1871,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+        <state relative-caret-position="184">
+          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#543#544#0" expanded="true" />
             <element signature="e#562#563#0" expanded="true" />
+            <element signature="e#1203#1204#0" expanded="true" />
+            <element signature="e#1231#1232#0" expanded="true" />
+            <element signature="e#1272#1273#0" expanded="true" />
+            <element signature="e#1293#1294#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/BuilderTools.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
+        <state relative-caret-position="190">
           <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="42" column="64" selection-start-line="42" selection-start-column="64" selection-end-line="42" selection-end-column="64" />
+        <state relative-caret-position="324">
+          <caret line="96" column="23" selection-start-line="96" selection-start-column="23" selection-end-line="96" selection-end-column="23" />
           <folding>
             <element signature="method#resize#0;class#BuilderScreen#0" />
             <element signature="method#pause#0;class#BuilderScreen#0" />
             <element signature="method#resume#0;class#BuilderScreen#0" />
             <element signature="method#hide#0;class#BuilderScreen#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
