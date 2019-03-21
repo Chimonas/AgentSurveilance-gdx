@@ -1,125 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="571793e6-7ea5-41f7-bdfa-9be721a46547" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ant_ant_1_6_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__colt_colt_1_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_1_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_backend_gwt_1_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_backend_gwt_sources_1_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_backend_lwjgl_1_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_box2d_1_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_box2d_gwt_sources_1_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_box2d_platform_natives_desktop_1_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_box2d_sources_1_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_platform_natives_desktop_1_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_sources_1_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_jlayer_jlayer_1_0_1_gdx.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_6_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_gwt_gwt_codeserver_2_8_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_gwt_gwt_dev_2_8_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_gwt_gwt_user_2_8_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_jsinterop_jsinterop_annotations_1_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_jsinterop_jsinterop_annotations_sources_1_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_ibm_icu_icu4j_50_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_codec_commons_codec_1_10.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_collections_commons_collections_3_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_io_commons_io_2_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_logging_commons_logging_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_annotation_javax_annotation_api_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_servlet_javax_servlet_api_3_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_validation_validation_api_1_0_0_GA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_validation_validation_api_sources_1_0_0_GA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_jinput_jinput_2_0_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_jinput_jinput_platform_natives_linux_2_0_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_jinput_jinput_platform_natives_osx_2_0_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_jinput_jinput_platform_natives_windows_2_0_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_java_jutils_jutils_1_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_cssparser_cssparser_0_9_18.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_htmlunit_htmlunit_2_19.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_htmlunit_htmlunit_core_js_2_17.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_nekohtml_nekohtml_1_9_22.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_commons_lang3_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_httpcomponents_httpclient_4_5_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_httpcomponents_httpcore_4_4_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_httpcomponents_httpmime_4_5_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_apache_jsp_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_annotations_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_continuation_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_http_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_io_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_jndi_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_plus_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_security_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_server_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_servlet_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_servlets_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_util_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_webapp_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_jetty_xml_9_2_14_v20151106.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_toolchain_jetty_schemas_3_1_M0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_websocket_websocket_api_9_2_13_v20150730.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_websocket_websocket_client_9_2_13_v20150730.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jetty_websocket_websocket_common_9_2_13_v20150730.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jcraft_jorbis_0_0_17.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_lwjgl_lwjgl_lwjgl_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_lwjgl_lwjgl_lwjgl_platform_natives_linux_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_lwjgl_lwjgl_lwjgl_platform_natives_osx_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_lwjgl_lwjgl_lwjgl_platform_natives_windows_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_lwjgl_lwjgl_lwjgl_util_2_9_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mortbay_jasper_apache_el_8_0_9_M3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mortbay_jasper_apache_jsp_8_0_9_M3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ow2_asm_asm_5_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ow2_asm_asm_commons_5_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ow2_asm_asm_tree_5_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_ow2_asm_asm_util_5_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_w3c_css_sac_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__tapestry_tapestry_4_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__xalan_serializer_2_7_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__xalan_xalan_2_7_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__xerces_xercesImpl_2_11_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__xml_apis_xml_apis_1_4_01.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/AgentSurveilance-gdx2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/core/core.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/core/core_main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/core/core_test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/desktop/desktop.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/desktop/desktop_main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/desktop/desktop_test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/html/html.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/html/html_main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/html/html_test.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Target.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/Areas/Wall.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/commodore64/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/commodore64/preview.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/commodore64/skin/commodore-64.fnt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/commodore64/skin/uiskin.atlas" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/commodore64/skin/uiskin.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/commodore64/skin/uiskin.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/commodore64/style-guide.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Areas/Area.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Areas/Area.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/AreaFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/AreaFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/BuilderTools$1SentryTowerListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/BuilderTools$1SentryTowerListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/BuilderTools$1WallButtonListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/BuilderTools.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/BuilderTools.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/Map.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Screens/BuilderScreen$mouseListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Screens/BuilderScreen$mouseListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Screens/BuilderScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Screens/BuilderScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Screens/MenuScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/Screens/MenuScreen.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Structure.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Structure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/AreaFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/AreaFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/BuilderTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/BuilderTools.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/Map.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/AIScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/AIScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/MenuScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Screens/MenuScreen.java" afterDir="false" />
+    <list default="true" id="571793e6-7ea5-41f7-bdfa-9be721a46547" name="Default" comment="gui">
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-close-over-pressed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-close-over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-close-pressed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-close.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-over.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-pressed-over.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-pressed-over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-pressed.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu-pressed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-menu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-over.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-pressed-over.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-pressed-over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-pressed.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button-pressed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/checkbox-over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/checkbox-pressed-over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/checkbox-pressed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/checkbox.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/font-export.fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/font-export.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/font.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/list.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/list.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/minus.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/plus.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-circle-knob.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-circle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-horizontal-knob.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-horizontal.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-horizontal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-vertical-knob.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-vertical.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/progress-bar-vertical.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/radio-over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/radio-pressed-over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/radio-pressed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/radio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/scrollbar-horizontal-knob.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/scrollbar-horizontal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/scrollbar-vertical-knob.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/scrollbar-vertical.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box-over.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box-over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box-pressed.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box-pressed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/select-box.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/sky.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/slider-knob-over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/slider-knob-pressed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/slider-knob.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/slider.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/slider.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/splitpane-horizontal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/splitpane-vertical.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/textfield-selected.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/textfield-selected.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/textfield.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/textfield.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/title.fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/title.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/white.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/window.9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/raw/window.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/skin/cloud-form-ui.atlas" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/skin/cloud-form-ui.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/skin/cloud-form-ui.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/skin/font-export.fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/assets/cloud-form/skin/title.fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hs_err_pid6740.log" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -163,7 +123,7 @@
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1054">
-              <caret line="90" column="60" lean-forward="true" selection-start-line="90" selection-start-column="60" selection-end-line="90" selection-end-column="60" />
+              <caret line="90" column="60" selection-start-line="90" selection-start-column="60" selection-end-line="90" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setCoordinates#0;class#Area#0" />
@@ -189,7 +149,7 @@
       <file leaf-file-name="BuilderScreen.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
+            <state relative-caret-position="459">
               <caret line="42" column="64" selection-start-line="42" selection-start-column="64" selection-end-line="42" selection-end-column="64" />
               <folding>
                 <element signature="method#resize#0;class#BuilderScreen#0" />
@@ -206,10 +166,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
               <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
-              <folding>
-                <element signature="e#1269#1270#0" expanded="true" />
-                <element signature="e#1349#1350#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -218,7 +174,7 @@
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Structure.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <element signature="e#175#176#0" expanded="true" />
                 <element signature="e#228#229#0" expanded="true" />
@@ -231,7 +187,7 @@
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="442">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1399,72 +1355,6 @@
             </path>
             <path>
               <item name="AgentSurveilance-gdx2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveilance-gdx2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveilance-gdx2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveilance-gdx2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveilance-gdx2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveilance-gdx2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveilance-gdx2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveilance-gdx2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveilance-gdx2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveilance-gdx2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="Areas" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveilance-gdx2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveilance-gdx2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="GameLogic" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveilance-gdx2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveilance-gdx2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="Screens" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveilance-gdx2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveilance-gdx2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="desktop" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveilance-gdx2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveilance-gdx2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="desktop" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveilance-gdx2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveilance-gdx2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="desktop" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="desktop" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveilance-gdx2" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -1562,21 +1452,28 @@
       <option name="presentableId" value="Default" />
       <updated>1553000480381</updated>
     </task>
+    <task id="LOCAL-00001" summary="gui">
+      <created>1553171042642</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1553171042642</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-8" width="1873" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="2" />
       <window_info anchor="bottom" id="TODO" order="4" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32876712" />
+      <window_info active="true" anchor="bottom" id="Messages" order="11" visible="true" weight="0.32776618" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="8" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.0480167" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.0480167" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Capture Tool" order="4" />
@@ -1682,10 +1579,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-181">
           <caret line="12" column="52" lean-forward="true" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
-          <folding>
-            <element signature="e#1269#1270#0" expanded="true" />
-            <element signature="e#1349#1350#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1745,10 +1638,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-181">
           <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
-          <folding>
-            <element signature="e#1269#1270#0" expanded="true" />
-            <element signature="e#1349#1350#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2014,7 +1903,7 @@
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -2024,7 +1913,7 @@
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Structure.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
             <element signature="e#175#176#0" expanded="true" />
             <element signature="e#228#229#0" expanded="true" />
@@ -2035,7 +1924,7 @@
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1054">
-          <caret line="90" column="60" lean-forward="true" selection-start-line="90" selection-start-column="60" selection-end-line="90" selection-end-column="60" />
+          <caret line="90" column="60" selection-start-line="90" selection-start-column="60" selection-end-line="90" selection-end-column="60" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setCoordinates#0;class#Area#0" />
@@ -2059,16 +1948,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
-          <folding>
-            <element signature="e#1269#1270#0" expanded="true" />
-            <element signature="e#1349#1350#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
+        <state relative-caret-position="459">
           <caret line="42" column="64" selection-start-line="42" selection-start-column="64" selection-end-line="42" selection-end-column="64" />
           <folding>
             <element signature="method#resize#0;class#BuilderScreen#0" />
