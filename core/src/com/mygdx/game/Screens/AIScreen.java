@@ -1,7 +1,6 @@
 package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.mygdx.game.AI.AI;
 import com.mygdx.game.SurveilanceSystem;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 
@@ -28,8 +28,9 @@ public class AIScreen implements Screen {
     CheckBox explpCB;
     TextButton okButton, cancelButton;
 
-    int guardAI, intruderAI;
-    String nmbGuard, nmbIntr, explTime, maxTime, timeS, movement, dirCom, indirCom;
+    AI.guardAI guardAI;
+    AI.intruderAI intruderAI;
+    int nmbGuard, nmbIntr, explTime, maxTime, timeS, movement, dirCom, indirCom;
     boolean explorationPhase;
 
     public AIScreen(SurveilanceSystem surveilance){
@@ -194,9 +195,23 @@ public class AIScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if(selectBox == guardSB)
-                    guardAI = selectBox.getSelectedIndex();
+                    switch (selectBox.getSelectedIndex()){
+                        case 0:
+                            guardAI = AI.guardAI.STUPID;
+                            break;
+                        case 1:
+                            //guardAI = ;
+                            break;
+                    }
                 if(selectBox == intrSB)
-                    intruderAI = selectBox.getSelectedIndex();
+                    switch (selectBox.getSelectedIndex()){
+                        case 0:
+                            intruderAI = AI.intruderAI.STUPID;
+                            break;
+                        case 1:
+                            //intruderAI = ;
+                            break;
+                    }
             }
         });
     }
@@ -206,25 +221,24 @@ public class AIScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if(textField == nmbGuardTF)
-                    nmbGuard = nmbGuardTF.getText();
+                    nmbGuard = Integer.parseInt(nmbGuardTF.getText());
                 if(textField == nmbIntrTF)
-                    nmbIntr = nmbIntrTF.getText();
+                    nmbIntr = Integer.parseInt(nmbIntrTF.getText());
                 if(textField == explTimeTF)
-                    explTime = explTimeTF.getText();
+                    explTime = Integer.parseInt(explTimeTF.getText());
                 if(textField == maxTimeTF)
-                    maxTime = maxTimeTF.getText();
+                    maxTime = Integer.parseInt(maxTimeTF.getText());
                 if(textField == timeTF)
-                    timeS = timeTF.getText();
+                    timeS = Integer.parseInt(timeTF.getText());
                 if(textField == movementTF)
-                    movement = movementTF.getText();
+                    movement = Integer.parseInt(movementTF.getText());
                 if(textField == dirComTF)
-                    dirCom = dirComTF.getText();
+                    dirCom = Integer.parseInt(dirComTF.getText());
                 if(textField == indirComTF)
-                    indirCom = indirComTF.getText();
+                    indirCom = Integer.parseInt(indirComTF.getText());
             }
         });
     }
-
 
     @Override
     public void show() {
