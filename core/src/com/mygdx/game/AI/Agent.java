@@ -1,5 +1,4 @@
-package Backend;
-import Math.Vector2;
+package com.mygdx.game.AI;
 
 abstract public class Agent
 {

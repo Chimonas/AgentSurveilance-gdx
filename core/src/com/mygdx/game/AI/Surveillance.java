@@ -1,10 +1,4 @@
-package Backend;
-import Math.Vector2;
-
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
-
+package com.mygdx.game.AI;
 public class Surveillance extends Agent {
 
     public Surveillance(double[] initPos, float initAngle) {

@@ -86,7 +86,8 @@ public class BuilderScreen implements Screen
 
         batch.begin();
         batch.setProjectionMatrix(cam.combined);
-        shapeRenderer.setProjectionMatrix(cam.combined);
+        
+//        shapeRenderer.setProjectionMatrix(cam.combined);
 
         map.render(batch,shapeRenderer);
         if(drawing)

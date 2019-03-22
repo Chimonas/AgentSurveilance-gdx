@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.mygdx.game.AI.AI;
 import com.mygdx.game.GameLogic.Settings;
 import com.mygdx.game.SurveilanceSystem;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;

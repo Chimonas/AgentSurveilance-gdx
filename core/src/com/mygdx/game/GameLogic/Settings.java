@@ -1,7 +1,5 @@
 package com.mygdx.game.GameLogic;
 
-import com.mygdx.game.AI.AI;
-
 public class Settings
 {
     private static AI.GuardAI guardAI;

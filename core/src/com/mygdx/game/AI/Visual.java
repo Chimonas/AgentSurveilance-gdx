@@ -1,4 +1,4 @@
-package Backend;
+package com.mygdx.game.AI;
 
 import static java.lang.Math.*;
 

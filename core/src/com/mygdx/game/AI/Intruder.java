@@ -1,6 +1,4 @@
-package Backend;
-import Math.Vector2;
-
+package com.mygdx.game.AI;
 public class Intruder extends Agent {
 
     public Intruder(double[] initPos, float initAngle) {

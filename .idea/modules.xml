@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AgentSurveilance-gdx.iml" filepath="$PROJECT_DIR$/AgentSurveilance-gdx.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IdeaProjects-AgentSurveilance-gdx.iml" filepath="$PROJECT_DIR$/.idea/modules/IdeaProjects-AgentSurveilance-gdx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AgentSurveillanceLibgdx.iml" filepath="$PROJECT_DIR$/.idea/modules/AgentSurveillanceLibgdx.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/core.iml" group="core" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/core_main.iml" filepath="$PROJECT_DIR$/.idea/modules/core/core_main.iml" group="core" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/core_test.iml" filepath="$PROJECT_DIR$/.idea/modules/core/core_test.iml" group="core" />

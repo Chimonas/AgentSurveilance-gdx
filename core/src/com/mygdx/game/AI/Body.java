@@ -1,7 +1,4 @@
-package Backend;
-import Math.Vector2;
-
-
+package com.mygdx.game.AI;
 //Here will be computed the movement, turning, visual, hearing
 public class Body {
 
