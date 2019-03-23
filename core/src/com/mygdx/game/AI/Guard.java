@@ -1,7 +1,9 @@
 package com.mygdx.game.AI;
-public class Surveillance extends Agent {
+public class Guard extends Agent {
 
-    public Surveillance(double[] initPos, float initAngle) {
+    public static final Guard STUPID = null;
+
+    public Guard(double[] initPos, float initAngle) {
         super(initPos, initAngle);
         body.setCanRun(false);
         body.setVisualRange(0.0f,6.0f);

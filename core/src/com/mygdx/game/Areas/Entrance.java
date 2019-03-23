@@ -1,7 +1,7 @@
 package com.mygdx.game.Areas;
 
 import com.mygdx.game.AI.Agent;
-import com.mygdx.game.AI.Surveillance;
+import com.mygdx.game.AI.Guard;
 
 import java.util.Random;
 
@@ -56,7 +56,7 @@ public class Entrance {
 
     //to check if can enter the Sentry tower
     public boolean canEnterSentryTower(Agent agent) {
-        if (agent instanceof Surveillance) return true;
+        if (agent instanceof Guard) return true;
         return false;
     }
 }

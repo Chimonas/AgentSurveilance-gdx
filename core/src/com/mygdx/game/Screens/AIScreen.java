@@ -5,12 +5,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.mygdx.game.AI.Guard;
+import com.mygdx.game.AI.Intruder;
 import com.mygdx.game.GameLogic.Settings;
 import com.mygdx.game.SurveilanceSystem;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 
 public class AIScreen implements Screen {
     private SpriteBatch batch;
@@ -28,8 +30,8 @@ public class AIScreen implements Screen {
     CheckBox explpCB;
     TextButton okButton, cancelButton;
 
-    AI.GuardAI guardAI;
-    AI.IntruderAI intruderAI;
+    Guard guardAI;
+    Intruder intruderAI;
     int nmbGuard, nmbIntr, explTime, maxTime, timeS, movement, dirCom, indirCom;
     boolean explorationPhase;
 
@@ -197,7 +199,7 @@ public class AIScreen implements Screen {
                 if(selectBox == guardSB)
                     switch (selectBox.getSelectedIndex()){
                         case 0:
-                            Settings.setGuardAI(AI.GuardAI.STUPID);
+                            Settings.setGuardAI(Guard.STUPID);
                             break;
                         case 1:
                             //guardAI = ;
@@ -206,7 +208,7 @@ public class AIScreen implements Screen {
                 if(selectBox == intrSB)
                     switch (selectBox.getSelectedIndex()){
                         case 0:
-                            intruderAI = AI.IntruderAI.STUPID;
+                            intruderAI = Intruder.STUPID;
                             break;
                         case 1:
                             //intruderAI = ;

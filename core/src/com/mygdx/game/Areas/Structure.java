@@ -17,12 +17,11 @@ public class Structure extends Area
     protected double[] bottomRightCorner = bottomRight;
 
 
-    public Structure(String t, double[] topLeft, double[] bottomRight, Color line, Color in) {
+    public Structure(double[] topLeft, double[] bottomRight, Color line, Color in) {
         super(topLeft, bottomRight, line, in);
-        type = t;
-        if(type == "tower") visibility = 18.0;
-        else visibility = 10.0; //if it's not a tower it's a regular structure
+        visibility = 10.0; //if it's not a tower it's a regular structure
     }
+
 
     public Entrance createEntrance(String type, double[] begPosition, double[] endPosition)
     {
