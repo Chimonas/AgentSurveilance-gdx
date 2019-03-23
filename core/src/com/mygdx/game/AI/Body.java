@@ -1,10 +1,15 @@
 package com.mygdx.game.AI;
+
+import com.badlogic.gdx.graphics.Texture;
+
 //Here will be computed the movement, turning, visual, hearing
 public class Body {
 
 
     //Would be nice to reorganize this
     //Feels like some classes such as visual, movement, hearing are not necessary
+
+    private Texture texture;
 
     //make part of agent
     protected float angleFacing; //according to the world
@@ -16,7 +21,8 @@ public class Body {
     //Visual requirements
     protected float[] visualRange;
     protected float visualAngle;
-    protected Visual visualArea = new Visual(position, angleFacing, visualAngle, visualRange);
+    protected Visual visualArea;
+            //= new Visual(position, angleFacing, visualAngle, visualRange);
 
     private float restTime;
     private float runTime;
@@ -74,6 +80,10 @@ public class Body {
 
 
     //Soooo many getters and setters
+
+    public Texture getTexture(){ return texture;};
+
+    public void setTexture(Texture t){ this.texture = t;};
 
     public float getAngleFacing() {
         return angleFacing;

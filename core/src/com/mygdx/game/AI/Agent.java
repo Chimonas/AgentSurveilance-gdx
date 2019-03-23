@@ -27,6 +27,22 @@ abstract public class Agent
     }
 
 
+    //TEMPORARY FOR THE TEST
+    public void update(){
+        this.body.position = newPos(this.body.getVelocity(),
+                                    this.body.getPosition(),
+                                    this.body.getAngleFacing());
+    }
+
+    public double[] newPos(double v, double[] p, double a){
+
+        double updateX = v*Math.cos(Math.toRadians(a));
+        double updateY = v*Math.sin(Math.toRadians(a));
+        double[] newPos = {p[0] + updateX, p[1] + updateY};
+
+        return newPos;
+    }
+
     public Body getBody() {
         return body;
     }
