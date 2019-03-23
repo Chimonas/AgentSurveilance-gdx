@@ -3,7 +3,6 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -86,7 +85,7 @@ public class BuilderScreen implements Screen
 
         batch.begin();
         batch.setProjectionMatrix(cam.combined);
-        
+
 //        shapeRenderer.setProjectionMatrix(cam.combined);
 
         map.render(batch,shapeRenderer);
@@ -196,6 +195,10 @@ public class BuilderScreen implements Screen
             System.out.println(amount);
             return false;
         }
+    }
+
+    public Map getMap(){
+        return map;
     }
 
     @Override
