@@ -14,9 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.AI.Agent;
 import com.mygdx.game.AI.Guard;
 import com.mygdx.game.AI.Intruder;
+import com.mygdx.game.Areas.Area;
 import com.mygdx.game.GameLogic.Map;
 import com.mygdx.game.GameLogic.Settings;
+import com.mygdx.game.Physics.PhysicsEngine;
 import com.mygdx.game.SurveilanceSystem;
+
+import java.util.ArrayList;
 
 public class SimulationScreen implements Screen{
     private SpriteBatch batch;
@@ -43,19 +47,6 @@ public class SimulationScreen implements Screen{
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-
-        //Temporary creation of agents with random initial positions
-        for(int i = 0; i < Settings.getGuardAmount(); i++){
-
-            double posX = Math.random()*Gdx.graphics.getWidth();
-            double posY = Math.random()*Gdx.graphics.getHeight();
-            double[] pos = {posX, posY};
-            double ang = Math.random()*360;
-
-            guards[i] = new Guard(pos, (float) ang);
-            agents[i] = guards[i];
-        }
-
     }
 
     @Override
@@ -74,6 +65,8 @@ public class SimulationScreen implements Screen{
         agentDef.type = BodyDef.BodyType.DynamicBody;
         agentDef.position.set(0,0);
 
+        createRandomAgents(map.getAreaList());
+
     }
 
     @Override
@@ -89,7 +82,6 @@ public class SimulationScreen implements Screen{
         else{
             map = new Map();
         }
-
         for(Agent a: agents){
 
             batch.draw(a.getBody().getTexture(),
@@ -139,6 +131,25 @@ public class SimulationScreen implements Screen{
 
     public void addMap(Map map){
         this.map = map;
+    }
+
+    public void createRandomAgents(ArrayList<Area> areas){
+        //Temporary creation of agents with random initial positions
+        for(int i = 0; i < Settings.getGuardAmount(); i++){
+
+            double posX = Math.random()*Gdx.graphics.getWidth();
+            double posY = Math.random()*Gdx.graphics.getHeight();
+            double[] pos = {posX, posY};
+            double ang = Math.random()*360;
+
+
+            //Not fully working.... to be checked more in detail
+            if(!PhysicsEngine.inStructure(areas, pos, pos)){
+                guards[i] = new Guard(pos, (float) ang);
+                agents[i] = guards[i];
+            }
+
+        }
     }
 
 }

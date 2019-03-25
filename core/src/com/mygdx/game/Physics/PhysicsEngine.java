@@ -29,20 +29,8 @@ public class PhysicsEngine {
         double[] oldPos = b.getPosition();
         double[] newPos = newPos(b.getVelocity(), b.getPosition(), b.getAngleFacing());
 
-        boolean bumpIntoWall = false;
-        for (Area area : areas) {
-            for (double[][] wall : area.getBorders()) {
+        boolean bumpIntoWall = inStructure(areas, oldPos, newPos);
 
-                if (Line2D.linesIntersect(
-                        oldPos[0], oldPos[1], newPos[0], newPos[1],
-                        wall[0][0], wall[0][1], wall[1][0], wall[1][1])) {
-
-                    //The agent will intersect this structure during its next move
-                    System.out.println("You gonna enter in a wall dummie!");
-                    bumpIntoWall = true;
-                }
-            }
-        }
         //If the agent doesnt bump into a wall, update his position
         if (!bumpIntoWall) a.getBody().setPosition(newPos);
 
@@ -55,6 +43,26 @@ public class PhysicsEngine {
        // }
 
     }
+
+    public static boolean inStructure(ArrayList<Area> areas, double[] oldPos, double[] newPos){
+
+        boolean inStructure = false;
+        for (Area area : areas) {
+            for (double[][] wall : area.getBorders()) {
+
+                if (Line2D.linesIntersect(
+                        oldPos[0], oldPos[1], newPos[0], newPos[1],
+                        wall[0][0], wall[0][1], wall[1][0], wall[1][1])) {
+
+                    //The agent will intersect this structure during its next move
+                    System.out.println("You gonna enter in a wall dummie!");
+                    inStructure = true;
+                }
+            }
+        }
+        return inStructure;
+    }
+
 
     //New position of the agent calculate with its position, velocity and angle
     public static double[] newPos(double v, double[] p, double a){
