@@ -93,4 +93,22 @@ public abstract class Area
 
         batch.begin();
     }
+
+    public double[][][] getBorders()
+    {
+
+        double[] topLeftCorner = topLeft;
+        double[] bottomLeftCorner = {topLeft[0], bottomRight[1]};
+        double[] topRightCorner = {bottomRight[0], topLeft[1]};
+        double[] bottomRightCorner = bottomRight;
+
+        //Walls built with (x,y) of the first point followed with(x,y) of the second
+        double[][] leftWall = {topLeftCorner, bottomLeftCorner};
+        double[][] rightWall = {topRightCorner, bottomRightCorner};
+        double[][] topWall = {topLeftCorner, topRightCorner};
+        double[][] bottomWall = {bottomLeftCorner, bottomRightCorner};
+        double[][][] walls = {leftWall, rightWall, topWall, bottomWall};
+        return walls;
+    }
+
 }

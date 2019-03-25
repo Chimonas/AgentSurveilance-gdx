@@ -10,7 +10,7 @@ public class SentryTower extends Area
 
     public SentryTower(double[] point)
     {
-        super(point[0] - WIDTH/2, point[1] - HEIGHT/2,WIDTH,HEIGHT, Color.BLUE, Color.TEAL);
+        super(point[0] - WIDTH/2, point[1] - HEIGHT/2,WIDTH,HEIGHT, Color.CORAL, Color.TEAL);
     }
 
     @Override

@@ -1,5 +1,10 @@
 package com.mygdx.game.AI;
 
+import com.mygdx.game.Areas.Area;
+import com.mygdx.game.Physics.PhysicsEngine;
+
+import java.util.ArrayList;
+
 abstract public class Agent
 {
     protected Body body;
@@ -28,10 +33,16 @@ abstract public class Agent
 
 
     //TEMPORARY FOR THE TEST
-    public void update(){
-        this.body.position = newPos(this.body.getVelocity(),
-                                    this.body.getPosition(),
-                                    this.body.getAngleFacing());
+    public void update(ArrayList<Area> areas){
+
+
+        this.body.checkRun();
+        //Random movement for agents
+        this.body.randomMovement();
+        PhysicsEngine.updatePosition(areas, this);
+        //this.body.position = newPos(this.body.getVelocity(),
+        //                            this.body.getPosition(),
+        //                            this.body.getAngleFacing());
     }
 
     public double[] newPos(double v, double[] p, double a){

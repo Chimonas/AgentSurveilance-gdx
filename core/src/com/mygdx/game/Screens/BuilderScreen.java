@@ -61,7 +61,9 @@ public class BuilderScreen implements Screen
             }
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                this.surveilance.setScreen(new AIScreen(surveilance));
+                AIScreen aiScreen = new AIScreen(surveilance);
+                aiScreen.addMap(map);
+                this.surveilance.setScreen(aiScreen);
                 this.screen.dispose();
             }
         }

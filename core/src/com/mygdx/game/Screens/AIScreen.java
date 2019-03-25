@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.AI.Guard;
 import com.mygdx.game.AI.Intruder;
+import com.mygdx.game.GameLogic.Map;
 import com.mygdx.game.GameLogic.Settings;
 import com.mygdx.game.SurveilanceSystem;
 
@@ -19,10 +20,11 @@ public class AIScreen implements Screen {
     private Stage stage;
 
     private final SurveilanceSystem surveilance;
+    private Map map;
     private final String TITLE = "AI Simulation Settings";
     OrthographicCamera cam;
 
-    Label agents, guard, intruder,  time, weights;
+    Label agents, guard, intruder,  time, weights, nmbGuards, nmbIntruders;
     float width = 800;
     float height = 40;
     TextField nmbGuardTF, nmbIntrTF, explTimeTF, maxTimeTF, timeTF, movementTF, dirComTF, indirComTF;
@@ -37,6 +39,7 @@ public class AIScreen implements Screen {
 
     public AIScreen(SurveilanceSystem surveilance){
         this.surveilance = surveilance;
+        this.map = map;
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -55,51 +58,58 @@ public class AIScreen implements Screen {
         guardSB.setItems("AI 1", "AI 2");
         guardSB.setSize(100,height);
         guardSB.setPosition(400,Gdx.graphics.getHeight()-50);
-        nmbGuardTF = new TextField("Number of guards:  ",skin);
-        nmbGuardTF.setPosition((Gdx.graphics.getWidth()-width)/2,Gdx.graphics.getHeight()-100);
-        nmbGuardTF.setSize(width,height);
 
-        intruder = new Label("Intruder AI:", skin);
+        nmbGuards = new Label("Number of guards :  ", skin);
+        nmbGuards.setPosition(10,Gdx.graphics.getHeight()-100);
+        nmbGuards.setSize(100,height);
+        nmbGuardTF = new TextField("", skin);
+        nmbGuardTF.setPosition((Gdx.graphics.getWidth()-width),Gdx.graphics.getHeight()-100);
+        nmbGuardTF.setSize((float) (width/1.2),height);
+
+        intruder = new Label("Intruder AI :", skin);
         intruder.setPosition(200, Gdx.graphics.getHeight()-150);
         intruder.setSize(100,height);
         intrSB = new SelectBox<String>(skin);
         intrSB.setItems("AI 1", "AI 2");
         intrSB.setSize(100,height);
         intrSB.setPosition(400,Gdx.graphics.getHeight()-150);
-        nmbIntrTF = new TextField("Number of intruders:  ",skin);
-        nmbIntrTF.setPosition((Gdx.graphics.getWidth()-width)/2,Gdx.graphics.getHeight()-200);
-        nmbIntrTF.setSize(width,height);
+        nmbIntruders = new Label("Number of intruders :  ", skin);
+        nmbIntruders.setPosition(10,Gdx.graphics.getHeight()-200);
+        nmbIntruders.setSize(100,height);
+        nmbIntrTF = new TextField("",skin);
+        nmbIntrTF.setPosition((Gdx.graphics.getWidth()-width),Gdx.graphics.getHeight()-200);
+        nmbIntrTF.setSize((float) (width/(1.2)),height);
 
         //Time
         time = new Label("Time",skin);
         time.setPosition(10,Gdx.graphics.getHeight()-290);
         time.setSize(100,height);
 
-        maxTimeTF = new TextField("Maximum time (s)  ", skin);
+        maxTimeTF = new TextField("Maximum time (s) : ", skin);
         maxTimeTF.setPosition((Gdx.graphics.getWidth()-width)/2,Gdx.graphics.getHeight()-300);
         maxTimeTF.setSize(width,height);
         explpCB = new CheckBox(" Exploration phase", skin);
         explpCB.setPosition(100,Gdx.graphics.getHeight()-350);
         explpCB.setSize(width,height);
-        explTimeTF = new TextField("Exploration time (s)  ", skin);
+        explTimeTF = new TextField("Exploration time (s) : ", skin);
         explTimeTF.setPosition((Gdx.graphics.getWidth()-width)/2,Gdx.graphics.getHeight()-400);
         explTimeTF.setSize(width,height);
 
         //Weights
-        weights = new Label("Weights",skin);
+        weights = new Label("Weights : ",skin);
         weights.setPosition(10,Gdx.graphics.getHeight()-390);
         weights.setSize(100,height);
 
-        timeTF = new TextField("Time  ", skin);
+        timeTF = new TextField("Time : ", skin);
         timeTF.setPosition((Gdx.graphics.getWidth()-width)/2,Gdx.graphics.getHeight()-400);
         timeTF.setSize(width,height);
-        movementTF = new TextField("Movement  ", skin);
+        movementTF = new TextField("Movement : ", skin);
         movementTF.setPosition((Gdx.graphics.getWidth()-width)/2,Gdx.graphics.getHeight()-450);
         movementTF.setSize(width,height);
-        dirComTF = new TextField("Direct communication  ", skin);
+        dirComTF = new TextField("Direct communication : ", skin);
         dirComTF.setPosition((Gdx.graphics.getWidth()-width)/2,Gdx.graphics.getHeight()-500);
         dirComTF.setSize(width,height);
-        indirComTF = new TextField("Indirect communication  ", skin);
+        indirComTF = new TextField("Indirect communication : ", skin);
         indirComTF.setPosition((Gdx.graphics.getWidth()-width)/2,Gdx.graphics.getHeight()-550);
         indirComTF.setSize(width,height);
 
@@ -143,7 +153,9 @@ public class AIScreen implements Screen {
             }
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                this.surveilance.setScreen(new SimulationScreen(surveilance));
+                SimulationScreen simulationScreen = new SimulationScreen(surveilance);
+                simulationScreen.addMap(map);
+                this.surveilance.setScreen(simulationScreen);
                 this.screen.dispose();
             }
         }
@@ -167,9 +179,11 @@ public class AIScreen implements Screen {
         //Agents actors
         stage.addActor(agents);
         stage.addActor(guard);
+        stage.addActor(nmbGuards);
         stage.addActor(guardSB);
         stage.addActor(nmbGuardTF);
         stage.addActor(intruder);
+        stage.addActor(nmbIntruders);
         stage.addActor(intrSB);
         stage.addActor(nmbIntrTF);
 
@@ -190,7 +204,6 @@ public class AIScreen implements Screen {
         stage.addActor(okButton);
         stage.addActor(cancelButton);
     }
-
 
     public void selectBoxListener(final SelectBox selectBox){
         selectBox.addListener(new ChangeListener() {
@@ -285,4 +298,9 @@ public class AIScreen implements Screen {
         batch.dispose();
         stage.dispose();
     }
+
+    public void addMap(Map map){
+        this.map = map;
+    }
+
 }

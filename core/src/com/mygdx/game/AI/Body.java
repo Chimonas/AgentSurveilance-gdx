@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 //Here will be computed the movement, turning, visual, hearing
 public class Body {
 
-
     //Would be nice to reorganize this
     //Feels like some classes such as visual, movement, hearing are not necessary
 
@@ -47,6 +46,20 @@ public class Body {
            velocity = 3.0f;
            runTime = System.currentTimeMillis();
            canRun = false;
+        }
+    }
+
+    public void randomMovement(){
+
+        //Change of movement state
+        double nextState = Math.random();
+        if(nextState < 0.9) setVelocity(1.4f);
+        else if(nextState < 0.95 && nextState > 0.9) setVelocity(0.0f);
+        else setVelocity(3.0f);
+
+        //Change of direction
+        if(Math.random()>0.99){
+            setAngleFacing((float) (Math.random()*360.0));
         }
     }
 
@@ -117,6 +130,14 @@ public class Body {
 
     public void setPosition(double[] position) {
         this.position = position;
+    }
+
+    public void setXPosition(double x){
+        this.position[0] = x;
+    }
+
+    public void setYPosition(double y){
+        this.position[1] = y;
     }
 
     public float getRestTime() {
