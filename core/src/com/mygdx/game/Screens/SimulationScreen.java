@@ -88,6 +88,7 @@ public class SimulationScreen implements Screen{
                         (float) a.getBody().getPosition()[0],
                         (float) a.getBody().getPosition()[1]);
             a.getBody().randomMovement();
+
             a.update(map.getAreaList());
 
             //If the agent goes out of screen, he HAS to come back
@@ -137,19 +138,22 @@ public class SimulationScreen implements Screen{
         //Temporary creation of agents with random initial positions
         for(int i = 0; i < Settings.getGuardAmount(); i++){
 
-            double posX = Math.random()*Gdx.graphics.getWidth();
-            double posY = Math.random()*Gdx.graphics.getHeight();
-            double[] pos = {posX, posY};
-            double ang = Math.random()*360;
-
-
-            //Not fully working.... to be checked more in detail
-            if(!PhysicsEngine.inStructure(areas, pos, pos)){
-                guards[i] = new Guard(pos, (float) ang);
-                agents[i] = guards[i];
+            while(agents[i] == null){
+                double [] pos = generateRandomPosition();
+                double ang = Math.random()*360;
+                if(!PhysicsEngine.checkInStructure(areas, pos)){
+                    guards[i] = new Guard(pos, (float) ang);
+                    agents[i] = guards[i];
+                }
             }
 
+
         }
+    }
+
+    public double[] generateRandomPosition(){
+        double [] pos = {Math.random()*Gdx.graphics.getWidth(), Math.random()*Gdx.graphics.getHeight()};
+        return pos;
     }
 
 }

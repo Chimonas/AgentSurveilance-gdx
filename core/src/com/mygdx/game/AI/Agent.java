@@ -1,5 +1,6 @@
 package com.mygdx.game.AI;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Areas.Area;
 import com.mygdx.game.Physics.PhysicsEngine;
 
@@ -49,7 +50,8 @@ abstract public class Agent
 
         double updateX = v*Math.cos(Math.toRadians(a));
         double updateY = v*Math.sin(Math.toRadians(a));
-        double[] newPos = {p[0] + updateX, p[1] + updateY};
+        float delta = Gdx.graphics.getDeltaTime();
+        double[] newPos = {p[0] + delta * updateX, p[1] + delta * updateY};
 
         return newPos;
     }

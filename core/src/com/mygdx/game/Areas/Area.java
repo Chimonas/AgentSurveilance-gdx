@@ -67,6 +67,12 @@ public abstract class Area
         return !(topLeft[0] >= secondArea.bottomRight[0] || topLeft[1] >= secondArea.bottomRight[1] || bottomRight[0] <= secondArea.topLeft[0] || bottomRight[1] <= secondArea.topLeft[1]);
     }
 
+    public boolean inArea(double[] pos){
+
+        return((pos[0] < this.bottomRight[0]) && (pos[0] > this.topLeft[0]) &&
+                (pos[1] > this.topLeft[1]) && (pos[1] < this.bottomRight[1]));
+    }
+
     public boolean inBounds(double[] topLeft, double[] bottomRight)
     {
         return (inBounds(topLeft[0], topLeft[1], bottomRight[0], bottomRight[1]));
@@ -110,5 +116,14 @@ public abstract class Area
         double[][][] walls = {leftWall, rightWall, topWall, bottomWall};
         return walls;
     }
+
+    public double[] getTopLeft(){
+        return topLeft;
+    }
+
+    public double[] getBottomRight(){
+        return bottomRight;
+    }
+
 
 }

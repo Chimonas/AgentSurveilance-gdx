@@ -29,7 +29,7 @@ public class PhysicsEngine {
         double[] oldPos = b.getPosition();
         double[] newPos = newPos(b.getVelocity(), b.getPosition(), b.getAngleFacing());
 
-        boolean bumpIntoWall = inStructure(areas, oldPos, newPos);
+        boolean bumpIntoWall = checkIntersectionStructure(areas, oldPos, newPos);
 
         //If the agent doesnt bump into a wall, update his position
         if (!bumpIntoWall) a.getBody().setPosition(newPos);
@@ -44,7 +44,7 @@ public class PhysicsEngine {
 
     }
 
-    public static boolean inStructure(ArrayList<Area> areas, double[] oldPos, double[] newPos){
+    public static boolean checkIntersectionStructure(ArrayList<Area> areas, double[] oldPos, double[] newPos){
 
         boolean inStructure = false;
         for (Area area : areas) {
@@ -55,12 +55,24 @@ public class PhysicsEngine {
                         wall[0][0], wall[0][1], wall[1][0], wall[1][1])) {
 
                     //The agent will intersect this structure during its next move
-                    System.out.println("You gonna enter in a wall dummie!");
+//                    System.out.println("You gonna enter in a wall dummie!");
                     inStructure = true;
                 }
             }
         }
         return inStructure;
+    }
+
+    public static boolean checkInStructure(ArrayList<Area> areas, double[] pos){
+
+        for(Area a: areas){
+            if(a.inArea(pos)){
+                System.out.println("You shouldnt be created");
+                return true;
+            }
+        }
+        return false;
+
     }
 
 
