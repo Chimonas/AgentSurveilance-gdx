@@ -29,11 +29,6 @@ public class AIScreen implements Screen {
     CheckBox explpCB;
     TextButton okButton, cancelButton;
 
-    AI.GuardAI guardAI;
-    AI.IntruderAI intruderAI;
-    int nmbGuard, nmbIntr, explTime, maxTime, timeS, movement, dirCom, indirCom;
-    boolean explorationPhase;
-
     public AIScreen(SurveilanceSystem surveilance){
         this.surveilance = surveilance;
         batch = new SpriteBatch();
@@ -207,7 +202,7 @@ public class AIScreen implements Screen {
                 if(selectBox == intrSB)
                     switch (selectBox.getSelectedIndex()){
                         case 0:
-                            intruderAI = AI.IntruderAI.STUPID;
+                            Settings.setIntruderAI(AI.IntruderAI.STUPID);
                             break;
                         case 1:
                             //intruderAI = ;
