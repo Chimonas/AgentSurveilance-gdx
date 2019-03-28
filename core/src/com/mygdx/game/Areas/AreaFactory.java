@@ -1,9 +1,4 @@
-package com.mygdx.game.GameLogic;
-
-import com.mygdx.game.Areas.Area;
-import com.mygdx.game.Areas.SentryTower;
-import com.mygdx.game.Areas.Structure;
-import com.mygdx.game.Areas.Target;
+package com.mygdx.game.Areas;
 
 public class AreaFactory {
 
@@ -21,10 +16,10 @@ public class AreaFactory {
                 area = new SentryTower(endPoint);
                 break;
             case VEGETATION:
-                area = new Target(startPoint, endPoint);
+                area = new Vegetation(startPoint, endPoint);
                 break;
             case TARGET:
-
+                area = new Target(startPoint,endPoint);
                 break;
         }
 

@@ -1,14 +1,13 @@
 package com.mygdx.game.Areas;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public abstract class Area
 {
     public enum AreaType
     {
-        STRUCTURE,SENTRYTOWER,VEGETATION,TARGET;
+        STRUCTURE,SENTRYTOWER,VEGETATION,TARGET
     }
 
     protected double[] topLeft, bottomRight;
@@ -69,7 +68,7 @@ public abstract class Area
 
     public boolean inBounds(double[] topLeft, double[] bottomRight)
     {
-        return (inBounds(topLeft[0], topLeft[1], bottomRight[0], bottomRight[1]));
+        return (inBounds(topLeft[1], topLeft[0], bottomRight[1], bottomRight[0]));
     }
 
     public boolean inBounds(double top, double left, double bottom, double right)
@@ -77,10 +76,13 @@ public abstract class Area
         return(this.topLeft[0] >= left && this.topLeft[1] >= top && this.bottomRight[0] <= right && this.bottomRight[1] <= bottom);
     }
 
-    public void render(Batch batch, ShapeRenderer shapeRenderer)
+    public boolean inBounds(Area area)
     {
-        batch.end();
+        return(inBounds(area.topLeft, area.bottomRight));
+    }
 
+    public void render(ShapeRenderer shapeRenderer)
+    {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(infillColor);
         shapeRenderer.rect((float) topLeft[0], (float)topLeft[1],(float)this.getWidth(),(float)this.getHeight());
@@ -90,7 +92,5 @@ public abstract class Area
         shapeRenderer.setColor(lineColor);
         shapeRenderer.rect((float) topLeft[0], (float)topLeft[1],(float)this.getWidth(),(float)this.getHeight());
         shapeRenderer.end();
-
-        batch.begin();
     }
 }
