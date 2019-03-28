@@ -1,6 +1,5 @@
 package com.mygdx.game.GameLogic;
 
-import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.Areas.Area;
 import com.mygdx.game.Areas.SentryTower;
 import com.mygdx.game.Areas.Structure;
@@ -13,20 +12,19 @@ public class AreaFactory {
 
     public static Area newArea(double[] startPoint, double[] endPoint)
     {
-        Color color = new Color(79);
         switch (areaType)
         {
             case STRUCTURE:
-                area = new Structure(startPoint, endPoint, color, color);
+                area = new Structure(startPoint, endPoint);
                 break;
             case SENTRYTOWER:
                 area = new SentryTower(endPoint);
                 break;
             case VEGETATION:
-                area = new Target(startPoint, endPoint);
+                area = new Vegetation(startPoint, endPoint);
                 break;
             case TARGET:
-
+                area = new Target(startPoint,endPoint);
                 break;
         }
 

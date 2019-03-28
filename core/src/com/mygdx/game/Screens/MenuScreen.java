@@ -3,7 +3,6 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -11,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.SurveilanceSystem;
 
-public class MenuScreen implements Screen {
-	SpriteBatch batch;
+public class MenuScreen implements Screen
+{
 	Stage stage;
 
 	final Game surveilance;
@@ -21,7 +20,6 @@ public class MenuScreen implements Screen {
 
 	public MenuScreen(SurveilanceSystem surveilance) {
 	    this.surveilance = surveilance;
-        batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
@@ -43,7 +41,6 @@ public class MenuScreen implements Screen {
             }
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-//                System.out.println("Pressed");
                 this.surveilance.setScreen(new BuilderScreen(surveilance));
                 this.screen.dispose();
             }
@@ -60,7 +57,6 @@ public class MenuScreen implements Screen {
             }
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-//                System.out.println("Pressed");
                 this.surveilance.setScreen(new AIScreen(surveilance));
                 this.screen.dispose();
             }
@@ -80,12 +76,8 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 1, 1, 0);
+        Gdx.gl.glClearColor(.8f, .8f, .8f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        batch.begin();
-//		batch.draw(img, 0, 0);
-        batch.end();
 
         stage.act();
         stage.draw();
@@ -112,10 +104,8 @@ public class MenuScreen implements Screen {
     }
 
     @Override
-	public void dispose () {
-		batch.dispose();
+	public void dispose ()
+    {
 		stage.dispose();
-
-//        System.out.println("Has been disposed");
 	}
 }

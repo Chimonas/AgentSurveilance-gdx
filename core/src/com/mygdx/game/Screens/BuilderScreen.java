@@ -3,7 +3,6 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.Areas.Area;
-import com.mygdx.game.GameLogic.AreaFactory;
+import com.mygdx.game.Areas.AreaFactory;
 import com.mygdx.game.GameLogic.BuilderTools;
 import com.mygdx.game.GameLogic.Map;
 import com.mygdx.game.SurveilanceSystem;
@@ -29,23 +28,27 @@ public class BuilderScreen implements Screen
     private Area drawingArea;
     private TextButton runGame;
 
-    //    private final SurveilanceSystem surveilance;
+
+    double aspectRatio;
 
     public BuilderScreen(SurveilanceSystem surveilance)
     {
         shapeRenderer = new ShapeRenderer();
-        batch = new SpriteBatch();
         stage = new Stage();
         builderTools = new BuilderTools();
         map = new Map();
 
-        double aspectRatio = Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
-
 //        this.surveilance = surveilance;
 
-        //Camera does absolutely nothing
-        cam = new OrthographicCamera((float)(map.getHeight() * aspectRatio + 200), (float)map.getHeight());
-        cam.position.set((float)map.getWidth(), (float)map.getHeight(), 0);
+        aspectRatio = (double)Gdx.graphics.getWidth()/Gdx.graphics.getHeight();
+
+        cam = new OrthographicCamera((float)(map.getHeight() * aspectRatio), (float)map.getHeight());
+        cam.position.set((float)(map.getWidth()+ map.getHeight() * (aspectRatio - 1))/2, (float)map.getHeight() / 2, 0);
+        cam.zoom = (float)ZOOMSTEP;
+
+        effectiveMoveStep = cam.zoom * MOVESTEP;
+        effectiveViewportWidth = cam.zoom * cam.viewportWidth;
+        effectiveViewportHeight = cam.zoom * cam.viewportHeight;
 
         Skin skin = new Skin(Gdx.files.internal("core/assets/cloud-form/skin/cloud-form-ui.json"));
         runGame = new TextButton("Run", skin);
@@ -85,21 +88,17 @@ public class BuilderScreen implements Screen
         //Setup the builder tools stage
         cam.update();
 
-        batch.begin();
-        batch.setProjectionMatrix(cam.combined);
+        shapeRenderer.setProjectionMatrix(cam.combined);
 
-//        shapeRenderer.setProjectionMatrix(cam.combined);
-
-        map.render(batch,shapeRenderer);
+        map.render(shapeRenderer);
         if(drawing)
-            drawingArea.render(batch, shapeRenderer);
-        batch.end();
+            drawingArea.render(shapeRenderer);
 
         //Add extra buttons
         stage.addActor(runGame);
 
         //Getting the components from the BuildTools
-        stage = builderTools.getStage();
+        stage.addActor(builderTools.getTable());
 
         //Managing the Input processors
         InputProcessor mouseListener = new mouseListener();
@@ -114,8 +113,9 @@ public class BuilderScreen implements Screen
     }
 
     private double[] startPoint, endPoint;
-    boolean drawing = false;
-    boolean colliding;
+    private boolean drawing = false,colliding;
+    private final double ZOOMSTEP = 1.1, ZOOMMIN = 0.1, ZOOMMAX = 1.3, MOVESTEP = 8;
+    private double effectiveMoveStep, effectiveViewportWidth, effectiveViewportHeight;
 
     class mouseListener implements InputProcessor
     {
@@ -124,7 +124,7 @@ public class BuilderScreen implements Screen
         {
             if (screenX < 800 && AreaFactory.getAreaType() != null)
             {
-                startPoint = new double[]{screenX,Gdx.graphics.getHeight() - screenY};
+                startPoint = transformScreenInput(screenX,Gdx.graphics.getHeight() - screenY);
                 drawingArea = AreaFactory.newArea(startPoint);
                 drawing = true;
                 return true;
@@ -138,7 +138,7 @@ public class BuilderScreen implements Screen
         {
             if(drawing)
             {
-                endPoint = new double[]{screenX,Gdx.graphics.getHeight() - screenY};
+                endPoint = transformScreenInput(screenX,Gdx.graphics.getHeight() - screenY);
                 drawingArea.setCoordinates(startPoint,endPoint);
             }
 
@@ -153,9 +153,33 @@ public class BuilderScreen implements Screen
         @Override
         public boolean keyDown(int keycode)
         {
-            if(keycode == Input.Keys.RIGHT)
+            if(keycode == Input.Keys.UP)
             {
-                cam.translate(1f,0f);
+                if(cam.position.y + MOVESTEP * cam.zoom <= map.getHeight())
+                    cam.translate(0f, (float)effectiveMoveStep);
+                else
+                    cam.position.y = (float)map.getHeight();
+            }
+            else if(keycode == Input.Keys.DOWN)
+            {
+                if(cam.position.y - MOVESTEP * cam.zoom >= 0)
+                    cam.translate(0f,-(float)effectiveMoveStep);
+                else
+                    cam.position.y = 0;
+            }
+            else if(keycode == Input.Keys.LEFT)
+            {
+                if(cam.position.x - MOVESTEP * cam.zoom >= 0)
+                    cam.translate(-(float)effectiveMoveStep,0f);
+                else
+                    cam.position.x = 0;
+            }
+            else if(keycode == Input.Keys.RIGHT)
+            {
+                if(cam.position.x + MOVESTEP * cam.zoom <= map.getWidth())
+                    cam.translate((float)effectiveMoveStep,0f);
+                else
+                    cam.position.x = (float)map.getWidth();
             }
             return false;
         }
@@ -166,23 +190,21 @@ public class BuilderScreen implements Screen
         }
 
         @Override
-        public boolean keyTyped(char character) {
+        public boolean keyTyped(char character)
+        {
             return false;
         }
 
         @Override
         public boolean touchUp(int screenX, int screenY, int pointer, int button)
         {
-            if (screenX < 800 && drawing)
+            if (drawing && drawingArea.inBounds(map.getWorld()) && drawingArea.getWidth() >= 0.8 && drawingArea.getHeight() >= 0.8)
             {
                 colliding = false;
 
                 for(Area area : map.getAreaList())
                     if(drawingArea.intersects(area))
-                    {
                         colliding = true;
-                        System.out.println("col");
-                    }
 
                 if(!colliding)
                     map.addArea(drawingArea);
@@ -193,14 +215,21 @@ public class BuilderScreen implements Screen
         }
 
         @Override
-        public boolean scrolled(int amount) {
-            System.out.println(amount);
+        public boolean scrolled(int amount)
+        {
+            if(amount > 0) // +1 is zoom out, -1 is zoom in
+            {
+                if (cam.zoom * ZOOMSTEP <= ZOOMMAX)
+                    betterZoom(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), ZOOMSTEP);
+            }
+            else
+            {
+                if (cam.zoom / ZOOMSTEP >= ZOOMMIN)
+                    betterZoom(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), 1 / ZOOMSTEP);
+            }
+
             return false;
         }
-    }
-
-    public Map getMap(){
-        return map;
     }
 
     @Override
@@ -226,7 +255,30 @@ public class BuilderScreen implements Screen
     @Override
     public void dispose()
     {
-        batch.dispose();
         stage.dispose();
+    }
+
+    public void betterZoom(double screenX, double screenY, double zoomAmount)
+    {
+        double zoomDifference = cam.zoom * (zoomAmount - 1);
+
+        cam.position.x += cam.viewportWidth * zoomDifference * ( 0.5 - screenX / Gdx.graphics.getWidth());
+        cam.position.y += cam.viewportHeight * zoomDifference * ( 0.5 - screenY / Gdx.graphics.getHeight());
+
+        cam.zoom *= zoomAmount;
+
+        effectiveMoveStep = cam.zoom * MOVESTEP;
+        effectiveViewportWidth = cam.zoom * cam.viewportWidth;
+        effectiveViewportHeight = cam.zoom * cam.viewportHeight;
+    }
+
+    public double[] transformScreenInput(double screenX, double screenY)
+    {
+        double[] worldCoordinates = new double[2];
+
+        worldCoordinates[0] = cam.position.x - (effectiveViewportWidth / 2) + screenX * effectiveViewportWidth / Gdx.graphics.getWidth();
+        worldCoordinates[1] = cam.position.y - (effectiveViewportHeight / 2) + screenY * effectiveViewportHeight / Gdx.graphics.getHeight();
+
+        return worldCoordinates;
     }
 }
