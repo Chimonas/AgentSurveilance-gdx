@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.AI.AI;
+import com.mygdx.game.GameLogic.Settings;
 import com.mygdx.game.SurveilanceSystem;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 
@@ -119,7 +120,7 @@ public class AIScreen implements Screen {
         explpCB.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                explorationPhase = explpCB.isChecked();
+                Settings.setExplorationPhase(explpCB.isChecked());
             }
         });
         textFieldListener(explTimeTF);
@@ -197,7 +198,7 @@ public class AIScreen implements Screen {
                 if(selectBox == guardSB)
                     switch (selectBox.getSelectedIndex()){
                         case 0:
-                            guardAI = AI.GuardAI.STUPID;
+                            Settings.setGuardAI(AI.GuardAI.STUPID);
                             break;
                         case 1:
                             //guardAI = ;
@@ -221,21 +222,21 @@ public class AIScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if(textField == nmbGuardTF)
-                    nmbGuard = Integer.parseInt(nmbGuardTF.getText());
+                    Settings.setGuardAmount(Integer.parseInt(nmbGuardTF.getText()));
                 if(textField == nmbIntrTF)
-                    nmbIntr = Integer.parseInt(nmbIntrTF.getText());
+                    Settings.setIntruderAmount(Integer.parseInt(nmbIntrTF.getText()));
                 if(textField == explTimeTF)
-                    explTime = Integer.parseInt(explTimeTF.getText());
+                    Settings.setExplorationTime(Integer.parseInt(explTimeTF.getText()));
                 if(textField == maxTimeTF)
-                    maxTime = Integer.parseInt(maxTimeTF.getText());
+                    Settings.setMaxTime(Integer.parseInt(maxTimeTF.getText()));
                 if(textField == timeTF)
-                    timeS = Integer.parseInt(timeTF.getText());
+                    Settings.setTimeWeight(Integer.parseInt(timeTF.getText()));
                 if(textField == movementTF)
-                    movement = Integer.parseInt(movementTF.getText());
+                    Settings.setMovementWeight(Integer.parseInt(movementTF.getText()));
                 if(textField == dirComTF)
-                    dirCom = Integer.parseInt(dirComTF.getText());
+                    Settings.setDirectComWeight(Integer.parseInt(dirComTF.getText()));
                 if(textField == indirComTF)
-                    indirCom = Integer.parseInt(indirComTF.getText());
+                    Settings.setIndirectComWeight(Integer.parseInt(indirComTF.getText()));
             }
         });
     }
