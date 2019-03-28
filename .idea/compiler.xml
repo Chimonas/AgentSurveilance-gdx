@@ -2,6 +2,12 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="AgentSurveilance.core.main" target="1.6" />
+      <module name="AgentSurveilance.core.test" target="1.6" />
+      <module name="AgentSurveilance.desktop.main" target="1.6" />
+      <module name="AgentSurveilance.desktop.test" target="1.6" />
+      <module name="AgentSurveilance.html.main" target="1.6" />
+      <module name="AgentSurveilance.html.test" target="1.6" />
       <module name="core_main" target="1.6" />
       <module name="core_test" target="1.6" />
       <module name="desktop_main" target="1.6" />

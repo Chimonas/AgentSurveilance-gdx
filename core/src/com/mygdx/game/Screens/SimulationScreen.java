@@ -143,6 +143,14 @@ public class SimulationScreen implements Screen{
         @Override
         public boolean touchDragged(int screenX, int screenY, int pointer)
         {
+
+            float x = Gdx.input.getDeltaX();
+            float y = Gdx.input.getDeltaY();
+
+            cam.translate(-x, y);
+
+
+
             return false;
         }
 
