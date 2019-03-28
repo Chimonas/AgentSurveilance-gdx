@@ -17,11 +17,10 @@ public class Structure extends Area
     protected double[] bottomRightCorner = bottomRight;
 
 
-    public Structure(double[] topLeft, double[] bottomRight, Color line, Color in) {
-        super(topLeft, bottomRight, line, in);
+    public Structure(double[] topLeft, double[] bottomRight) {
+        super(topLeft, bottomRight, Color.DARK_GRAY, Color.GRAY);
         visibility = 10.0; //if it's not a tower it's a regular structure
     }
-
 
     public Entrance createEntrance(String type, double[] begPosition, double[] endPosition)
     {
@@ -58,20 +57,9 @@ public class Structure extends Area
         return entrance;
     }
 
-    //Every structure has a shade on top and on its left
-    public Shade[] createShade()
-    {
-        Color c = new Color(); //ADD COLOR
-
-        double[] topL1 = {topLeft[0] - 1, topLeft[1] - 1};
-        double[] botR1 = {topLeft[0], bottomRight[1]};
-        Shade s1 = new Shade(topL1, botR1, c, c);
-        double[] topL2 = {topLeft[0], topLeft[1] - 1};
-        double[] botR2 = {bottomRight[0], topLeft[1]};
-        Shade s2 = new Shade(topL2, botR2, c, c);
-
-        Shade[] shades = {s1,s2};
-        return shades;
+    public Structure(double[] topLeft, double[] bottomRight, Color line, Color in) {
+        super(topLeft, bottomRight, line, in);
+        visibility = 10.0; //if it's not a tower it's a regular structure
     }
 
     public double[][][] getWalls()

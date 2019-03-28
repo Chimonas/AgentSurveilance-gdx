@@ -1,9 +1,4 @@
-package com.mygdx.game.GameLogic;
-
-import com.mygdx.game.Areas.Area;
-import com.mygdx.game.Areas.SentryTower;
-import com.mygdx.game.Areas.Structure;
-import com.mygdx.game.Areas.Target;
+package com.mygdx.game.Areas;
 
 public class AreaFactory {
 

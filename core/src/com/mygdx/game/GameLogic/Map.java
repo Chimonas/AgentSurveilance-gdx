@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Map
 {
-    private static final double MINWIDTH = 150,MINHEIGHT = 200;
+    private static final double MINWIDTH = 200,MINHEIGHT = 200;
     private double width,height;
     private ArrayList<Area> areaList;
     private World world;

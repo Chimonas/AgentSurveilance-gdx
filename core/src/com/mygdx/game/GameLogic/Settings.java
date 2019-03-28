@@ -1,28 +1,27 @@
 package com.mygdx.game.GameLogic;
 
-import com.mygdx.game.AI.Guard;
-import com.mygdx.game.AI.Intruder;
+import com.mygdx.game.AI.AI;
 
 public class Settings
 {
-    private static Guard guardAI;
-    private static Intruder intruderAI;
+    private static AI.GuardAI guardAI;
+    private static AI.IntruderAI intruderAI;
     private static int guardAmount, intruderAmount, explorationTime, maxTime, timeWeight, movementWeight, directComWeight, indirectComWeight;
     private static boolean explorationPhase;
 
-    public static Guard getGuardAI() {
+    public static AI.GuardAI getGuardAI() {
         return guardAI;
     }
 
-    public static void setGuardAI(Guard guardAI) {
+    public static void setGuardAI(AI.GuardAI guardAI) {
         Settings.guardAI = guardAI;
     }
 
-    public static Intruder getIntruderAI() {
+    public static AI.IntruderAI getIntruderAI() {
         return intruderAI;
     }
 
-    public static void setIntruderAI(Intruder intruderAI) {
+    public static void setIntruderAI(AI.IntruderAI intruderAI) {
         Settings.intruderAI = intruderAI;
     }
 

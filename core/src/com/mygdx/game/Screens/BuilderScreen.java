@@ -4,11 +4,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.Areas.Area;
 import com.mygdx.game.Areas.AreaFactory;
 import com.mygdx.game.GameLogic.BuilderTools;
@@ -20,14 +16,13 @@ public class BuilderScreen implements Screen
 {
     private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
-    private SpriteBatch batch;
     private Stage stage;
 
     private BuilderTools builderTools;
     private Map map;
     private Area drawingArea;
-    private TextButton runGame;
 
+    private SurveilanceSystem surveilance;
 
     double aspectRatio;
 
@@ -35,10 +30,10 @@ public class BuilderScreen implements Screen
     {
         shapeRenderer = new ShapeRenderer();
         stage = new Stage();
-        builderTools = new BuilderTools();
+        builderTools = new BuilderTools(surveilance,this);
         map = new Map();
 
-//        this.surveilance = surveilance;
+        this.surveilance = surveilance;
 
         aspectRatio = (double)Gdx.graphics.getWidth()/Gdx.graphics.getHeight();
 
@@ -49,28 +44,6 @@ public class BuilderScreen implements Screen
         effectiveMoveStep = cam.zoom * MOVESTEP;
         effectiveViewportWidth = cam.zoom * cam.viewportWidth;
         effectiveViewportHeight = cam.zoom * cam.viewportHeight;
-
-        Skin skin = new Skin(Gdx.files.internal("core/assets/cloud-form/skin/cloud-form-ui.json"));
-        runGame = new TextButton("Run", skin);
-        runGame.setPosition(Gdx.graphics.getWidth()*4/5 + 10,Gdx.graphics.getHeight()-150);
-
-        class runGameListener extends ChangeListener {
-            SurveilanceSystem surveilance;
-            Screen screen;
-
-            public runGameListener(SurveilanceSystem surveilance, Screen screen) {
-                this.surveilance = surveilance;
-                this.screen = screen;
-            }
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                AIScreen aiScreen = new AIScreen(surveilance);
-                aiScreen.addMap(map);
-                this.surveilance.setScreen(aiScreen);
-                this.screen.dispose();
-            }
-        }
-        runGame.addListener(new runGameListener(surveilance,this));
     }
 
     @Override
@@ -78,6 +51,7 @@ public class BuilderScreen implements Screen
     {
 
     }
+
 
     @Override
     public void render(float delta)
@@ -93,9 +67,6 @@ public class BuilderScreen implements Screen
         map.render(shapeRenderer);
         if(drawing)
             drawingArea.render(shapeRenderer);
-
-        //Add extra buttons
-        stage.addActor(runGame);
 
         //Getting the components from the BuildTools
         stage.addActor(builderTools.getTable());
@@ -207,7 +178,11 @@ public class BuilderScreen implements Screen
                         colliding = true;
 
                 if(!colliding)
+                {
                     map.addArea(drawingArea);
+                    builderTools.setMap(map);
+                }
+
             }
             drawing = false;
 
