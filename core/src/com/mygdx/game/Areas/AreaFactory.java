@@ -1,11 +1,13 @@
-package com.mygdx.game.Areas;
+package com.mygdx.game.areas;
 
-public class AreaFactory {
+import com.badlogic.gdx.math.Vector2;
 
+public class AreaFactory
+{
     private static Area.AreaType areaType;
     private static Area area;
 
-    public static Area newArea(double[] startPoint, double[] endPoint)
+    public static Area newArea(Vector2 startPoint, Vector2 endPoint)
     {
         switch (areaType)
         {
@@ -15,8 +17,8 @@ public class AreaFactory {
             case SENTRYTOWER:
                 area = new SentryTower(endPoint);
                 break;
-            case VEGETATION:
-                area = new Vegetation(startPoint, endPoint);
+            case SHADE:
+                area = new Shade(startPoint, endPoint);
                 break;
             case TARGET:
                 area = new Target(startPoint,endPoint);
@@ -26,7 +28,7 @@ public class AreaFactory {
         return area;
     }
 
-    public static Area newArea(double[] startPoint)
+    public static Area newArea(Vector2 startPoint)
     {
         return newArea(startPoint,startPoint);
     }

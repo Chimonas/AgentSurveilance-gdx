@@ -1,4 +1,4 @@
-package com.mygdx.game.AI;/*
+package com.mygdx.game.agents;/*
 WALK --> 1.4 m/s for BOTH
 RUN --> 3 m/s for INTRUDER
 

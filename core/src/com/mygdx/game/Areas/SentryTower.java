@@ -1,33 +1,22 @@
-package com.mygdx.game.Areas;
+package com.mygdx.game.areas;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 
 public class SentryTower extends Area
 {
-    private static final double WIDTH = 3, HEIGHT = 3,INNERRADIUS = 2, OUTERRADIUS = 15;
+    public static final float WIDTH = 2, HEIGHT = 2,INNERRADIUS = 2, OUTERRADIUS = 15;
+    protected static final Color COLOR = Color.ROYAL;
 
-    public SentryTower(double[] point)
+    public SentryTower(Vector2 point)
     {
-        super(point[0] - WIDTH/2, point[1] - HEIGHT/2,WIDTH,HEIGHT, Color.ROYAL, Color.TEAL);
+        super(point.x - WIDTH/2, point.y - HEIGHT / 2, WIDTH, HEIGHT, COLOR);
     }
 
     @Override
-    public void setCoordinates(double[] firstPoint, double[] secondPoint)
+    public void setPosition(Vector2 startPoint, Vector2 endPoint)
     {
-        topLeft = new double[]{secondPoint[0] - WIDTH/2,secondPoint[1] - HEIGHT/2};
-        bottomRight = new double[]{secondPoint[0] + WIDTH/2,secondPoint[1] + HEIGHT/2};
-    }
-
-    @Override
-    public void render(ShapeRenderer shapeRenderer)
-    {
-        super.render(shapeRenderer);
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(lineColor);
-        shapeRenderer.circle((float)(topLeft[0]+WIDTH/2), (float)(topLeft[1]+WIDTH/2),(float)INNERRADIUS);
-        shapeRenderer.circle((float)(topLeft[0]+WIDTH/2), (float)(topLeft[1]+WIDTH/2),(float)OUTERRADIUS);
-        shapeRenderer.end();
+        topLeft = new Vector2(endPoint.x - WIDTH / 2,endPoint.y + HEIGHT / 2);
+        bottomRight = new Vector2(endPoint.x + WIDTH / 2,endPoint.y - HEIGHT / 2);
     }
 }

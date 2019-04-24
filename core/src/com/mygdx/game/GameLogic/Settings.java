@@ -1,99 +1,101 @@
-package com.mygdx.game.GameLogic;
+package com.mygdx.game.gamelogic;
 
-import com.mygdx.game.AI.AI;
+import com.mygdx.game.agents.ai.guard.GuardAI;
+import com.mygdx.game.agents.ai.intruder.IntruderAI;
 
 public class Settings
 {
-    private static AI.GuardAI guardAI;
-    private static AI.IntruderAI intruderAI;
-    private static int guardAmount, intruderAmount, explorationTime, maxTime, timeWeight, movementWeight, directComWeight, indirectComWeight;
-    private static boolean explorationPhase;
+    private GuardAI guardAI;
+    private IntruderAI intruderAI;
+    private int guardAmount, intruderAmount;
+    private float explorationTime, maxTime, timeWeight, movementWeight, directComWeight, indirectComWeight;
+    private boolean explorationPhase;
 
-    public static AI.GuardAI getGuardAI() {
+    public GuardAI getGuardAI() {
         return guardAI;
     }
 
-    public static void setGuardAI(AI.GuardAI guardAI) {
-        Settings.guardAI = guardAI;
+    public void setGuardAI(GuardAI guardAI) {
+        this.guardAI = guardAI;
     }
 
-    public static AI.IntruderAI getIntruderAI() {
+    public IntruderAI getIntruderAI() {
         return intruderAI;
     }
 
-    public static void setIntruderAI(AI.IntruderAI intruderAI) {
-        Settings.intruderAI = intruderAI;
+    public void setIntruderAI(IntruderAI intruderAI) {
+        this.intruderAI = intruderAI;
     }
 
-    public static int getGuardAmount() {
+    public int getGuardAmount() {
         return guardAmount;
     }
 
-    public static void setGuardAmount(int guardAmount) {
-        Settings.guardAmount = guardAmount;
+    public void setGuardAmount(int guardAmount) {
+        this.guardAmount = guardAmount;
     }
 
-    public static int getIntruderAmount() {
+    public int getIntruderAmount() {
         return intruderAmount;
     }
 
-    public static void setIntruderAmount(int intruderAmount) {
-        Settings.intruderAmount = intruderAmount;
+    public void setIntruderAmount(int intruderAmount) {
+        this.intruderAmount = intruderAmount;
     }
 
-    public static int getExplorationTime() {
+    public float getExplorationTime() {
         return explorationTime;
     }
 
-    public static void setExplorationTime(int explorationTime) {
-        Settings.explorationTime = explorationTime;
+    public void setExplorationTime(float explorationTime) {
+        this.explorationTime = explorationTime;
     }
 
-    public static int getMaxTime() {
+    public float getMaxTime() {
         return maxTime;
     }
 
-    public static void setMaxTime(int maxTime) {
-        Settings.maxTime = maxTime;
+    public void setMaxTime(float maxTime) {
+        this.maxTime = maxTime;
     }
 
-    public static int getTimeWeight() {
+    public float getTimeWeight() {
         return timeWeight;
     }
 
-    public static void setTimeWeight(int timeWeight) {
-        Settings.timeWeight = timeWeight;
+    public void setTimeWeight(float timeWeight) {
+        this.timeWeight = timeWeight;
     }
 
-    public static int getMovementWeight() {
+    public float getMovementWeight() {
         return movementWeight;
     }
 
-    public static void setMovementWeight(int movementWeight) {
-        Settings.movementWeight = movementWeight;
+    public void setMovementWeight(float movementWeight) {
+        this.movementWeight = movementWeight;
     }
 
-    public static int getDirectComWeight() {
+    public float getDirectComWeight() {
         return directComWeight;
     }
 
-    public static void setDirectComWeight(int directComWeight) {
-        Settings.directComWeight = directComWeight;
+    public void setDirectComWeight(float directComWeight) {
+        this.directComWeight = directComWeight;
     }
 
-    public static int getIndirectComWeight() {
+    public float getIndirectComWeight() {
         return indirectComWeight;
     }
 
-    public static void setIndirectComWeight(int indirectComWeight) {
-        Settings.indirectComWeight = indirectComWeight;
+    public void setIndirectComWeight(float indirectComWeight) {
+        this.indirectComWeight = indirectComWeight;
     }
 
-    public static boolean isExplorationPhase() {
+    public boolean isExplorationPhase() {
         return explorationPhase;
     }
 
-    public static void setExplorationPhase(boolean explorationPhase) {
-        Settings.explorationPhase = explorationPhase;
+    public void setExplorationPhase(boolean explorationPhase) {
+        this.explorationPhase = explorationPhase;
     }
 }

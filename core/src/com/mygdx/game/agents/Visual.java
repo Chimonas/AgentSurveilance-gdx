@@ -1,4 +1,4 @@
-package com.mygdx.game.AI;
+package com.mygdx.game.agents;
 
 import static java.lang.Math.*;
 
@@ -35,7 +35,7 @@ public class Visual
         double[] topBegPoint = visionBeg;
         double[] botBegPoint = visionBeg;
 
-        //To implement when the agent can't see close to him
+        //To implement when the agents can't see close to him
 
         double[][] areaPoints = {topBegPoint, botBegPoint, topEndPoint, botEndPoint};
         return areaPoints;

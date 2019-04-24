@@ -1,129 +1,112 @@
-package com.mygdx.game.Areas;
+package com.mygdx.game.areas;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.gamelogic.Map;
 
-public abstract class Area
-{
-    public enum AreaType
-    {
-        STRUCTURE,SENTRYTOWER,VEGETATION,TARGET
+public abstract class Area {
+    public enum AreaType {
+        STRUCTURE, SENTRYTOWER, SHADE, TARGET
     }
 
-    protected double[] topLeft, bottomRight;
-    protected Color lineColor, infillColor;
+    protected Vector2 topLeft, topRight, bottomLeft, bottomRight;
+    protected Color color;
+    protected float minWidth, minHeight;
 
-    public Area(double[] topLeft, double[] bottomRight, Color lineColor,Color infillColor)
-    {
-        this.topLeft = new double[]{topLeft[0],topLeft[1]};
-        this.bottomRight = new double[]{bottomRight[0],bottomRight[1]};
-        this.lineColor = lineColor;
-        this.infillColor = infillColor;
+    public Area(Vector2 topLeft, Vector2 bottomRight, Color color, float minWidth, float minHeight) {
+        this.topLeft = new Vector2(topLeft);
+        topRight = new Vector2(bottomRight.x, topLeft.y);
+        bottomLeft = new Vector2(topLeft.x, bottomRight.y);
+        this.bottomRight = new Vector2(bottomRight);
+
+        this.color = color;
+        this.minWidth = minWidth;
+        this.minHeight = minHeight;
     }
 
-    public Area(double x, double y, double width, double height, Color lineColor, Color infillColor)
+    public Area(Vector2 topLeft, Vector2 bottomRight, Color color)
     {
-        this(new double[]{x,y}, new double[]{x + width, y + height}, lineColor, infillColor);
+        this(topLeft, bottomRight, color, 1f, 1f);
     }
 
-    public double getWidth()
-    {
-        return bottomRight[0] - topLeft[0];
+    public Area(float x, float y, float width, float height, Color defaultColor) {
+        this(new Vector2(x, y + height), new Vector2(x + width, y), defaultColor);
     }
 
-    public double getHeight()
-    {
-        return bottomRight[1] - topLeft[1];
+    public float getWidth() {
+        return bottomRight.x - topLeft.x;
     }
 
-    public void setCoordinates(double[] firstPoint, double[] secondPoint)
+    public float getHeight() {
+        return topLeft.y - bottomRight.y;
+    }
+
+    public void setPosition(Vector2 startPoint, Vector2 endPoint) {
+        topLeft.x = startPoint.x < endPoint.x ? startPoint.x : endPoint.x;
+        topLeft.y = startPoint.y > endPoint.y ? startPoint.y : endPoint.y;
+        bottomRight.x = startPoint.x > endPoint.x ? startPoint.x : endPoint.x;
+        bottomRight.y = startPoint.y < endPoint.y ? startPoint.y : endPoint.y;
+    }
+
+    public boolean intersects(Area secondArea) {
+        return !(topLeft.x >= secondArea.bottomRight.x || topLeft.y <= secondArea.bottomRight.y || bottomRight.x <= secondArea.topLeft.x || bottomRight.y >= secondArea.topLeft.y);
+    }
+
+    public boolean contains(Vector2 point) {
+        return ((point.x < bottomRight.x) &&
+                (point.x > topLeft.x) &&
+                (point.y > topLeft.y) &&
+                (point.y < bottomRight.y));
+    }
+
+    public boolean isInside(Vector2 topLeft, Vector2 bottomRight) {
+        return (isInside(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y));
+    }
+
+    public boolean isInside(float left, float top, float right, float bottom) {
+        return (topLeft.x >= left &&
+                topLeft.y <= top &&
+                bottomRight.x <= right &&
+                bottomRight.y >= bottom);
+    }
+
+    public boolean isInside(Area area) {
+        return (isInside(area.topLeft, area.bottomRight));
+    }
+
+    public boolean isInside(Map map) {
+        return isInside(0, map.getHeight(), map.getWidth(), 0);
+    }
+
+    public boolean isValid(Map map)
     {
-        if(firstPoint[0]<secondPoint[0])
-        {
-            topLeft[0] = firstPoint[0];
-            bottomRight[0] = secondPoint[0];
+        if (getWidth() < minWidth || getHeight() < minHeight)
+            return false;
+
+        if (!isInside(map))
+            return false;
+
+        for (Area area : map.getAreaList()) {
+            if (intersects(area))
+                return false;
         }
-        else
-        {
-            topLeft[0] = secondPoint[0];
-            bottomRight[0] = firstPoint[0];
-        }
 
-        if(firstPoint[1]<secondPoint[1])
-        {
-            topLeft[1] = firstPoint[1];
-            bottomRight[1] = secondPoint[1];
-        }
-        else
-        {
-            topLeft[1] = secondPoint[1];
-            bottomRight[1] = firstPoint[1];
-        }
+        return true;
     }
 
-    public boolean intersects(Area secondArea)
-    {
-        return !(topLeft[0] >= secondArea.bottomRight[0] || topLeft[1] >= secondArea.bottomRight[1] || bottomRight[0] <= secondArea.topLeft[0] || bottomRight[1] <= secondArea.topLeft[1]);
-    }
-
-    public boolean inArea(double[] pos){
-
-        return((pos[0] < this.bottomRight[0]) && (pos[0] > this.topLeft[0]) &&
-                (pos[1] > this.topLeft[1]) && (pos[1] < this.bottomRight[1]));
-    }
-
-    public boolean inBounds(double[] topLeft, double[] bottomRight)
-    {
-        return (inBounds(topLeft[1], topLeft[0], bottomRight[1], bottomRight[0]));
-    }
-
-    public boolean inBounds(double top, double left, double bottom, double right)
-    {
-        return(this.topLeft[0] >= left && this.topLeft[1] >= top && this.bottomRight[0] <= right && this.bottomRight[1] <= bottom);
-    }
-
-    public boolean inBounds(Area area)
-    {
-        return(inBounds(area.topLeft, area.bottomRight));
-    }
-
-    public void render(ShapeRenderer shapeRenderer)
-    {
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(infillColor);
-        shapeRenderer.rect((float) topLeft[0], (float)topLeft[1],(float)this.getWidth(),(float)this.getHeight());
-        shapeRenderer.end();
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(lineColor);
-        shapeRenderer.rect((float) topLeft[0], (float)topLeft[1],(float)this.getWidth(),(float)this.getHeight());
-        shapeRenderer.end();
-    }
-
-    public double[][][] getBorders()
-    {
-
-        double[] topLeftCorner = topLeft;
-        double[] bottomLeftCorner = {topLeft[0], bottomRight[1]};
-        double[] topRightCorner = {bottomRight[0], topLeft[1]};
-        double[] bottomRightCorner = bottomRight;
-
-        //Walls built with (x,y) of the first point followed with(x,y) of the second
-        double[][] leftWall = {topLeftCorner, bottomLeftCorner};
-        double[][] rightWall = {topRightCorner, bottomRightCorner};
-        double[][] topWall = {topLeftCorner, topRightCorner};
-        double[][] bottomWall = {bottomLeftCorner, bottomRightCorner};
-        double[][][] walls = {leftWall, rightWall, topWall, bottomWall};
-        return walls;
-    }
-
-    public double[] getTopLeft(){
+    public Vector2 getTopLeft() {
         return topLeft;
     }
 
-    public double[] getBottomRight(){
+    public Vector2 getBottomRight() {
         return bottomRight;
     }
 
+    public Color getColor() {
+        return color;
+    }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
 }

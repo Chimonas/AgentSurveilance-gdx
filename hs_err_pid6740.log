@@ -69,7 +69,7 @@ C  0x0000000003671fae
 Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
 J 558  com.badlogic.gdx.utils.BufferUtils.copyJni([FLjava/nio/Buffer;II)V (0 bytes) @ 0x0000000003671f30 [0x0000000003671ec0+0x70]
 J 1430 C2 com.badlogic.gdx.graphics.glutils.ShapeRenderer.end()V (15 bytes) @ 0x000000000393bbec [0x000000000393b540+0x6ac]
-J 1319 C2 com.mygdx.game.GameLogic.Map.render(Lcom/badlogic/gdx/graphics/g2d/Batch;)V (202 bytes) @ 0x00000000038d03dc [0x00000000038cc1e0+0x41fc]
+J 1319 C2 com.mygdx.game.gamelogic.Map.render(Lcom/badlogic/gdx/graphics/g2d/Batch;)V (202 bytes) @ 0x00000000038d03dc [0x00000000038cc1e0+0x41fc]
 J 1432 C2 com.mygdx.game.Screens.BuilderScreen.render(F)V (158 bytes) @ 0x00000000039400d0 [0x000000000393f660+0xa70]
 J 1167 C1 com.badlogic.gdx.Game.render()V (25 bytes) @ 0x000000000383e54c [0x000000000383e380+0x1cc]
 j  com.badlogic.gdx.backends.lwjgl.LwjglApplication.mainLoop()V+698

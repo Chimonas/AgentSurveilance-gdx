@@ -1,58 +1,57 @@
-package com.mygdx.game.Areas;
+package com.mygdx.game.areas;
 
-import com.mygdx.game.AI.Agent;
-import com.mygdx.game.AI.Guard;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.agents.Agent;
+import com.mygdx.game.agents.Guard;
 
-import java.util.Random;
+public class Entrance
+{
+    private EntranceType type;
+    private Vector2 startPosition, endPosition;
 
-public class Entrance {
-
-    private String type;
-    private double[] begPos = null;
-    private double[] endPos = null;
-    private double enteringSoundDistance;
-    private double enteringTime;
-
-    public Entrance(String t, double[] begP, double[] endP)
+    private enum EntranceType
     {
-        type = t;
-        begPos = begP;
-        endPos = endP;
-        if(type == "door")
+        DOOR(5.0f, 5.0f),
+        WINDOW(10.0f, 3.0f);
+
+        private float soundDistance, enteringTime;
+
+        EntranceType(float soundDistance, float enteringTime)
         {
-            enteringSoundDistance = 5.0;
-            enteringTime = 5.0;
-        }
-        else
-        {
-            enteringSoundDistance = 10.0;
-            enteringTime = 3.0;
+            this.soundDistance = soundDistance;
+            this.enteringTime = enteringTime;
         }
     }
 
-    public void enterWithoutSound()
+    public Entrance(EntranceType type, Vector2 startPosition, Vector2 endPosition)
     {
-        if(type == "door")
-        {
-            enteringSoundDistance = 0.0;
-            Random random = new Random();
-            enteringTime = random.nextGaussian()*2 + 12.0; //Normal distribution with std 2 and mean = 12
-        }
+        this.type = type;
+        this.startPosition = startPosition;
+        this.endPosition = endPosition;
     }
 
-    public void changePosition(double[] begP, double[] endP){
-        begPos = begP;
-        endPos = endP;
+//    public void enterWithoutSound()
+//    {
+//        if(type == "door")
+//        {
+//            enteringSoundDistance = 0.0;
+//            Random random = new Random();
+//            enteringTime = random.nextGaussian()*2 + 12.0; //Normal distribution with std 2 and mean = 12
+//        }
+//    }
+//
+//    public void changePosition(double[] begP, double[] endP){
+//        begPos = begP;
+//        endPos = endP;
+//    }
+
+    public Vector2 getStartPosition() {
+        return startPosition;
     }
 
-    public double[] getBegPosition(){
-        return begPos;
+    public Vector2 getEndPosition() {
+        return endPosition;
     }
-
-    public double[] getEndPosition(){
-        return endPos;
-    }
-
 
     //to check if can enter the Sentry tower
     public boolean canEnterSentryTower(Agent agent) {
