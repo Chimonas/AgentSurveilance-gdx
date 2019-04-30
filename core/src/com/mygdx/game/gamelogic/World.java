@@ -22,13 +22,13 @@ public class World
 
         for (int i = 0; i < 10; i++) //10 magic number for settings.getGuardAmount
         {
-            Guard newGuard = new Guard(settings);
+            Guard newGuard = new Guard(map, settings);
             newGuard.spawnRandom(map);
             guards.add(newGuard);
         }
         for (int i = 0; i < 10; i++) //10 magic number for settings.getIntruderAmount
         {
-            Intruder newIntruder = new Intruder(settings, map);
+            Intruder newIntruder = new Intruder(map, settings);
             newIntruder.spawnRandom(map);
             intruders.add(newIntruder);
         }

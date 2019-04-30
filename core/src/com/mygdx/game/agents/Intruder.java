@@ -8,9 +8,9 @@ public class Intruder extends Agent
 {
     private boolean sprinting;
 
-    public Intruder(Settings settings, Map map)
+    public Intruder(Map map, Settings settings)
     {
-        super(settings, 6.5f);
+        super(map, settings, 6.5f);
         ai = new Stupid(map);
 
         sprinting = false;

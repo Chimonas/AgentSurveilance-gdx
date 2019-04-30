@@ -13,7 +13,7 @@ public class GameLoop
         this.world = world;
 
         ticks = 0;
-        time = 0;
+        time = 0.0;
         lastTickTime = System.nanoTime();
 
         timeBeforeTick = 1.0e9f / TICKRATE;
@@ -32,5 +32,10 @@ public class GameLoop
 
         while(time - lastTickTime > timeBeforeTick)
             update();
+    }
+
+    public int getTicks()
+    {
+        return ticks;
     }
 }

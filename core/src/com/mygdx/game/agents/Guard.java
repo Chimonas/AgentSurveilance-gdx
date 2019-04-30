@@ -1,15 +1,16 @@
 package com.mygdx.game.agents;
 
 import com.mygdx.game.agents.ai.guard.Stupid;
+import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.Settings;
 
 public class Guard extends Agent
 {
 //    public static final Guard STUPID = null;
 
-    public Guard(Settings settings)
+    public Guard(Map map, Settings settings)
     {
-        super(settings, 7.5f);
+        super(map, settings, 7.5f);
         ai = new Stupid();
     }
 

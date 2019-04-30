@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.mygdx.game.StateManager;
 import com.mygdx.game.agents.ai.guard.GuardAI;
+import com.mygdx.game.agents.ai.intruder.IntruderAI;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.states.visualStates.SimulationState;
@@ -52,9 +53,9 @@ public class AISettingsState extends MenuState
     }
 
     private Table table, topTable, centerTable, bottomTable;
-    private Label titleL, agentsL, guardL, guardAmountL;
-    private SelectBox guardSB;
-    private TextField guardAmountTF;
+    private Label titleL, agentsL, guardL, guardAmountL, intruderL, intruderAmountL;
+    private SelectBox guardSB, intruderSB;
+    private TextField guardAmountTF, intruderAmountTF;
     private TextButton okB, cancelB;
 
     @Override
@@ -93,7 +94,20 @@ public class AISettingsState extends MenuState
         centerTable.add(guardAmountL);
 
         guardAmountTF = new TextField("", StateManager.skin);
-        centerTable.add(guardAmountTF);
+        centerTable.add(guardAmountTF).row();
+
+        intruderL = new Label("Intruder agents:", StateManager.skin);
+        centerTable.add(intruderL);
+
+        intruderSB = new SelectBox(StateManager.skin);
+        intruderSB.setItems(IntruderAI.AIType.values());
+        centerTable.add(intruderSB).row();
+
+        intruderAmountL = new Label("Number of Intruders:", StateManager.skin);
+        centerTable.add(intruderAmountL);
+
+        intruderAmountTF = new TextField("", StateManager.skin);
+        centerTable.add(intruderAmountTF).row();
 
         table.add(centerTable).expand().top().row();
 

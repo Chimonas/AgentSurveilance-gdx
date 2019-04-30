@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Map
 {
-    public static final float   MINWIDTH = 200,
-                                MINHEIGHT = 200;
+    public static final float   MINWIDTH = 200.0f,
+                                MINHEIGHT = 200.0f;
     public static final Color DEFAULTCOLOR = Color.FOREST;
     private float width, height;
     private ArrayList<Area> areaList;

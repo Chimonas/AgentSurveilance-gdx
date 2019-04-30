@@ -2,12 +2,16 @@ package com.mygdx.game.agents;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.agents.ai.AI;
+import com.mygdx.game.areas.Area;
+import com.mygdx.game.areas.Shade;
+import com.mygdx.game.areas.Target;
 import com.mygdx.game.gamelogic.GameLoop;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.Settings;
 
 abstract public class Agent
 {
+    protected Map map;
     protected Settings settings;
 
     protected AI ai;
@@ -22,8 +26,9 @@ abstract public class Agent
 
 //    protected boolean inShade;
 
-    public Agent(Settings settings, float visibility)
+    public Agent(Map map, Settings settings, float visibility)
     {
+        this.map = map;
         this.settings = settings;
 
         maxVelocity = 1.4f;
@@ -50,36 +55,20 @@ abstract public class Agent
         spawn(randomPosition, 0.0f);
     }
 
-//    public void setInShade(boolean inShade)
-//    {
-//        this.inShade = inShade;
-//
-//        if(inShade)
-//        {
-//
-//        }
-//    }
-//
-//    public void changeVisualRangeInShadow(){
-//        body.setVisualRange(body.getVisualRange()[0]/2,body.getVisualRange()[1]/2);
-//        body.setVisualAngle(body.getVisualAngle()/2);
-//    }
-//
-//    public void changeVisualAngleOutShadow(){
-//        body.setVisualRange(body.getVisualRange()[0]*2, body.getVisualRange()[1]*2);
-//        body.setVisualAngle(body.getVisualAngle()*2);
-//    }
-
     public void update()
     {
-        ai.update(velocity, angle);
+        if(active)
+        {
+            ai.update(velocity, angle);
 
-        velocity = ai.getVelocity();
-        angle = ai.getAngle();
+            velocity = ai.getVelocity();
+            angle = ai.getAngle();
 
-        updatePosition();
+            updatePosition();
+        }
     }
 
+    private Vector2 newPosition;
     private float velocityX, velocityY, angleRad;
 
     public void updatePosition()
@@ -89,9 +78,23 @@ abstract public class Agent
         velocityX = velocity * (float)Math.cos(angleRad);
         velocityY = velocity * (float)Math.sin(angleRad);
 
-        position.x += velocityX / GameLoop.TICKRATE;
-        position.y += velocityY / GameLoop.TICKRATE;
+        newPosition = new Vector2(position.x + velocityX / GameLoop.TICKRATE, position.y + velocityY / GameLoop.TICKRATE);
+
+        if(isValidMove(position,newPosition))
+            position.set(newPosition); // Maybe add close approach for when path intersects wall
     }
+
+    public boolean isValidMove(Vector2 position, Vector2 newPosition)
+    {
+        if(Area.intersects(position, newPosition, new Vector2(0,map.getHeight()), new Vector2(map.getWidth(),map.getHeight()), new Vector2(0,0), new Vector2(map.getWidth(), 0)))
+            return false;
+
+        for (Area area : map.getAreaList())
+            if (!(area instanceof Shade || area instanceof Target) && area.intersects(position, newPosition)) return false;
+
+        return true;
+    }
+
 
     public boolean getActive()
     {
