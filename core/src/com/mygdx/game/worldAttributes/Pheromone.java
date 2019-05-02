@@ -19,14 +19,19 @@ public class Pheromone
         intensity = 1.0f;
     }
 
+    private enum PheromoneType
+    {
+        RED, GREEN, BLUE, YELLOW
+    }
+
     public void update()
     {
         intensity -= DECAYRATE / GameLoop.TICKRATE;
         size += GROWTHRATE / GameLoop.TICKRATE;
     }
 
-    private enum PheromoneType
+    public float getIntensity()
     {
-        ONE, TWO
+        return intensity;
     }
 }
