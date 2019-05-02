@@ -1,8 +1,8 @@
 package com.mygdx.game.states.visualStates.drawers;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.mygdx.game.agents.Guard;
-import com.mygdx.game.agents.Intruder;
+import com.mygdx.game.worldAttributes.agents.Guard;
+import com.mygdx.game.worldAttributes.agents.Intruder;
 import com.mygdx.game.gamelogic.World;
 
 public class WorldDrawer

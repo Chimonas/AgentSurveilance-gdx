@@ -3,8 +3,8 @@ package com.mygdx.game.states.visualStates.drawers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.agents.Agent;
-import com.mygdx.game.agents.Guard;
+import com.mygdx.game.worldAttributes.agents.Agent;
+import com.mygdx.game.worldAttributes.agents.Guard;
 
 public class AgentDrawer
 {

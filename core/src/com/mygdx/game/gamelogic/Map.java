@@ -1,14 +1,14 @@
 package com.mygdx.game.gamelogic;
 
 import com.badlogic.gdx.graphics.Color;
-import com.mygdx.game.areas.Area;
+import com.mygdx.game.worldAttributes.areas.Area;
 
 import java.util.ArrayList;
 
 public class Map
 {
-    public static final float   MINWIDTH = 200.0f,
-                                MINHEIGHT = 200.0f;
+    public static final float   MINWIDTH = 50.0f,
+                                MINHEIGHT = 50.0f;
     public static final Color DEFAULTCOLOR = Color.FOREST;
     private float width, height;
     private ArrayList<Area> areaList;

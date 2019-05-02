@@ -3,7 +3,7 @@ package com.mygdx.game.gamelogic;
 public class GameLoop
 {
     private World world;
-    public static final float TICKRATE = 60.0f;
+    public static final float TICKRATE = 30.0f;
 
     private int ticks;
     private double time, lastTickTime, timeBeforeTick; // !All time related variables have to be in double for precision!

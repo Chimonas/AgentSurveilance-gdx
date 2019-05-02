@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.mygdx.game.areas.Area;
-import com.mygdx.game.areas.AreaFactory;
+import com.mygdx.game.worldAttributes.areas.Area;
+import com.mygdx.game.worldAttributes.areas.AreaFactory;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.StateManager;
 import com.mygdx.game.states.menuStates.AISettingsState;
@@ -265,7 +265,6 @@ public class BuilderState extends VisualState
             currentArea = null;
         }
     }
-
 
     /**
      * Round the coordinates of a point to the nearest multiple of the grid size

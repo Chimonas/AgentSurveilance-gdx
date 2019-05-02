@@ -1,4 +1,4 @@
-package com.mygdx.game.areas;
+package com.mygdx.game.worldAttributes.areas;
 
 import com.badlogic.gdx.math.Vector2;
 

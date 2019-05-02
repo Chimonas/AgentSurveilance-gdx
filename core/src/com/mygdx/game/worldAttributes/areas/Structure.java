@@ -1,4 +1,4 @@
-package com.mygdx.game.areas;
+package com.mygdx.game.worldAttributes.areas;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -8,13 +8,14 @@ import java.util.ArrayList;
 public class Structure extends Area
 {
     protected static final Color COLOR = Color.SLATE;
+    protected static final float VISIBILITY = 12.0f;
 
     private ArrayList<Entrance> doors = new ArrayList<>();
     private ArrayList<Entrance> windows = new ArrayList<>();
 
     public Structure(Vector2 topLeft, Vector2 bottomRight)
     {
-        super(topLeft, bottomRight, COLOR);
+        super(topLeft, bottomRight, COLOR, VISIBILITY);
     }
 
 //    public Entrance createEntrance(String type, double[] begPosition, double[] endPosition)

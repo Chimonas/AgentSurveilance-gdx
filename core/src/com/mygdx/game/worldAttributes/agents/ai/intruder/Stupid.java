@@ -1,11 +1,15 @@
-package com.mygdx.game.agents.ai.intruder;
+package com.mygdx.game.worldAttributes.agents.ai.intruder;
 
+import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.gamelogic.Map;
 
-public class Stupid extends IntruderAI
+import java.util.ArrayList;
+
+public class Stupid implements IntruderAI
 {
     private Map map;
     private float velocity, angle;
+    private ArrayList<Agent> agents;
 
     public Stupid(Map map)
     {
@@ -13,20 +17,21 @@ public class Stupid extends IntruderAI
     }
 
     @Override
-    public void update(float velocity, float angle)
+    public void update(float velocity, float angle, ArrayList<Agent> agents)
     {
         this.velocity = velocity;
         this.angle = angle;
+        this.agents = new ArrayList<>(agents);
     }
 
     @Override
-    public float getAngle()
+    public float getNewAngle()
     {
         return angle + 2.0f * ((float)Math.random() - 0.5f) * 30.0f;
     }
 
     @Override
-    public float getVelocity()
+    public float getNewVelocity()
     {
         return velocity + 2.0f * ((float)Math.random() - 0.5f) * 1.0f;
     }

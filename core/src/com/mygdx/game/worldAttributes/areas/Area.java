@@ -1,4 +1,4 @@
-package com.mygdx.game.areas;
+package com.mygdx.game.worldAttributes.areas;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -30,7 +30,7 @@ public abstract class Area {
 
     public Area(Vector2 topLeft, Vector2 bottomRight, Color color, float visibility)
     {
-        this(topLeft, bottomRight, color, visibility, 1f, 1f);
+        this(topLeft, bottomRight, color, visibility, 1.0f, 1.0f);
     }
 
     public Area(float x, float y, float width, float height, Color defaultColor, float visibility) {

@@ -1,22 +1,26 @@
-package com.mygdx.game.agents;
+package com.mygdx.game.worldAttributes.agents;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.agents.ai.AI;
-import com.mygdx.game.areas.Area;
-import com.mygdx.game.areas.Shade;
-import com.mygdx.game.areas.Target;
+import com.mygdx.game.worldAttributes.agents.ai.AI;
+import com.mygdx.game.worldAttributes.areas.Area;
+import com.mygdx.game.worldAttributes.areas.Shade;
+import com.mygdx.game.worldAttributes.areas.Target;
 import com.mygdx.game.gamelogic.GameLoop;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.Settings;
+import com.mygdx.game.gamelogic.World;
+
+import java.util.ArrayList;
 
 abstract public class Agent
 {
-    protected Map map;
+    protected World world;
     protected Settings settings;
 
     protected AI ai;
     protected float maxVelocity;
     protected float visualAngle;
+    protected float visualMultiplier;
     protected float visibility;
 
     protected boolean active;
@@ -26,14 +30,14 @@ abstract public class Agent
 
 //    protected boolean inShade;
 
-    public Agent(Map map, Settings settings, float visibility)
+    public Agent(World world, Settings settings)
     {
-        this.map = map;
+        this.world = world;
         this.settings = settings;
 
         maxVelocity = 1.4f;
         visualAngle = 45.0f;
-        this.visibility = visibility;
+        visualMultiplier = 1.0f;
 
         active = false;
     }
@@ -44,6 +48,11 @@ abstract public class Agent
         this.position = position;
         this.angle = angle;
         velocity = 0f;
+    }
+
+    public void despawn()
+    {
+        active = false;
     }
 
     public void spawnRandom(Map map)
@@ -57,15 +66,10 @@ abstract public class Agent
 
     public void update()
     {
-        if(active)
-        {
-            ai.update(velocity, angle);
+        velocity = ai.getNewVelocity();
+        angle = ai.getNewAngle();
 
-            velocity = ai.getVelocity();
-            angle = ai.getAngle();
-
-            updatePosition();
-        }
+        updatePosition();
     }
 
     private Vector2 newPosition;
@@ -86,15 +90,25 @@ abstract public class Agent
 
     public boolean isValidMove(Vector2 position, Vector2 newPosition)
     {
-        if(Area.intersects(position, newPosition, new Vector2(0,map.getHeight()), new Vector2(map.getWidth(),map.getHeight()), new Vector2(0,0), new Vector2(map.getWidth(), 0)))
+        if(Area.intersects(position, newPosition, new Vector2(0,world.getMap().getHeight()), new Vector2(world.getMap().getWidth(),world.getMap().getHeight()), new Vector2(0,0), new Vector2(world.getMap().getWidth(), 0)))
             return false;
 
-        for (Area area : map.getAreaList())
+        for (Area area : world.getMap().getAreaList())
             if (!(area instanceof Shade || area instanceof Target) && area.intersects(position, newPosition)) return false;
 
         return true;
     }
 
+    public ArrayList<Agent> getVisibleAgents()
+    {
+        ArrayList<Agent> visibleAgents = new ArrayList<>();
+
+        for(Agent agent : world.getAgents())
+            if (agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
+                visibleAgents.add(agent);
+
+        return visibleAgents;
+    }
 
     public boolean getActive()
     {

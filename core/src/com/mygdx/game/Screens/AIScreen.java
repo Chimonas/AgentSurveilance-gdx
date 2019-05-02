@@ -9,7 +9,7 @@
 //import com.badlogic.gdx.scenes.scene2d.Stage;
 //import com.badlogic.gdx.scenes.scene2d.ui.*;
 //import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-//import com.mygdx.game.agents.agents;
+//import com.mygdx.game.worldAttributes.agents.agents;
 //import com.mygdx.game.gamelogic.Map;
 //import com.mygdx.game.gamelogic.Settings;
 //import com.mygdx.game.SurveilanceSystem;

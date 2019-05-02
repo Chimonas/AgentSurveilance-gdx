@@ -1,4 +1,4 @@
-//package com.mygdx.game.agents;
+//package com.mygdx.game.worldAttributes.agents;
 //
 //import com.badlogic.gdx.graphics.Texture;
 //
@@ -103,7 +103,7 @@
 //        this.angleFacing = angleFacing;
 //    }
 //
-//    public float getVelocity() {
+//    public float getNewVelocity() {
 //        return velocity;
 //    }
 //

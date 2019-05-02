@@ -1,4 +1,4 @@
-package com.mygdx.game.agents;
+package com.mygdx.game.worldAttributes.agents;
 
 import static java.lang.Math.*;
 
