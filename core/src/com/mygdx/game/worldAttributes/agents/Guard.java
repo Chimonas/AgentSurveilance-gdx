@@ -24,7 +24,7 @@ public class Guard extends Agent
     {
         if(active)
         {
-            ((GuardAI) ai).update(velocity, angle, getVisibleAreas(), getVisibleAgents());
+            ((GuardAI) ai).update(velocity, angleFacing, getVisibleAreas(), getVisibleAgents());
             super.update();
         }
     }

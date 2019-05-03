@@ -8,11 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.mygdx.game.StateManager;
-import com.mygdx.game.worldAttributes.agents.ai.guard.GuardAI;
-import com.mygdx.game.worldAttributes.agents.ai.intruder.IntruderAI;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.states.visualStates.SimulationState;
+import com.mygdx.game.worldAttributes.agents.ai.guard.GuardAI;
+import com.mygdx.game.worldAttributes.agents.ai.intruder.IntruderAI;
 
 public class AISettingsState extends MenuState
 {
@@ -53,10 +53,13 @@ public class AISettingsState extends MenuState
     }
 
     private Table table, topTable, centerTable, bottomTable;
-    private Label titleL, agentsL, guardL, guardAmountL, intruderL, intruderAmountL;
+    private Label titleL, agentsL, guardL, guardAmountL, intruderL, intruderAmountL, timeL, maxTimeL, explorationPhaseL,
+            explorationTimeL, weightsL, timeWeightL, movementWeightL, directCommL, indirectCommL;
     private SelectBox guardSB, intruderSB;
-    private TextField guardAmountTF, intruderAmountTF;
+    private TextField guardAmountTF, intruderAmountTF, maxTimeTF, explorationTimeTF, timeWeightTF, movementWeightTF,
+            directCommTF, indirectCommTF;
     private TextButton okB, cancelB;
+    private CheckBox explorationPhaseB;
 
     @Override
     protected void createStage()
@@ -81,33 +84,86 @@ public class AISettingsState extends MenuState
         centerTable.columnDefaults(1).right().width(300f);
 
         agentsL = new Label("Agents", StateManager.skin);
-        centerTable.add(agentsL).row();
+        agentsL.setFontScale(1.3f);
+        centerTable.add(agentsL).pad(5).row();
 
         guardL = new Label("Guard agents:", StateManager.skin);
-        centerTable.add(guardL);
+        centerTable.add(guardL).pad(5);
 
         guardSB = new SelectBox(StateManager.skin);
         guardSB.setItems(GuardAI.AIType.values());
-        centerTable.add(guardSB).row();
+        centerTable.add(guardSB).pad(5).row();
 
         guardAmountL = new Label("Number of Guards:", StateManager.skin);
-        centerTable.add(guardAmountL);
+        centerTable.add(guardAmountL).pad(5);
 
         guardAmountTF = new TextField("", StateManager.skin);
-        centerTable.add(guardAmountTF).row();
+        centerTable.add(guardAmountTF).pad(5).row();
 
         intruderL = new Label("Intruder agents:", StateManager.skin);
-        centerTable.add(intruderL);
+        centerTable.add(intruderL).pad(5);
 
         intruderSB = new SelectBox(StateManager.skin);
         intruderSB.setItems(IntruderAI.AIType.values());
-        centerTable.add(intruderSB).row();
+        centerTable.add(intruderSB).pad(5).row();
 
         intruderAmountL = new Label("Number of Intruders:", StateManager.skin);
-        centerTable.add(intruderAmountL);
+        centerTable.add(intruderAmountL).pad(5);
 
         intruderAmountTF = new TextField("", StateManager.skin);
-        centerTable.add(intruderAmountTF).row();
+        centerTable.add(intruderAmountTF).pad(5).row();
+
+
+        timeL = new Label("Time Settings", StateManager.skin);
+        timeL.setFontScale(1.3f);
+        centerTable.add(timeL).pad(5).row();
+
+        maxTimeL = new Label("Simulation Time", StateManager.skin);
+        centerTable.add(maxTimeL).pad(5);
+
+        maxTimeTF = new TextField("", StateManager.skin);
+        centerTable.add(maxTimeTF).pad(5).row();
+
+        explorationPhaseL = new Label("Exploration Phase", StateManager.skin);
+        centerTable.add(explorationPhaseL).pad(5);
+
+        explorationPhaseB = new CheckBox("",StateManager.skin);
+        centerTable.add(explorationPhaseB).pad(5).row();
+
+        explorationTimeL =  new Label("Exploration Time", StateManager.skin);
+        centerTable.add(explorationTimeL).pad(5);
+
+        explorationTimeTF = new TextField("", StateManager.skin);
+        centerTable.add(explorationTimeTF).pad(5).row();
+
+
+        weightsL = new Label("Performance weights", StateManager.skin);
+        weightsL.setFontScale(1.3f);
+        centerTable.add(weightsL).pad(5).row();
+
+        timeWeightL = new Label("Time", StateManager.skin);
+        centerTable.add(timeWeightL).pad(5);
+
+        timeWeightTF = new TextField("", StateManager.skin);
+        centerTable.add(timeWeightTF).pad(5).row();
+
+        movementWeightL = new Label("Movement", StateManager.skin);
+        centerTable.add(movementWeightL).pad(5);
+
+        movementWeightTF = new TextField("", StateManager.skin);
+        centerTable.add(movementWeightTF).pad(5).row();
+
+        directCommL = new Label("Direct Communication", StateManager.skin);
+        centerTable.add(directCommL).pad(5);
+
+        directCommTF = new TextField("", StateManager.skin);
+        centerTable.add(directCommTF).pad(5).row();
+
+        indirectCommL = new Label("Indirect Communication", StateManager.skin);
+        centerTable.add(indirectCommL).pad(5);
+
+        indirectCommTF = new TextField("", StateManager.skin);
+        centerTable.add(indirectCommTF).pad(5).row();
 
         table.add(centerTable).expand().top().row();
 

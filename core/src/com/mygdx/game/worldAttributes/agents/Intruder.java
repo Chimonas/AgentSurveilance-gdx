@@ -24,7 +24,7 @@ public class Intruder extends Agent
     {
         if(active)
         {
-            ((IntruderAI) ai).update(velocity, angle, getVisibleAgents());
+            ((IntruderAI) ai).update(velocity, angleFacing, getVisibleAgents());
             super.update();
         }
     }

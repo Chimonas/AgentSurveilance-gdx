@@ -25,8 +25,11 @@ abstract public class Agent
 
     protected boolean active;
     protected Vector2 position;
-    protected float angle;
+    protected float angleFacing;
     protected float velocity;
+    protected float turnVelocity;
+    protected float turnAngle;
+    protected float noiseGeneratedRadius;
 
 //    protected boolean inShade;
 
@@ -38,6 +41,8 @@ abstract public class Agent
         maxVelocity = 1.4f;
         visualAngle = 45.0f;
         visualMultiplier = 1.0f;
+        turnVelocity = 180.0f;
+        setNoiseGeneratedRadius();
 
         active = false;
     }
@@ -46,7 +51,7 @@ abstract public class Agent
     {
         active = true;
         this.position = position;
-        this.angle = angle;
+        this.angleFacing = angle;
         velocity = 0f;
     }
 
@@ -67,7 +72,7 @@ abstract public class Agent
     public void update()
     {
         velocity = ai.getNewVelocity();
-        angle = ai.getNewAngle();
+        angleFacing = ai.getNewAngle();
 
         updatePosition();
     }
@@ -77,7 +82,7 @@ abstract public class Agent
 
     public void updatePosition()
     {
-        angleRad = (float)Math.cos(Math.toRadians(angle));
+        angleRad = (float)Math.cos(Math.toRadians(angleFacing));
 
         velocityX = velocity * (float)Math.cos(angleRad);
         velocityY = velocity * (float)Math.sin(angleRad);
@@ -118,5 +123,66 @@ abstract public class Agent
     public Vector2 getPosition()
     {
         return position;
+    }
+
+    public float getAngleFacing() { return angleFacing; }
+
+    public void setAngleFacing(float angleFacing) {
+        this.angleFacing = angleFacing;
+    }
+
+    public float getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(float velocity) {
+        this.velocity = velocity;
+    }
+
+    public float getVisualAngle() { return visualAngle;}
+
+    public void setVisualAngle(float visualAngle) { this.visualAngle = visualAngle;}
+
+    public float getTurnVelocity() { return turnVelocity; }
+
+    public void setTurnVelocity(float turnVelocity) { this.turnVelocity = turnVelocity; }
+
+    public float getNoiseGeneratedRadius(){ return noiseGeneratedRadius;};
+
+    //To be called at every frame in order to update sound according to speed
+    public void setNoiseGeneratedRadius() {
+
+        if(velocity < 0.5){
+            noiseGeneratedRadius = 1.0f;
+            return;
+        }
+        else if(velocity < 1) {
+            noiseGeneratedRadius = 3.0f;
+            return;
+        }
+        else if(velocity < 2) {
+            noiseGeneratedRadius = 5.0f;
+            return;
+        }
+        else noiseGeneratedRadius = 10.0f;
+    }
+
+
+    //During a turn, update the angle facing every tick
+    public float getTurnAngle(){return this.turnAngle; }
+
+    public void setTurnAngle(float turnAngle){
+        this.turnAngle = turnAngle;
+    }
+
+    public static void updateAngleFacing(ArrayList<Area> areas, Agent a, float newAngle){
+        ArrayList<Agent> agentsInVision = new ArrayList<Agent>();
+
+        float oldAngle = a.getAngleFacing();
+        a.setTurnAngle(oldAngle - newAngle);
+        a.setVelocity(0);
+        a.setAngleFacing(oldAngle - (a.getTurnAngle()/a.getTurnVelocity()));
+        a.setTurnAngle(newAngle - a.getAngleFacing());
+
     }
 }
