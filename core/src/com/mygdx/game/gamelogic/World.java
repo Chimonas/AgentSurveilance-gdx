@@ -1,5 +1,6 @@
 package com.mygdx.game.gamelogic;
 
+import com.mygdx.game.states.menuStates.AISettingsState;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.Guard;
 import com.mygdx.game.worldAttributes.agents.Intruder;
@@ -23,13 +24,16 @@ public class World
         guards = new ArrayList<>();
         intruders = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) //10 magic number for settings.getGuardAmount
+        this.settings = (Settings) AISettingsState.getSettings();
+
+
+        for (int i = 0; i < this.settings.getGuardAmount(); i++) //10 magic number for settings.getGuardAmount
         {
             Guard newGuard = new Guard(this, settings);
             newGuard.spawnRandom(map);
             guards.add(newGuard);
         }
-        for (int i = 0; i < 10; i++) //10 magic number for settings.getIntruderAmount
+        for (int i = 0; i < this.settings.getIntruderAmount(); i++) //10 magic number for settings.getIntruderAmount
         {
             Intruder newIntruder = new Intruder(this, settings);
             newIntruder.spawnRandom(map);
