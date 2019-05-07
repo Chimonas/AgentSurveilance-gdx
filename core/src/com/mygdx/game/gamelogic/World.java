@@ -1,8 +1,10 @@
 package com.mygdx.game.gamelogic;
 
+import com.mygdx.game.worldAttributes.Pheromone;
+import com.mygdx.game.worldAttributes.Sound;
 import com.mygdx.game.worldAttributes.agents.Agent;
-import com.mygdx.game.worldAttributes.agents.Guard;
-import com.mygdx.game.worldAttributes.agents.Intruder;
+import com.mygdx.game.worldAttributes.agents.guard.Guard;
+import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 
 import java.util.ArrayList;
 
@@ -12,8 +14,8 @@ public class World
     Settings settings;
     ArrayList<Guard> guards;
     ArrayList<Intruder> intruders;
-//    ArrayList<Sound> sounds;
-//    Arraylist<Pheromone> pheromones;
+    ArrayList<Sound> sounds;
+    ArrayList<Pheromone> pheromones;
 
     public World(Map map, Settings settings)
     {
@@ -22,6 +24,8 @@ public class World
 
         guards = new ArrayList<>();
         intruders = new ArrayList<>();
+        sounds = new ArrayList<>();
+        pheromones = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) //10 magic number for settings.getGuardAmount
         {
@@ -43,6 +47,11 @@ public class World
             guard.update();
         for (Intruder intruder : intruders)
             intruder.update();
+
+        for (Guard guard : guards)
+            guard.updatePosition();
+        for (Intruder intruder : intruders)
+            intruder.updatePosition();
     }
 
     public Map getMap()
@@ -67,5 +76,13 @@ public class World
         agents.addAll(intruders);
 
         return agents;
+    }
+
+    public ArrayList<Sound> getSounds() {
+        return sounds;
+    }
+
+    public ArrayList<Pheromone> getPheromones() {
+        return pheromones;
     }
 }

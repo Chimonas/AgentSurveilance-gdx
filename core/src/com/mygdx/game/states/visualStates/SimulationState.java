@@ -1,5 +1,6 @@
 package com.mygdx.game.states.visualStates;
 
+import com.badlogic.gdx.Input;
 import com.mygdx.game.StateManager;
 import com.mygdx.game.gamelogic.GameLoop;
 import com.mygdx.game.gamelogic.Map;
@@ -47,5 +48,18 @@ public class SimulationState extends VisualState
     @Override
     public void resume() {
 
+    }
+
+    @Override
+    public boolean keyDown(int keycode)
+    {
+        if(keycode == Input.Keys.COMMA)
+            gameLoop.decrementSpeed();
+        else if(keycode == Input.Keys.PERIOD)
+            gameLoop.incrementSpeed();
+        else if(keycode == Input.Keys.P)
+            gameLoop.togglePause();
+
+        return super.keyDown(keycode);
     }
 }

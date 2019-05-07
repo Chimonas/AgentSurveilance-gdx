@@ -1,14 +1,15 @@
 package com.mygdx.game.worldAttributes.agents;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.worldAttributes.agents.ai.AI;
-import com.mygdx.game.worldAttributes.areas.Area;
-import com.mygdx.game.worldAttributes.areas.Shade;
-import com.mygdx.game.worldAttributes.areas.Target;
 import com.mygdx.game.gamelogic.GameLoop;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.gamelogic.World;
+import com.mygdx.game.worldAttributes.Pheromone;
+import com.mygdx.game.worldAttributes.Sound;
+import com.mygdx.game.worldAttributes.areas.Area;
+import com.mygdx.game.worldAttributes.areas.Shade;
+import com.mygdx.game.worldAttributes.areas.Target;
 
 import java.util.ArrayList;
 
@@ -68,8 +69,6 @@ abstract public class Agent
     {
         velocity = ai.getNewVelocity();
         angle = ai.getNewAngle();
-
-        updatePosition();
     }
 
     private Vector2 newPosition;
@@ -82,7 +81,7 @@ abstract public class Agent
         velocityX = velocity * (float)Math.cos(angleRad);
         velocityY = velocity * (float)Math.sin(angleRad);
 
-        newPosition = new Vector2(position.x + velocityX / GameLoop.TICKRATE, position.y + velocityY / GameLoop.TICKRATE);
+        newPosition = new Vector2((float) (position.x + velocityX / GameLoop.TICKRATE), (float) (position.y + velocityY / GameLoop.TICKRATE));
 
         if(isValidMove(position,newPosition))
             position.set(newPosition); // Maybe add close approach for when path intersects wall
@@ -103,11 +102,36 @@ abstract public class Agent
     {
         ArrayList<Agent> visibleAgents = new ArrayList<>();
 
-        for(Agent agent : world.getAgents())
-            if (agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
-                visibleAgents.add(agent);
+        if(active)
+            for(Agent agent : world.getAgents())
+                if (agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
+                    visibleAgents.add(agent);
 
         return visibleAgents;
+    }
+
+    public ArrayList<Sound> getVisibleSounds()
+    {
+        ArrayList<Sound> visibleSounds = new ArrayList<>();
+
+        if(active)
+            for(Sound sound : world.getSounds())
+                if (position.dst2(sound.getPosition()) < (sound.getVisibility() * sound.getVisibility()))
+                    visibleSounds.add(sound);
+
+        return visibleSounds;
+    }
+
+    public ArrayList<Pheromone> getVisiblePheromones()
+    {
+        ArrayList<Pheromone> visiblePheromones = new ArrayList<>();
+
+        if(active)
+            for(Pheromone pheromone : world.getPheromones())
+                if (position.dst2(pheromone.getPosition()) < (pheromone.getVisibility() * pheromone.getVisibility()))
+                    visiblePheromones.add(pheromone);
+
+        return visiblePheromones;
     }
 
     public boolean getActive()
@@ -118,5 +142,15 @@ abstract public class Agent
     public Vector2 getPosition()
     {
         return position;
+    }
+
+    public float getAngle()
+    {
+        return angle;
+    }
+
+    public float getVelocity()
+    {
+        return velocity;
     }
 }

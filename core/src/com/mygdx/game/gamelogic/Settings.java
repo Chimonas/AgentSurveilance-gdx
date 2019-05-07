@@ -1,7 +1,7 @@
 package com.mygdx.game.gamelogic;
 
-import com.mygdx.game.worldAttributes.agents.ai.guard.GuardAI;
-import com.mygdx.game.worldAttributes.agents.ai.intruder.IntruderAI;
+import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
+import com.mygdx.game.worldAttributes.agents.intruder.IntruderAI;
 
 public class Settings
 {
