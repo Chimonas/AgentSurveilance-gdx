@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Guard extends Agent
 {
-    static final float VISIBILITY = 7.5f;
+    public static final float VISIBILITY = 7.5f;
 
     public Guard(World world, Settings settings)
     {

@@ -98,6 +98,4 @@ public class Settings
     public void setExplorationPhase(boolean explorationPhase) {
         this.explorationPhase = explorationPhase;
     }
-
-
 }

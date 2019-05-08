@@ -18,19 +18,14 @@ abstract public class Agent
     protected World world;
     protected Settings settings;
 
+
+    public final float VISUALANGLE = 45.0f;
     protected AI ai;
-    protected float maxVelocity;
-    protected float visualAngle;
-    protected float visualMultiplier;
-    protected float visibility;
-    protected float turnVelocity;
-    protected float turnAngle;
-    protected float noiseGeneratedRadius;
+    protected float maxVelocity, visualMultiplier, visibility, turnVelocity, turnAngle;
 
     protected boolean active;
     protected Vector2 position;
-    protected float angle;
-    protected float velocity;
+    protected float angleFacing, velocity;
 
 //    protected boolean inShade;
 
@@ -40,19 +35,17 @@ abstract public class Agent
         this.settings = settings;
 
         maxVelocity = 1.4f;
-        visualAngle = 45.0f;
         visualMultiplier = 1.0f;
         turnVelocity = 180.0f;
-        setNoiseGeneratedRadius();
 
         active = false;
     }
 
-    public void spawn(Vector2 position, float angle)
+    public void spawn(Vector2 position, float angleFacing)
     {
         active = true;
         this.position = position;
-        this.angle = angle;
+        this.angleFacing = angleFacing;
         velocity = 0f;
     }
 
@@ -71,10 +64,17 @@ abstract public class Agent
         spawn(randomPosition, 0.0f);
     }
 
+    private float newVelocity, newAngleFacing;
+
     public void update()
     {
-        velocity = ai.getNewVelocity();
-        angle = ai.getNewAngle();
+        newVelocity = ai.getNewVelocity();
+        newAngleFacing = ai.getNewAngle();
+
+        velocity = newVelocity > 0.0f ? newVelocity : 0.0f;
+        angleFacing = (newAngleFacing + 180.0f) % 360.0f - 180.0f;
+
+        System.out.println(angleFacing);
     }
 
     private Vector2 newPosition;
@@ -82,7 +82,7 @@ abstract public class Agent
 
     public void updatePosition()
     {
-        angleRad = (float)Math.cos(Math.toRadians(angle));
+        angleRad = (float)Math.toRadians(angleFacing);
 
         velocityX = velocity * (float)Math.cos(angleRad);
         velocityY = velocity * (float)Math.sin(angleRad);
@@ -157,17 +157,10 @@ abstract public class Agent
         return position;
     }
 
-    public float getAngle()
+    public float getAngleFacing()
     {
-        return angle;
+        return angleFacing;
     }
-
-    public float getVelocity()
-    {
-        return velocity;
-    }
-
-    public float getAngleFacing() { return angleFacing; }
 
     public void setAngleFacing(float angleFacing) {
         this.angleFacing = angleFacing;
@@ -179,52 +172,5 @@ abstract public class Agent
 
     public void setVelocity(float velocity) {
         this.velocity = velocity;
-    }
-
-    public float getVisualAngle() { return visualAngle;}
-
-    public void setVisualAngle(float visualAngle) { this.visualAngle = visualAngle;}
-
-    public float getTurnVelocity() { return turnVelocity; }
-
-    public void setTurnVelocity(float turnVelocity) { this.turnVelocity = turnVelocity; }
-
-    public float getNoiseGeneratedRadius(){ return noiseGeneratedRadius;};
-
-    //To be called at every frame in order to update sound according to speed
-    public void setNoiseGeneratedRadius() {
-
-        if(velocity < 0.5){
-            noiseGeneratedRadius = 1.0f;
-            return;
-        }
-        else if(velocity < 1) {
-            noiseGeneratedRadius = 3.0f;
-            return;
-        }
-        else if(velocity < 2) {
-            noiseGeneratedRadius = 5.0f;
-            return;
-        }
-        else noiseGeneratedRadius = 10.0f;
-    }
-
-
-    //During a turn, update the angle facing every tick
-    public float getTurnAngle(){return this.turnAngle; }
-
-    public void setTurnAngle(float turnAngle){
-        this.turnAngle = turnAngle;
-    }
-
-    public static void updateAngleFacing(ArrayList<Area> areas, Agent a, float newAngle){
-        ArrayList<Agent> agentsInVision = new ArrayList<Agent>();
-
-        float oldAngle = a.getAngleFacing();
-        a.setTurnAngle(oldAngle - newAngle);
-        a.setVelocity(0);
-        a.setAngleFacing(oldAngle - (a.getTurnAngle()/a.getTurnVelocity()));
-        a.setTurnAngle(newAngle - a.getAngleFacing());
-
     }
 }

@@ -6,8 +6,8 @@ import com.mygdx.game.worldAttributes.agents.Agent;
 
 public class Intruder extends Agent
 {
-    private static final float VISIBILITY = 6.5f;
-    private boolean sprinting;
+    public static final float VISIBILITY = 6.5f;
+//    private boolean sprinting;
 
     public Intruder(World world, Settings settings)
     {
@@ -15,7 +15,7 @@ public class Intruder extends Agent
         visibility = VISIBILITY;
         ai = new Stupid(this);
 
-        sprinting = false;
+//        sprinting = false;
     }
 
     @Override
@@ -28,8 +28,8 @@ public class Intruder extends Agent
         }
     }
 
-    public void setSprinting(boolean sprinting)
-    {
-        this.sprinting = sprinting;
-    }
+//    public void setSprinting(boolean sprinting)
+//    {
+//        this.sprinting = sprinting;
+//    }
 }

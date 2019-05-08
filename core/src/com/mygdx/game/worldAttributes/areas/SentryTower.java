@@ -17,7 +17,6 @@ public class SentryTower extends Area
     @Override
     public void setPosition(Vector2 startPoint, Vector2 endPoint)
     {
-        topLeft = new Vector2(endPoint.x - WIDTH / 2,endPoint.y + HEIGHT / 2);
-        bottomRight = new Vector2(endPoint.x + WIDTH / 2,endPoint.y - HEIGHT / 2);
+        super.setPosition(new Vector2(endPoint.x - WIDTH / 2,endPoint.y + HEIGHT / 2), new Vector2(endPoint.x + WIDTH / 2,endPoint.y - HEIGHT / 2));
     }
 }

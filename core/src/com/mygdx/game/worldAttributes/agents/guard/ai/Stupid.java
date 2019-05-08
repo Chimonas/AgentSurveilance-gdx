@@ -22,11 +22,11 @@ public class Stupid extends GuardAI
 
     public float getNewAngle()
     {
-        return guard.getAngle() + 2.0f * ((float)Math.random() - 0.5f) * 30.0f;
+        return guard.getAngleFacing() + 2.0f * ((float)Math.random() - 0.5f) * 300.0f / (float) GameLoop.TICKRATE;
     }
 
     public float getNewVelocity()
     {
-        return guard.getVelocity() + 2.0f * ((float)Math.random() - 0.5f) * 1.0f;
+        return guard.getVelocity() + 2.0f * ((float)Math.random() - 0.5f) * 20.0f / (float) GameLoop.TICKRATE;
     }
 }

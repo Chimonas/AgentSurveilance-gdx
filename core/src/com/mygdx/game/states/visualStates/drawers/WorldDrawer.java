@@ -18,11 +18,11 @@ public class WorldDrawer
 
         for (Guard guard : world.getGuards())
             if (guard.getActive())
-                AgentDrawer.render(shapeRenderer, guard);
+                AgentDrawer.render(shapeRenderer, guard, true);
 
         for (Intruder intruder : world.getIntruders())
             if(intruder.getActive())
-                AgentDrawer.render(shapeRenderer, intruder);
+                AgentDrawer.render(shapeRenderer, intruder, true);
 
         for (Sound sound : world.getSounds())
             SoundDrawer.render(shapeRenderer, sound);

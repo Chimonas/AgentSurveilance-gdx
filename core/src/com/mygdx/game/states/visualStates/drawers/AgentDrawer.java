@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
+import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 
 public class AgentDrawer
 {
@@ -34,18 +35,20 @@ public class AgentDrawer
         shapeRenderer.circle(position.x, position.y, AGENTSIZE, 12);
         shapeRenderer.end();
 
-        if(showVisualRange){
-
-            //Would be better to get that directly within the agent.... to see how to implement with the visibility
+        if(showVisualRange)
+        {
             float visualRange;
-            if(agent instanceof Guard) visualRange = 6.0f;
-            else visualRange = 7.0f;
+
+            if(agent instanceof Guard)
+                visualRange = Intruder.VISIBILITY;
+            else
+                visualRange = Guard.VISIBILITY;
 
             Gdx.gl.glEnable(GL20.GL_BLEND);
             Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor(VISUALRANGECOLOR);
-            shapeRenderer.arc(position.x, position.y, visualRange, agent.getAngleFacing(), agent.getVisualAngle(), 12);
+            shapeRenderer.arc(position.x, position.y, visualRange, agent.getAngleFacing() - agent.VISUALANGLE / 2.0f, agent.VISUALANGLE, 12);
             shapeRenderer.end();
             Gdx.gl.glDisable(GL20.GL_BLEND);
         }
