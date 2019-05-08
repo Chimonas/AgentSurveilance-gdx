@@ -17,6 +17,11 @@ public class Guard extends Agent
         super(world, settings);
         visibility = VISIBILITY;
         ai = new Stupid(this);
+
+        if(settings.isExplorationPhase())
+        {
+//            explorationAi = settings.getexplorationai
+        }
     }
 
     @Override

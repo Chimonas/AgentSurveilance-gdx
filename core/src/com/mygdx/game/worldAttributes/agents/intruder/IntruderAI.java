@@ -7,7 +7,7 @@ import com.mygdx.game.worldAttributes.agents.Agent;
 
 import java.util.ArrayList;
 
-public abstract class IntruderAI implements AI
+public abstract class IntruderAI extends AI
 {
     public enum AIType
     {

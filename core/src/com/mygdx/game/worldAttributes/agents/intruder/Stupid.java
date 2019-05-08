@@ -1,5 +1,7 @@
 package com.mygdx.game.worldAttributes.agents.intruder;
 
+import com.mygdx.game.gamelogic.GameLoop;
+
 public class Stupid extends IntruderAI
 {
     public Stupid(Intruder intruder)
@@ -7,15 +9,13 @@ public class Stupid extends IntruderAI
         super(intruder);
     }
 
-    @Override
     public float getNewAngle()
     {
-        return intruder.getAngle() + 2.0f * ((float)Math.random() - 0.5f) * 30.0f;
+        return intruder.getAngle() + 2.0f * ((float)Math.random() - 0.5f) * 300.0f / (float)GameLoop.TICKRATE;
     }
 
-    @Override
     public float getNewVelocity()
     {
-        return intruder.getVelocity() + 2.0f * ((float)Math.random() - 0.5f) * 1.0f;
+        return intruder.getVelocity() + 2.0f * ((float)Math.random() - 0.5f) * 20.0f / (float)GameLoop.TICKRATE;
     }
 }

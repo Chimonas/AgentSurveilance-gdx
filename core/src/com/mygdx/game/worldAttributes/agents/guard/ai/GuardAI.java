@@ -9,7 +9,7 @@ import com.mygdx.game.worldAttributes.areas.Area;
 
 import java.util.ArrayList;
 
-public abstract class GuardAI implements AI
+public abstract class GuardAI extends AI
 {
     public enum AIType
     {

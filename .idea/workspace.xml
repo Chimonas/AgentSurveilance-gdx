@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="571793e6-7ea5-41f7-bdfa-9be721a46547" name="Default" comment="Pheromones pt.2">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Gradle___AgentSurveilance_gdx___html_1_0_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Gradle___AgentSurveilance_gdx___html_1_0_war__exploded_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Gradle___AgentSurveilance_gdx___html_draft_1_0_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Gradle___AgentSurveilance_gdx___html_draft_1_0_war__exploded_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/AgentSurveillanceLibgdx.iml" beforeDir="false" />
+    <list default="true" id="571793e6-7ea5-41f7-bdfa-9be721a46547" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/Settings.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/Settings.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/World.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/PheromoneDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/PheromoneDrawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/SoundDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/SoundDrawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/AI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/Stupid.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/Stupid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/explorationAi/ExplorationAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/explorationAi/ExplorationAI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/IntruderAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/IntruderAI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/Stupid.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/Stupid.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -45,60 +39,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Agent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="603">
-              <caret line="139" column="116" selection-start-line="139" selection-start-column="116" selection-end-line="139" selection-end-column="116" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#despawn#0;class#Agent#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SoundDrawer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/SoundDrawer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="58" lean-forward="true" selection-start-line="13" selection-start-column="58" selection-end-line="13" selection-end-column="58" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Settings.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/Settings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="18" lean-forward="true" selection-start-column="18" selection-end-column="18" />
+            <state relative-caret-position="-165">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PheromoneDrawer.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/PheromoneDrawer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AreaDrawer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/AreaDrawer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -106,10 +54,24 @@
       <file leaf-file-name="Pheromone.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/Pheromone.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5">
-              <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+            <state relative-caret-position="136">
+              <caret line="8" column="66" lean-forward="true" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExplorationAI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/explorationAi/ExplorationAI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#544#545#0" expanded="true" />
+                <element signature="e#578#579#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -128,20 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Guard.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java">
+      <file leaf-file-name="IntruderAI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/IntruderAI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Stupid.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/Stupid.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+            <state relative-caret-position="153">
+              <caret line="9" column="40" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -149,13 +102,65 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SentryTower.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/areas/SentryTower.java">
+      <file leaf-file-name="GuardAI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+            <state relative-caret-position="204">
+              <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#741#742#0" expanded="true" />
+                <element signature="e#775#776#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Guard.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/AI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Stupid.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/Stupid.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+              <folding>
+                <element signature="e#139#140#0" expanded="true" />
+                <element signature="e#170#171#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Stupid.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/Stupid.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#269#270#0" expanded="true" />
+                <element signature="e#355#356#0" expanded="true" />
+                <element signature="e#410#411#0" expanded="true" />
+                <element signature="e#498#499#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -211,8 +216,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/GameLogic/Map.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/Settings.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/menuStates/AISettingsState.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/agents/Hearing.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/BuilderState.java" />
@@ -244,14 +247,9 @@
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/ai/guard/ExplorationAI.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/ai/guard/GuardAI.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Guard.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/areas/Area.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/Pheromone.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/WorldDrawer.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/Sound.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/Stupid.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/IntruderAI.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/Intruder.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/SimulationState.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/GameLoop.java" />
@@ -259,9 +257,16 @@
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/gameLogic/World.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/World.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/Stupid.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/SoundDrawer.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/PheromoneDrawer.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/Pheromone.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/Stupid.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/Stupid.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/IntruderAI.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/AI.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/explorationAi/ExplorationAI.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java" />
       </list>
     </option>
   </component>
@@ -361,6 +366,48 @@
               <item name="game" type="462c0819:PsiDirectoryNode" />
               <item name="worldAttributes" type="462c0819:PsiDirectoryNode" />
               <item name="agents" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="core" type="9c53a853:ProjectViewModuleGroupNode" />
+              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="worldAttributes" type="462c0819:PsiDirectoryNode" />
+              <item name="agents" type="462c0819:PsiDirectoryNode" />
+              <item name="guard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="core" type="9c53a853:ProjectViewModuleGroupNode" />
+              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="worldAttributes" type="462c0819:PsiDirectoryNode" />
+              <item name="agents" type="462c0819:PsiDirectoryNode" />
+              <item name="guard" type="462c0819:PsiDirectoryNode" />
+              <item name="ai" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="core" type="9c53a853:ProjectViewModuleGroupNode" />
+              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="worldAttributes" type="462c0819:PsiDirectoryNode" />
+              <item name="agents" type="462c0819:PsiDirectoryNode" />
+              <item name="guard" type="462c0819:PsiDirectoryNode" />
+              <item name="explorationAi" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="core" type="9c53a853:ProjectViewModuleGroupNode" />
+              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="worldAttributes" type="462c0819:PsiDirectoryNode" />
+              <item name="agents" type="462c0819:PsiDirectoryNode" />
+              <item name="intruder" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
@@ -583,7 +630,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556799714055</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Pheromones pt.2">
+      <created>1557310237133</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1557310237133</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -782,44 +836,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/explorationAi/ExplorationAI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="14" lean-forward="true" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#734#735#0" expanded="true" />
-            <element signature="e#768#769#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/AI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/IntruderAI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="40" lean-forward="true" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#575#576#0" expanded="true" />
-            <element signature="e#609#610#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/states/menuStates/AISettingsState.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
@@ -872,16 +888,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/Stupid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-          <folding>
-            <element signature="e#457#458#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/areas/SentryTower.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -906,34 +912,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/Settings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="18" lean-forward="true" selection-start-column="18" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/World.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="58" column="13" lean-forward="true" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getAgents#0;class#World#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="603">
@@ -941,16 +919,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#despawn#0;class#Agent#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/Stupid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -965,20 +933,117 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/Pheromone.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/PheromoneDrawer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5">
-          <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+        <state relative-caret-position="442">
+          <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/PheromoneDrawer.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/Pheromone.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+        <state relative-caret-position="136">
+          <caret line="8" column="66" lean-forward="true" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/Stupid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#139#140#0" expanded="true" />
+            <element signature="e#170#171#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/Stupid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#269#270#0" expanded="true" />
+            <element signature="e#355#356#0" expanded="true" />
+            <element signature="e#410#411#0" expanded="true" />
+            <element signature="e#498#499#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/IntruderAI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="40" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/World.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="583">
+          <caret line="58" column="13" lean-forward="true" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getAgents#0;class#World#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/AI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/explorationAi/ExplorationAI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#544#545#0" expanded="true" />
+            <element signature="e#578#579#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#741#742#0" expanded="true" />
+            <element signature="e#775#776#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/Settings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-165">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

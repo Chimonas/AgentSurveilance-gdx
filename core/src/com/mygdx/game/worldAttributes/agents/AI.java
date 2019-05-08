@@ -1,9 +1,9 @@
 package com.mygdx.game.worldAttributes.agents;
 
-public interface AI
+public abstract class AI
 {
-    void update();
+    public abstract void update();
 
-    float getNewVelocity();
-    float getNewAngle();
+    public abstract float getNewVelocity();
+    public abstract float getNewAngle();
 } 
