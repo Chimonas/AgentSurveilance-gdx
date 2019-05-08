@@ -54,6 +54,7 @@ abstract public class Agent
     public void despawn()
     {
         active = false;
+        velocity = 0.0f;
     }
 
     public void spawnRandom(Map map)
@@ -132,6 +133,13 @@ abstract public class Agent
                     visiblePheromones.add(pheromone);
 
         return visiblePheromones;
+    }
+
+    public boolean createPheromone(Pheromone.PheromoneType pheromoneType)
+    {
+        world.addPheromone(new Pheromone(pheromoneType, new Vector2(position))); //also set pheromone cooldown timer
+
+        return true; //returns if pheromone was created
     }
 
     public boolean getActive()

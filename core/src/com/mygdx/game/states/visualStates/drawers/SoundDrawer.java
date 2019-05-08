@@ -13,7 +13,7 @@ public class SoundDrawer
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.BLACK);
-        shapeRenderer.circle(position.x, position.y, sound.getVisibility(), 6 + (int)sound.getVisibility());
+        shapeRenderer.circle(position.x, position.y, sound.getVisibility(), 12 + 2 * (int)sound.getVisibility());
         shapeRenderer.end();
     }
 }

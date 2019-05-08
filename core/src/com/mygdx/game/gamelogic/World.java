@@ -48,6 +48,16 @@ public class World
         for (Intruder intruder : intruders)
             intruder.update();
 
+        for(Pheromone pheromone : pheromones)
+            pheromone.update();
+
+        for (int i = 0; i < pheromones.size(); i++)
+            if (pheromones.get(i).getIntensity() <= 0.0f)
+            {
+                pheromones.remove(i);
+                i--;
+            }
+
         for (Guard guard : guards)
             guard.updatePosition();
         for (Intruder intruder : intruders)
@@ -84,5 +94,10 @@ public class World
 
     public ArrayList<Pheromone> getPheromones() {
         return pheromones;
+    }
+
+    public void addPheromone(Pheromone pheromone)
+    {
+        pheromones.add(pheromone);
     }
 }
