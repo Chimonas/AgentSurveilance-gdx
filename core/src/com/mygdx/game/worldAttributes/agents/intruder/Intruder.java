@@ -1,9 +1,8 @@
-package com.mygdx.game.worldAttributes.agents;
+package com.mygdx.game.worldAttributes.agents.intruder;
 
-import com.mygdx.game.worldAttributes.agents.ai.intruder.IntruderAI;
-import com.mygdx.game.worldAttributes.agents.ai.intruder.Stupid;
 import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.gamelogic.World;
+import com.mygdx.game.worldAttributes.agents.Agent;
 
 public class Intruder extends Agent
 {
@@ -14,7 +13,7 @@ public class Intruder extends Agent
     {
         super(world, settings);
         visibility = VISIBILITY;
-        ai = new Stupid(world.getMap());
+        ai = new Stupid(this);
 
         sprinting = false;
     }
@@ -24,7 +23,7 @@ public class Intruder extends Agent
     {
         if(active)
         {
-            ((IntruderAI) ai).update(velocity, angleFacing, getVisibleAgents());
+            ai.update();
             super.update();
         }
     }

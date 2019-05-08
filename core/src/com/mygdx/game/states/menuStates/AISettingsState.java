@@ -18,7 +18,7 @@ public class AISettingsState extends MenuState
 {
     private Stage stage;
     private Map map;
-    private static Settings settings;
+    private Settings settings;
 
     public AISettingsState(StateManager stateManager, Map map)
     {
@@ -94,14 +94,17 @@ public class AISettingsState extends MenuState
 
         guardL = new Label("Guard agents:", StateManager.skin);
         centerTable.add(guardL).pad(5);
+
         guardSB = new SelectBox(StateManager.skin);
         guardSB.setItems(GuardAI.AIType.values());
         centerTable.add(guardSB).pad(5).row();
+
         //TODO settings.setGuardAI();
+
         guardAmountL = new Label("Number of Guards:", StateManager.skin);
         centerTable.add(guardAmountL).pad(5);
+
         guardAmountTF = new TextField("", StateManager.skin);
-        centerTable.add(guardAmountTF).pad(5).row();
         guardAmountTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
@@ -109,17 +112,21 @@ public class AISettingsState extends MenuState
                     settings.setGuardAmount((int) Float.parseFloat(guardAmountTF.getText()));
             }
         });
+        centerTable.add(guardAmountTF).pad(5).row();
 
         intruderL = new Label("Intruder agents:", StateManager.skin);
         centerTable.add(intruderL).pad(5);
+
         intruderSB = new SelectBox(StateManager.skin);
         intruderSB.setItems(IntruderAI.AIType.values());
         centerTable.add(intruderSB).pad(5).row();
+
         //TODO settings.setIntruderAI();
+
         intruderAmountL = new Label("Number of Intruders:", StateManager.skin);
         centerTable.add(intruderAmountL).pad(5);
+
         intruderAmountTF = new TextField("", StateManager.skin);
-        centerTable.add(intruderAmountTF).pad(5).row();
         intruderAmountTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
@@ -127,6 +134,7 @@ public class AISettingsState extends MenuState
                     settings.setIntruderAmount((int) Float.parseFloat(intruderAmountTF.getText()));
             }
         });
+        centerTable.add(intruderAmountTF).pad(5).row();
 
         timeL = new Label("Time Settings", StateManager.skin);
         timeL.setFontScale(1.3f);
@@ -134,8 +142,8 @@ public class AISettingsState extends MenuState
 
         maxTimeL = new Label("Simulation Time", StateManager.skin);
         centerTable.add(maxTimeL).pad(5);
+
         maxTimeTF = new TextField("", StateManager.skin);
-        centerTable.add(maxTimeTF).pad(5).row();
         maxTimeTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
@@ -143,16 +151,20 @@ public class AISettingsState extends MenuState
                     settings.setMaxTime((int) Float.parseFloat(maxTimeTF.getText()));
             }
         });
+        centerTable.add(maxTimeTF).pad(5).row();
+
         explorationPhaseL = new Label("Exploration Phase", StateManager.skin);
         centerTable.add(explorationPhaseL).pad(5);
+
         explorationPhaseB = new CheckBox("",StateManager.skin);
         centerTable.add(explorationPhaseB).pad(5).row();
+
         //TODO settings.setExplorationPhase();
 
         explorationTimeL =  new Label("Exploration Time", StateManager.skin);
         centerTable.add(explorationTimeL).pad(5);
+
         explorationTimeTF = new TextField("", StateManager.skin);
-        centerTable.add(explorationTimeTF).pad(5).row();
         explorationTimeTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
@@ -160,14 +172,16 @@ public class AISettingsState extends MenuState
                     settings.setExplorationTime((int) Float.parseFloat(explorationTimeTF.getText()));
             }
         });
+        centerTable.add(explorationTimeTF).pad(5).row();
+
         weightsL = new Label("Performance weights", StateManager.skin);
         weightsL.setFontScale(1.3f);
         centerTable.add(weightsL).pad(5).row();
 
         timeWeightL = new Label("Time", StateManager.skin);
         centerTable.add(timeWeightL).pad(5);
+
         timeWeightTF = new TextField("", StateManager.skin);
-        centerTable.add(timeWeightTF).pad(5).row();
         timeWeightTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
@@ -175,10 +189,12 @@ public class AISettingsState extends MenuState
                     settings.setTimeWeight((int) Float.parseFloat(timeWeightTF.getText()));
             }
         });
+        centerTable.add(timeWeightTF).pad(5).row();
+
         movementWeightL = new Label("Movement", StateManager.skin);
         centerTable.add(movementWeightL).pad(5);
+
         movementWeightTF = new TextField("", StateManager.skin);
-        centerTable.add(movementWeightTF).pad(5).row();
         movementWeightTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
@@ -186,11 +202,12 @@ public class AISettingsState extends MenuState
                     settings.setMovementWeight((int) Float.parseFloat(movementWeightTF.getText()));
             }
         });
+        centerTable.add(movementWeightTF).pad(5).row();
 
         directCommL = new Label("Direct Communication", StateManager.skin);
         centerTable.add(directCommL).pad(5);
+
         directCommTF = new TextField("", StateManager.skin);
-        centerTable.add(directCommTF).pad(5).row();
         directCommTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
@@ -198,10 +215,12 @@ public class AISettingsState extends MenuState
                     settings.setDirectComWeight((int) Float.parseFloat(directCommTF.getText()));
             }
         });
+        centerTable.add(directCommTF).pad(5).row();
+
         indirectCommL = new Label("Indirect Communication", StateManager.skin);
         centerTable.add(indirectCommL).pad(5);
+
         indirectCommTF = new TextField("", StateManager.skin);
-        centerTable.add(indirectCommTF).pad(5).row();
         indirectCommTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
@@ -209,6 +228,8 @@ public class AISettingsState extends MenuState
                     settings.setIndirectComWeight((int) Float.parseFloat(indirectCommTF.getText()));
             }
         });
+        centerTable.add(indirectCommTF).pad(5).row();
+
         table.add(centerTable).expand().top().row();
 
         //Bottom table
@@ -240,9 +261,4 @@ public class AISettingsState extends MenuState
 
         stage.addActor(table);
     }
-
-    public static Settings getSettings(){
-        return settings;
-    }
-
 }

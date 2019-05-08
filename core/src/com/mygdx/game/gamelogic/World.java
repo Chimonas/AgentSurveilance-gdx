@@ -1,9 +1,10 @@
 package com.mygdx.game.gamelogic;
 
-import com.mygdx.game.states.menuStates.AISettingsState;
+import com.mygdx.game.worldAttributes.Pheromone;
+import com.mygdx.game.worldAttributes.Sound;
 import com.mygdx.game.worldAttributes.agents.Agent;
-import com.mygdx.game.worldAttributes.agents.Guard;
-import com.mygdx.game.worldAttributes.agents.Intruder;
+import com.mygdx.game.worldAttributes.agents.guard.Guard;
+import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 
 import java.util.ArrayList;
 
@@ -13,8 +14,8 @@ public class World
     Settings settings;
     ArrayList<Guard> guards;
     ArrayList<Intruder> intruders;
-//    ArrayList<Sound> sounds;
-//    Arraylist<Pheromone> pheromones;
+    ArrayList<Sound> sounds;
+    ArrayList<Pheromone> pheromones;
 
     public World(Map map, Settings settings)
     {
@@ -23,9 +24,8 @@ public class World
 
         guards = new ArrayList<>();
         intruders = new ArrayList<>();
-
-        this.settings = (Settings) AISettingsState.getSettings();
-
+        sounds = new ArrayList<>();
+        pheromones = new ArrayList<>();
 
         for (int i = 0; i < this.settings.getGuardAmount(); i++) //10 magic number for settings.getGuardAmount
         {
@@ -47,6 +47,21 @@ public class World
             guard.update();
         for (Intruder intruder : intruders)
             intruder.update();
+
+        for(Pheromone pheromone : pheromones)
+            pheromone.update();
+
+        for (int i = 0; i < pheromones.size(); i++)
+            if (pheromones.get(i).getIntensity() <= 0.0f)
+            {
+                pheromones.remove(i);
+                i--;
+            }
+
+        for (Guard guard : guards)
+            guard.updatePosition();
+        for (Intruder intruder : intruders)
+            intruder.updatePosition();
     }
 
     public Map getMap()
@@ -71,5 +86,18 @@ public class World
         agents.addAll(intruders);
 
         return agents;
+    }
+
+    public ArrayList<Sound> getSounds() {
+        return sounds;
+    }
+
+    public ArrayList<Pheromone> getPheromones() {
+        return pheromones;
+    }
+
+    public void addPheromone(Pheromone pheromone)
+    {
+        pheromones.add(pheromone);
     }
 }

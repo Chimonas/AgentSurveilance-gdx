@@ -4,9 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gamelogic.Map;
 
-public abstract class Area {
-    public enum AreaType {
+public abstract class Area
+{
+    public enum AreaType
+    {
         STRUCTURE, SENTRYTOWER, SHADE, TARGET
+
     }
 
     protected Vector2 topLeft, topRight, bottomLeft, bottomRight;

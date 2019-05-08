@@ -1,9 +1,11 @@
 package com.mygdx.game.states.visualStates.drawers;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.mygdx.game.worldAttributes.agents.Guard;
-import com.mygdx.game.worldAttributes.agents.Intruder;
 import com.mygdx.game.gamelogic.World;
+import com.mygdx.game.worldAttributes.Pheromone;
+import com.mygdx.game.worldAttributes.Sound;
+import com.mygdx.game.worldAttributes.agents.guard.Guard;
+import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 
 public class WorldDrawer
 {
@@ -11,12 +13,18 @@ public class WorldDrawer
     {
         MapDrawer.render(shapeRenderer, world.getMap());
 
+        for (Pheromone pheromone : world.getPheromones())
+            PheromoneDrawer.render(shapeRenderer, pheromone);
+
         for (Guard guard : world.getGuards())
             if (guard.getActive())
-                AgentDrawer.render(shapeRenderer, guard, true);
+                AgentDrawer.render(shapeRenderer, guard);
 
         for (Intruder intruder : world.getIntruders())
             if(intruder.getActive())
-                AgentDrawer.render(shapeRenderer, intruder, false);
+                AgentDrawer.render(shapeRenderer, intruder);
+
+        for (Sound sound : world.getSounds())
+            SoundDrawer.render(shapeRenderer, sound);
     }
 }
