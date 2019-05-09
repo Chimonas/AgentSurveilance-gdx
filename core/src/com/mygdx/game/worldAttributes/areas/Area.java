@@ -138,6 +138,7 @@ public abstract class Area
         return true;
     }
 
+
     public Vector2 getTopLeft() {
         return topLeft;
     }

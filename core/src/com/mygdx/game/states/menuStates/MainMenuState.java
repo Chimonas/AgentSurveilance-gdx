@@ -1,21 +1,26 @@
 package com.mygdx.game.states.menuStates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.StateManager;
+import com.mygdx.game.gamelogic.FileHandler;
+import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.states.visualStates.BuilderState;
 
 public class MainMenuState extends MenuState
 {
     private Stage stage;
+    private static final float BUTTONWIDTH = 300;
 
     public MainMenuState(StateManager stateManager)
     {
@@ -42,6 +47,7 @@ public class MainMenuState extends MenuState
 
     private Label titleL;
     private TextButton newWorldB, loadWorldB;
+    private SelectBox worldSB;
 
     @Override
     protected void createStage()
@@ -63,7 +69,23 @@ public class MainMenuState extends MenuState
                 stateManager.push(new BuilderState(stateManager));
             }
         });
-        table.add(newWorldB).center().width(300);
+        table.add(newWorldB).center().width(BUTTONWIDTH);
+        table.row();
+
+        //Settings to Load an existing World
+
+        final Map[] selectedMap = {new Map()};
+
+        worldSB = new SelectBox(StateManager.skin);
+        worldSB.setItems(FileHandler.getListOfMaps());
+        worldSB.setSelectedIndex(0);
+        worldSB.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                selectedMap[0] = FileHandler.importMap((String) worldSB.getSelected());
+            }
+        });
+        table.add(worldSB).center().width(BUTTONWIDTH);
         table.row();
 
         loadWorldB = new TextButton("Load World", StateManager.skin, "default");
@@ -72,10 +94,12 @@ public class MainMenuState extends MenuState
             @Override
             public void clicked(InputEvent event, float x, float y)
             {
-                stateManager.push(new AISettingsState(stateManager, new Map())); //loadworldstate
+                stateManager.push(new AISettingsState(stateManager, selectedMap[0])); //loadworldstate
             }
         });
-        table.add(loadWorldB).center().width(300);
+        table.add(loadWorldB).center().width(BUTTONWIDTH);
+        table.row();
+
 
         table.pad(50f);
 
