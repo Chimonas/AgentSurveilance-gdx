@@ -45,7 +45,6 @@ public class AgentDrawer
                 visualRange = Guard.VISIBILITY;
 
             Gdx.gl.glEnable(GL20.GL_BLEND);
-            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor(VISUALRANGECOLOR);
             shapeRenderer.arc(position.x, position.y, visualRange, agent.getAngleFacing() - agent.VISUALANGLE / 2.0f, agent.VISUALANGLE, 12);

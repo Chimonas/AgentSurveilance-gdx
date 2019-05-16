@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class World
 {
     Map map;
+    GameLoop gameLoop;
     Settings settings;
     ArrayList<Guard> guards;
     ArrayList<Intruder> intruders;
@@ -20,6 +21,7 @@ public class World
     public World(Map map, Settings settings)
     {
         this.map = map;
+        this.gameLoop = new GameLoop(this, false);
         this.settings = settings;
 
         guards = new ArrayList<>();
@@ -33,6 +35,7 @@ public class World
             newGuard.spawnRandom(map);
             guards.add(newGuard);
         }
+
         for (int i = 0; i < this.settings.getIntruderAmount(); i++) //10 magic number for settings.getIntruderAmount
         {
             Intruder newIntruder = new Intruder(this, settings);
@@ -67,6 +70,11 @@ public class World
     public Map getMap()
     {
         return map;
+    }
+
+    public GameLoop getGameLoop()
+    {
+        return gameLoop;
     }
 
     public ArrayList<Guard> getGuards()

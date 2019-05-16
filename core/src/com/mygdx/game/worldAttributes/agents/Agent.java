@@ -18,7 +18,6 @@ abstract public class Agent
     protected World world;
     protected Settings settings;
 
-
     public final float VISUALANGLE = 45.0f;
     protected AI ai;
     protected float maxVelocity, visualMultiplier, visibility, turnVelocity, turnAngle;
@@ -61,7 +60,7 @@ abstract public class Agent
         randomPosition.x = (float) Math.random() * map.getWidth();
         randomPosition.y = (float) Math.random() * map.getHeight();
 
-        spawn(randomPosition, 0.0f);
+        spawn(randomPosition, 2.0f * ((float)Math.random() - 0.5f) * 180.0f);
     }
 
     private float newVelocity, newAngleFacing;
@@ -71,8 +70,8 @@ abstract public class Agent
         newVelocity = ai.getNewVelocity();
         newAngleFacing = ai.getNewAngle();
 
-        velocity = newVelocity > 0.0f ? newVelocity : 0.0f;
-        angleFacing = (newAngleFacing + 180.0f) % 360.0f - 180.0f;
+        velocity = newVelocity; //Can an agent go backwards??
+        angleFacing = newAngleFacing > 180.0f ? newAngleFacing - 360.0f : (newAngleFacing < -180.0f ? newAngleFacing + 360.0f : newAngleFacing);
 
         System.out.println(angleFacing);
     }

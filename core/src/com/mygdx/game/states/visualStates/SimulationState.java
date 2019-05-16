@@ -17,7 +17,6 @@ public class SimulationState extends VisualState
     {
         super(stateManager, map);
         world = new World(map, settings);
-        gameLoop = new GameLoop(world);
     }
 
     @Override
@@ -29,7 +28,7 @@ public class SimulationState extends VisualState
     @Override
     public void render()
     {
-        gameLoop.check();
+        world.getGameLoop().check();
         super.render();
 
         WorldDrawer.render(shapeRenderer,world);
@@ -54,11 +53,11 @@ public class SimulationState extends VisualState
     public boolean keyDown(int keycode)
     {
         if(keycode == Input.Keys.COMMA)
-            gameLoop.decrementSpeed();
+            world.getGameLoop().decrementSpeed();
         else if(keycode == Input.Keys.PERIOD)
-            gameLoop.incrementSpeed();
+            world.getGameLoop().incrementSpeed();
         else if(keycode == Input.Keys.P)
-            gameLoop.togglePause();
+            world.getGameLoop().togglePause();
 
         return super.keyDown(keycode);
     }
