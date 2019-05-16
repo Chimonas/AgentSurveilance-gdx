@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.mygdx.game.StateManager;
-import com.mygdx.game.gamelogic.FileHandler;
+//import com.mygdx.game.gamelogic.FileHandler;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.states.menuStates.AISettingsState;
 import com.mygdx.game.states.visualStates.drawers.AreaDrawer;
@@ -263,7 +263,7 @@ public class BuilderState extends VisualState
         savebtn = new TextButton("Save", StateManager.skin);
         savebtn.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
-                FileHandler.saveMap(map, nameMap);
+//                FileHandler.saveMap(map, nameMap);
             }
         } );
         content.add(savebtn).width(BUTTONWIDTH);
