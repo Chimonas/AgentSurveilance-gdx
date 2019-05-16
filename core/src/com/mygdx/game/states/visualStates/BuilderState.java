@@ -3,22 +3,23 @@ package com.mygdx.game.states.visualStates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.mygdx.game.worldAttributes.areas.Area;
-import com.mygdx.game.worldAttributes.areas.AreaFactory;
-import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.StateManager;
+import com.mygdx.game.gamelogic.FileHandler;
+import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.states.menuStates.AISettingsState;
 import com.mygdx.game.states.visualStates.drawers.AreaDrawer;
 import com.mygdx.game.states.visualStates.drawers.MapDrawer;
+import com.mygdx.game.worldAttributes.areas.Area;
+import com.mygdx.game.worldAttributes.areas.AreaFactory;
 
 public class BuilderState extends VisualState
 {
@@ -178,10 +179,13 @@ public class BuilderState extends VisualState
         return super.keyDown(keycode);
     }
 
+    private String nameMap = "";
     private Stage hud;
     private Table content;
+    private Label mapNameL;
+    private TextField mapNameTF;
     private ButtonGroup areaButtons;
-    private TextButton structurebtn,sentryTowerbtn,shadebtn,targetbtn,runbtn;
+    private TextButton structurebtn,sentryTowerbtn,shadebtn,targetbtn,runbtn, savebtn, cancelB;
 
     private static final float BUTTONWIDTH = 160;
 
@@ -238,6 +242,33 @@ public class BuilderState extends VisualState
         content.add(targetbtn).width(BUTTONWIDTH);
         content.row();
 
+
+        //Saving Map Settings
+        mapNameL = new Label("If you wish to save the map, enter a name & click on the save button:", StateManager.skin);
+        mapNameL.setWrap(true);
+        mapNameL.setStyle(new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        content.add(mapNameL).expandY().width(BUTTONWIDTH).bottom();
+        content.row();
+
+        mapNameTF = new TextField("", StateManager.skin);
+        mapNameTF.setTextFieldListener(new TextField.TextFieldListener() {
+            @Override
+            public void keyTyped(TextField textField, char c) {
+                if(!mapNameTF.equals("")) nameMap = mapNameTF.getText();
+            }
+        });
+        content.add(mapNameTF).width(BUTTONWIDTH);
+        content.row();
+
+        savebtn = new TextButton("Save", StateManager.skin);
+        savebtn.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y){
+                FileHandler.saveMap(map, nameMap);
+            }
+        } );
+        content.add(savebtn).width(BUTTONWIDTH);
+        content.row();
+
         runbtn = new TextButton("Run", StateManager.skin);
         runbtn.addListener(new ClickListener() {
             @Override
@@ -246,9 +277,24 @@ public class BuilderState extends VisualState
                 stateManager.push(new AISettingsState(stateManager, map));
             }
         });
+        content.add(runbtn).width(BUTTONWIDTH);
+        content.row();
 
-        content.add(runbtn).expandY().width(BUTTONWIDTH).bottom();
+        cancelB = new TextButton("Cancel", StateManager.skin);
+        cancelB.addListener(new ClickListener()
+        {
+            @Override
+            public void clicked(InputEvent event, float x, float y)
+            {
+                stateManager.pop();
+            }
+        });
+        content.add(cancelB).width(BUTTONWIDTH);
+
         content.right().pad(20f);
+
+
+
 
         hud.addActor(content);
     }
