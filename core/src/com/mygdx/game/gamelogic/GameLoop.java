@@ -7,11 +7,12 @@ public class GameLoop
 
     private boolean pause, exploration;
     private int ticks;
-    private double time, speed, lastTickTime, timeBeforeTick; // !All time related variables have to be in double for precision!
+    private double time, speed, lastTickTime, timeBeforeTick, explorationTime; // !All time related variables have to be in double for precision!
 
     public GameLoop(World world, boolean exploration)
     {
         this.world = world;
+        this.exploration = exploration;
 
         setPause(false);
         ticks = 0;
@@ -23,16 +24,30 @@ public class GameLoop
     {
         ticks++;
         lastTickTime += timeBeforeTick;
-        world.update();
+        world.update(exploration);
     }
 
     public void check()
     {
         time = System.nanoTime();
 
-        if(!pause)
-            while(time - lastTickTime > timeBeforeTick )
+        try {
+            if (exploration) {
+                if (time > this.world.settings.getExplorationTime() * Math.pow(10, 9)) {
+                    //Stops the exploration phase and the simulation phase starts
+                    stopLoop();
+                    this.world.settings.setExplorationPhase(false);
+
+                }
+            }
+        }catch(NumberFormatException e){
+            //If the exploration phase is on but no exploration time is given
+
+        }
+        if(!pause) {
+            while (time - lastTickTime > timeBeforeTick)
                 update();
+        }
     }
 
     public void setPause(boolean pause)
@@ -67,5 +82,12 @@ public class GameLoop
     public void decrementSpeed()
     {
         setSpeed(speed / SPEEDSTEP);
+    }
+
+    public void stopLoop(){
+        setPause(false);
+        ticks = 0;
+        time = 0.0f;
+        setSpeed(1.0f);
     }
 }

@@ -115,6 +115,30 @@ abstract public class Agent
         return visibleAgents;
     }
 
+    public ArrayList<Agent> getVisibleGuards()
+    {
+        ArrayList<Agent> visibleGuards = new ArrayList<>();
+
+        if(active)
+            for(Agent agent : world.getGuards())
+                if (agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
+                    visibleGuards.add(agent);
+
+        return visibleGuards;
+    }
+
+    public ArrayList<Agent> getVisibleIntruders()
+    {
+        ArrayList<Agent> visibleIntruders = new ArrayList<>();
+
+        if(active)
+            for(Agent agent : world.getIntruders())
+                if (agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
+                    visibleIntruders.add(agent);
+
+        return visibleIntruders;
+    }
+
     public ArrayList<Sound> getVisibleSounds()
     {
         ArrayList<Sound> visibleSounds = new ArrayList<>();

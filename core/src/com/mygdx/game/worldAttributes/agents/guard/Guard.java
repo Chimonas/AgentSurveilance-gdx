@@ -3,7 +3,7 @@ package com.mygdx.game.worldAttributes.agents.guard;
 import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.gamelogic.World;
 import com.mygdx.game.worldAttributes.agents.Agent;
-import com.mygdx.game.worldAttributes.agents.guard.ai.Stupid;
+import com.mygdx.game.worldAttributes.agents.guard.ai.HeuristicBot;
 import com.mygdx.game.worldAttributes.areas.Area;
 
 import java.util.ArrayList;
@@ -16,8 +16,8 @@ public class Guard extends Agent
     {
         super(world, settings);
         visibility = VISIBILITY;
-        ai = new Stupid(this);
-
+//        ai = new Stupid(this);
+        ai = new HeuristicBot(this);
         if(settings.isExplorationPhase())
         {
 //            explorationAi = settings.getexplorationai

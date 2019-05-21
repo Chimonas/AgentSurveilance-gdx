@@ -18,7 +18,8 @@ public abstract class GuardAI extends AI
 
     protected Guard guard;
     protected ArrayList<Area> visibleAreas;
-    protected ArrayList<Agent> visibleAgents;
+    protected ArrayList<Agent> visibleGuards;
+    protected ArrayList<Agent> visibleIntruders;
     protected ArrayList<Sound> visibleSounds;
     protected ArrayList<Pheromone> visiblePheromones;
 
@@ -30,7 +31,9 @@ public abstract class GuardAI extends AI
     public void update()
     {
         visibleAreas = guard.getVisibleAreas();
-        visibleAgents = guard.getVisibleAgents();
+//        visibleAgents = guard.getVisibleAgents();
+        visibleGuards = guard.getVisibleGuards();
+        visibleIntruders = guard.getVisibleIntruders();
         visibleSounds = guard.getVisibleSounds();
         visiblePheromones = guard.getVisiblePheromones();
     }

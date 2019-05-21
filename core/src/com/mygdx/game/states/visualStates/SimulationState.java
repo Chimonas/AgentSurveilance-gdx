@@ -2,7 +2,6 @@ package com.mygdx.game.states.visualStates;
 
 import com.badlogic.gdx.Input;
 import com.mygdx.game.StateManager;
-import com.mygdx.game.gamelogic.GameLoop;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.gamelogic.World;
@@ -11,7 +10,6 @@ import com.mygdx.game.states.visualStates.drawers.WorldDrawer;
 public class SimulationState extends VisualState
 {
     private World world;
-    private GameLoop gameLoop;
 
     public SimulationState(StateManager stateManager, Settings settings, Map map)
     {

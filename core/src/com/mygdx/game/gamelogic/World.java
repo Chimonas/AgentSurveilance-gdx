@@ -21,7 +21,7 @@ public class World
     public World(Map map, Settings settings)
     {
         this.map = map;
-        this.gameLoop = new GameLoop(this, false);
+        this.gameLoop = new GameLoop(this, settings.isExplorationPhase());
         this.settings = settings;
 
         guards = new ArrayList<>();
@@ -44,12 +44,15 @@ public class World
         }
     }
 
-    public void update()
+    public void update(boolean explorationPhase)
     {
         for (Guard guard : guards)
             guard.update();
-        for (Intruder intruder : intruders)
-            intruder.update();
+
+        if(!explorationPhase) {
+            for (Intruder intruder : intruders)
+                intruder.update();
+        }
 
         for(Pheromone pheromone : pheromones)
             pheromone.update();
@@ -61,10 +64,14 @@ public class World
                 i--;
             }
 
+        if(!explorationPhase) {
+            for (Intruder intruder : intruders)
+                intruder.updatePosition();
+        }
+
         for (Guard guard : guards)
             guard.updatePosition();
-        for (Intruder intruder : intruders)
-            intruder.updatePosition();
+
     }
 
     public Map getMap()
