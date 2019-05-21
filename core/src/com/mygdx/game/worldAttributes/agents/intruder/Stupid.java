@@ -15,7 +15,7 @@ public class Stupid extends IntruderAI
     {
         super.update();
 
-        if(Math.random() < 0.2f / GameLoop.TICKRATE)
+        if(Math.random() < 0.1f / GameLoop.TICKRATE)
             intruder.createPheromone(Pheromone.PheromoneType.values()[(int)(Math.random() * Pheromone.PheromoneType.values().length)]);
     }
 

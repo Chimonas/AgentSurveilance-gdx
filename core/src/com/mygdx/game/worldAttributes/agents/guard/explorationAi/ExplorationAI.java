@@ -16,6 +16,8 @@ public abstract class ExplorationAI extends AI
         SWARM
     }
 
+    protected ArrayList<Area> areas;
+
     protected Guard guard;
     protected ArrayList<Area> visibleAreas;
     protected ArrayList<Agent> visibleAgents;

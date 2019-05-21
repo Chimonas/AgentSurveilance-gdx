@@ -5,11 +5,11 @@ public class GameLoop
     private World world;
     public static final double TICKRATE = 30.0f, SPEEDSTEP = 2.0f;
 
-    private boolean pause;
+    private boolean pause, exploration;
     private int ticks;
     private double time, speed, lastTickTime, timeBeforeTick; // !All time related variables have to be in double for precision!
 
-    public GameLoop(World world)
+    public GameLoop(World world, boolean exploration)
     {
         this.world = world;
 

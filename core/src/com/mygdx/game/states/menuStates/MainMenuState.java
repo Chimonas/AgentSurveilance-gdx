@@ -1,21 +1,20 @@
 package com.mygdx.game.states.menuStates;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.mygdx.game.StateManager;
-import com.mygdx.game.gamelogic.FileHandler;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.states.visualStates.BuilderState;
+
+//import com.mygdx.game.gamelogic.FileHandler;
 
 public class MainMenuState extends MenuState
 {
@@ -77,14 +76,14 @@ public class MainMenuState extends MenuState
         final Map[] selectedMap = {new Map()};
 
         worldSB = new SelectBox(StateManager.skin);
-        worldSB.setItems(FileHandler.getListOfMaps());
-        worldSB.setSelectedIndex(0);
-        worldSB.addListener(new ChangeListener(){
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                selectedMap[0] = FileHandler.importMap((String) worldSB.getSelected());
-            }
-        });
+//        worldSB.setItems(FileHandler.getListOfMaps());
+//        worldSB.setSelectedIndex(0);
+//        worldSB.addListener(new ChangeListener(){
+//            @Override
+//            public void changed(ChangeEvent event, Actor actor) {
+//                selectedMap[0] = FileHandler.importMap((String) worldSB.getSelected());
+//            }
+//        });
         table.add(worldSB).center().width(BUTTONWIDTH);
         table.row();
 
