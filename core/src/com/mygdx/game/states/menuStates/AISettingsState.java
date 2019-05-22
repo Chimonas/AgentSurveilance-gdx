@@ -95,12 +95,12 @@ public class AISettingsState extends MenuState
         guardL = new Label("Guard agents:", StateManager.skin);
         centerTable.add(guardL).pad(5);
         guardSB = new SelectBox(StateManager.skin);
-        guardSB.setItems(GuardAI.AIType.values());
+        guardSB.setItems(GuardAI.GuardAIType.values());
         centerTable.add(guardSB).pad(5).row();
         guardSB.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                settings.setGuardAI((GuardAI) guardSB.getSelected());
+                settings.setGuardAIType((GuardAI.GuardAIType)guardSB.getSelected());
             }
 
         });
@@ -119,12 +119,12 @@ public class AISettingsState extends MenuState
         intruderL = new Label("Intruder agents:", StateManager.skin);
         centerTable.add(intruderL).pad(5);
         intruderSB = new SelectBox(StateManager.skin);
-        intruderSB.setItems(IntruderAI.AIType.values());
+        intruderSB.setItems(IntruderAI.IntruderAIType.values());
         centerTable.add(intruderSB).pad(5).row();
         intruderSB.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                settings.setIntruderAI((IntruderAI) intruderSB.getSelected());
+                settings.setIntruderAIType((IntruderAI.IntruderAIType)intruderSB.getSelected());
             }
         });
 

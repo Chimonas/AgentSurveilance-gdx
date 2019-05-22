@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public abstract class GuardAI extends AI
 {
-    public enum AIType
+    public enum GuardAIType
     {
         STUPID
     }

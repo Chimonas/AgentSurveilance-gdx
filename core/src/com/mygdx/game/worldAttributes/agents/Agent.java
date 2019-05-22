@@ -70,10 +70,10 @@ abstract public class Agent
         newVelocity = ai.getNewVelocity();
         newAngleFacing = ai.getNewAngle();
 
-        velocity = newVelocity; //Can an agent go backwards??
-        angleFacing = newAngleFacing > 180.0f ? newAngleFacing - 360.0f : (newAngleFacing < -180.0f ? newAngleFacing + 360.0f : newAngleFacing);
+        //restrict velocity and angle
 
-        System.out.println(angleFacing);
+        velocity = newVelocity >= 0.0f ? newVelocity : 0.0f; //Can an agent go backwards??
+        angleFacing = newAngleFacing > 180.0f ? newAngleFacing - 360.0f : (newAngleFacing < -180.0f ? newAngleFacing + 360.0f : newAngleFacing);
     }
 
     private Vector2 newPosition;

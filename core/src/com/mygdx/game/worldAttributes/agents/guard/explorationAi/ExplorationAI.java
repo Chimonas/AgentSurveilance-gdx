@@ -11,14 +11,14 @@ import java.util.ArrayList;
 
 public abstract class ExplorationAI extends AI
 {
-    public enum AIType
+    public enum ExplorationAIType
     {
-        SWARM
+        STUPID,SWARM
     }
 
-    protected ArrayList<Area> areas;
-
     protected Guard guard;
+    protected ArrayList<Area> internalAreas;
+
     protected ArrayList<Area> visibleAreas;
     protected ArrayList<Agent> visibleAgents;
     protected ArrayList<Sound> visibleSounds;
@@ -35,5 +35,25 @@ public abstract class ExplorationAI extends AI
         visibleAgents = guard.getVisibleAgents();
         visibleSounds = guard.getVisibleSounds();
         visiblePheromones = guard.getVisiblePheromones();
+    }
+
+    public void addArea(Area area)
+    {
+        boolean exists = false;
+
+        for(Area existingArea : internalAreas)
+            if (existingArea == area)
+            {
+                exists = true;
+                break;
+            }
+
+        if(!exists)
+            internalAreas.add(area);
+    }
+
+    public ArrayList<Area> getInternalAreas()
+    {
+        return internalAreas;
     }
 }
