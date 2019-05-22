@@ -22,7 +22,9 @@ public class Guard extends Agent
         if(settings.isExplorationPhase())
             ai = ExplorationAIFactory.newExplorationAI(settings.getExplorationAIType(), this);
         else
+        {
             ai = GuardAIFactory.newGuardAI(settings.getGuardAIType(), this);
+        }
     }
 
     public void setSimulationAI()

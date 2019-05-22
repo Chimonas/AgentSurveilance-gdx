@@ -12,15 +12,16 @@ import com.mygdx.game.worldAttributes.areas.Shade;
 import com.mygdx.game.worldAttributes.areas.Target;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 abstract public class Agent
 {
     protected World world;
     protected Settings settings;
 
-    public final float VISUALANGLE = 45.0f;
+    public final float VISUALANGLE = 45.0f, MAXVELOCITY = 1.4f, MAXTURNVELOCITY = 180.0f, PHEROMONECOOLDOWN = 5.0f;
     protected AI ai;
-    protected float maxVelocity, visualMultiplier, visibility, turnVelocity, turnAngle;
+    protected float maxVelocity, visualMultiplier, visibility;
 
     protected boolean active;
     protected Vector2 position;
@@ -33,9 +34,8 @@ abstract public class Agent
         this.world = world;
         this.settings = settings;
 
-        maxVelocity = 1.4f;
+        maxVelocity = MAXVELOCITY;
         visualMultiplier = 1.0f;
-        turnVelocity = 180.0f;
 
         active = false;
     }
@@ -60,20 +60,35 @@ abstract public class Agent
         randomPosition.x = (float) Math.random() * map.getWidth();
         randomPosition.y = (float) Math.random() * map.getHeight();
 
-        spawn(randomPosition, 2.0f * ((float)Math.random() - 0.5f) * 180.0f);
+        spawn(randomPosition, (float)Math.random() * 360.0f);
     }
-
-    private float newVelocity, newAngleFacing;
 
     public void update()
     {
-        newVelocity = ai.getNewVelocity();
-        newAngleFacing = ai.getNewAngle();
+        float newVelocity = ai.getNewVelocity();
 
-        //restrict velocity and angle
+        newVelocity = newVelocity < 0.0f ? 0.0f : (newVelocity > maxVelocity ? maxVelocity : newVelocity);
 
-        velocity = newVelocity >= 0.0f ? newVelocity : 0.0f; //Can an agent go backwards??
-        angleFacing = newAngleFacing > 180.0f ? newAngleFacing - 360.0f : (newAngleFacing < -180.0f ? newAngleFacing + 360.0f : newAngleFacing);
+        velocity = newVelocity;
+        System.out.println(velocity);
+
+
+        float newAngleFacing = ai.getNewAngle();
+
+        newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
+
+        float angleDifference = newAngleFacing - angleFacing;
+        angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
+
+        if(Math.abs(angleDifference) >= 45.0f / GameLoop.TICKRATE)
+        {
+            //TODO: descrease visibility, start blindness timer
+
+            if(Math.abs(angleDifference) > 180.0f / GameLoop.TICKRATE)
+                newAngleFacing = angleFacing + (float) (Math.signum(angleDifference) * 180.0f / GameLoop.TICKRATE);
+        }
+
+        angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
     }
 
     private Vector2 newPosition;
@@ -115,7 +130,7 @@ abstract public class Agent
         return visibleAgents;
     }
 
-    public ArrayList<Sound> getVisibleSounds()
+    public ArrayList<Float> getVisibleSounds()
     {
         ArrayList<Sound> visibleSounds = new ArrayList<>();
 
@@ -124,7 +139,20 @@ abstract public class Agent
                 if (position.dst2(sound.getPosition()) < (sound.getVisibility() * sound.getVisibility()))
                     visibleSounds.add(sound);
 
-        return visibleSounds;
+        ArrayList<Float> soundAngles = new ArrayList<>();
+
+        Random random = new Random();
+
+        for(Sound sound : visibleSounds)
+        {
+            float soundAngle = (float)(Math.atan2(sound.getPosition().y - position.y, sound.getPosition().x - position.x) / Math.PI * 180.0f);
+
+            soundAngle += random.nextGaussian() * 10.0f;
+
+            soundAngles.add(soundAngle);
+        }
+
+        return soundAngles;
     }
 
     public ArrayList<Pheromone> getVisiblePheromones()
@@ -139,11 +167,21 @@ abstract public class Agent
         return visiblePheromones;
     }
 
+    private int lastPheromoneTick;
+
     public boolean createPheromone(Pheromone.PheromoneType pheromoneType)
     {
-        world.addPheromone(new Pheromone(pheromoneType, new Vector2(position))); //also set pheromone cooldown timer
+        int currentTick = world.getGameLoop().getTicks();
 
-        return true; //returns if pheromone was created
+        if(currentTick - lastPheromoneTick <= (int)(PHEROMONECOOLDOWN * GameLoop.TICKRATE))
+        {
+            world.addPheromone(new Pheromone(pheromoneType, new Vector2(position)));
+            lastPheromoneTick = currentTick;
+
+            return true;
+        }
+
+        return false;
     }
 
     public boolean getActive()

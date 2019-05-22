@@ -1,55 +1,37 @@
 package com.mygdx.game.worldAttributes.agents.guard.explorationAi;
 
-import com.mygdx.game.worldAttributes.Pheromone;
-import com.mygdx.game.worldAttributes.Sound;
-import com.mygdx.game.worldAttributes.agents.AI;
-import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
+import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
 import com.mygdx.game.worldAttributes.areas.Area;
 
 import java.util.ArrayList;
 
-public abstract class ExplorationAI extends AI
+public abstract class ExplorationAI extends GuardAI
 {
     public enum ExplorationAIType
     {
         STUPID,SWARM
     }
 
-    protected Guard guard;
     protected ArrayList<Area> internalAreas;
-
-    protected ArrayList<Area> visibleAreas;
-    protected ArrayList<Agent> visibleAgents;
-    protected ArrayList<Sound> visibleSounds;
-    protected ArrayList<Pheromone> visiblePheromones;
 
     public ExplorationAI(Guard guard)
     {
-        this.guard = guard;
+        super(guard);
     }
 
     public void update()
     {
-        visibleAreas = guard.getVisibleAreas();
-        visibleAgents = guard.getVisibleAgents();
-        visibleSounds = guard.getVisibleSounds();
-        visiblePheromones = guard.getVisiblePheromones();
+        super.update();
+
+        for(Area area : visibleAreas)
+            addArea(area);
     }
 
     public void addArea(Area area)
     {
-        boolean exists = false;
-
-        for(Area existingArea : internalAreas)
-            if (existingArea == area)
-            {
-                exists = true;
-                break;
-            }
-
-        if(!exists)
-            internalAreas.add(area);
+         if(!internalAreas.contains(area))
+             internalAreas.add(area);
     }
 
     public ArrayList<Area> getInternalAreas()

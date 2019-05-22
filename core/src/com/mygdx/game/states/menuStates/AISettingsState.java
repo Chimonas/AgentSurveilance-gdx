@@ -97,13 +97,13 @@ public class AISettingsState extends MenuState
         guardSB = new SelectBox(StateManager.skin);
         guardSB.setItems(GuardAI.GuardAIType.values());
         centerTable.add(guardSB).pad(5).row();
-        guardSB.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                settings.setGuardAIType((GuardAI.GuardAIType)guardSB.getSelected());
-            }
+//        guardSB.addListener(new ChangeListener() {
+//            @Override
+//            public void changed(ChangeEvent event, Actor actor) {
+//            }
+//
+//        });
 
-        });
         guardAmountL = new Label("Number of Guards:", StateManager.skin);
         centerTable.add(guardAmountL).pad(5);
         guardAmountTF = new TextField("", StateManager.skin);
@@ -121,12 +121,12 @@ public class AISettingsState extends MenuState
         intruderSB = new SelectBox(StateManager.skin);
         intruderSB.setItems(IntruderAI.IntruderAIType.values());
         centerTable.add(intruderSB).pad(5).row();
-        intruderSB.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                settings.setIntruderAIType((IntruderAI.IntruderAIType)intruderSB.getSelected());
-            }
-        });
+//        intruderSB.addListener(new ChangeListener() {
+//            @Override
+//            public void changed(ChangeEvent event, Actor actor) {
+//                settings.setIntruderAIType((IntruderAI.IntruderAIType)intruderSB.getSelected());
+//            }
+//        });
 
         intruderAmountL = new Label("Number of Intruders:", StateManager.skin);
         centerTable.add(intruderAmountL).pad(5);
@@ -237,6 +237,11 @@ public class AISettingsState extends MenuState
             @Override
             public void clicked(InputEvent event, float x, float y)
             {
+                settings.setGuardAIType((GuardAI.GuardAIType)guardSB.getSelected());
+                settings.setIntruderAIType((IntruderAI.IntruderAIType)intruderSB.getSelected());
+
+
+
                 stateManager.push(new SimulationState(stateManager, settings, map));
             }
         });
