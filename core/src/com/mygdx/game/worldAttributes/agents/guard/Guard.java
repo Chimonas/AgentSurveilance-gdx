@@ -3,10 +3,10 @@ package com.mygdx.game.worldAttributes.agents.guard;
 import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.gamelogic.World;
 import com.mygdx.game.worldAttributes.agents.Agent;
+import com.mygdx.game.worldAttributes.areas.Area;
 import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAIFactory;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAIFactory;
-import com.mygdx.game.worldAttributes.areas.Area;
 
 import java.util.ArrayList;
 

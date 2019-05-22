@@ -111,8 +111,13 @@ public class AISettingsState extends MenuState
         guardAmountTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!guardAmountTF.equals(""))
-                    settings.setGuardAmount((int) Float.parseFloat(guardAmountTF.getText()));
+                if(!guardAmountTF.getText().isEmpty()) {
+                    try {
+                        settings.setGuardAmount((int) Float.parseFloat(guardAmountTF.getText()));
+                    } catch (NumberFormatException e) {
+                        guardAmountTF.setText("");
+                    }
+                }
             }
         });
 
@@ -135,8 +140,12 @@ public class AISettingsState extends MenuState
         intruderAmountTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!intruderAmountTF.equals(""))
-                    settings.setIntruderAmount((int) Float.parseFloat(intruderAmountTF.getText()));
+                if(!intruderAmountTF.getText().isEmpty())
+                    try{
+                        settings.setIntruderAmount((int) Float.parseFloat(intruderAmountTF.getText()));
+                    } catch(NumberFormatException e){
+                        intruderAmountTF.setText("");
+                    }
             }
         });
 
@@ -151,8 +160,12 @@ public class AISettingsState extends MenuState
         maxTimeTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!maxTimeTF.equals(""))
-                    settings.setMaxTime((int) Float.parseFloat(maxTimeTF.getText()));
+                if(!maxTimeTF.getText().isEmpty())
+                    try {
+                        settings.setMaxTime((int) Float.parseFloat(maxTimeTF.getText()));
+                    } catch(NumberFormatException e){
+                        maxTimeTF.setText("");
+                    }
             }
         });
         explorationPhaseL = new Label("Exploration Phase", StateManager.skin);
@@ -173,8 +186,12 @@ public class AISettingsState extends MenuState
         explorationTimeTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!explorationTimeTF.equals(""))
-                    settings.setExplorationTime((int) Float.parseFloat(explorationTimeTF.getText()));
+                if(!explorationTimeTF.getText().isEmpty())
+                    try {
+                        settings.setExplorationTime((int) Float.parseFloat(explorationTimeTF.getText()));
+                    } catch(NumberFormatException e){
+                        explorationTimeTF.setText("");
+                    }
             }
         });
         weightsL = new Label("Performance weights", StateManager.skin);
@@ -188,8 +205,12 @@ public class AISettingsState extends MenuState
         timeWeightTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!timeWeightTF.equals(""))
-                    settings.setTimeWeight((int) Float.parseFloat(timeWeightTF.getText()));
+                if(!timeWeightTF.getText().isEmpty())
+                    try {
+                        settings.setTimeWeight((int) Float.parseFloat(timeWeightTF.getText()));
+                    } catch(NumberFormatException e){
+                        timeWeightTF.setText("");
+                    }
             }
         });
         movementWeightL = new Label("Movement", StateManager.skin);
@@ -199,8 +220,13 @@ public class AISettingsState extends MenuState
         movementWeightTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!movementWeightTF.equals(""))
-                    settings.setMovementWeight((int) Float.parseFloat(movementWeightTF.getText()));
+                if(!movementWeightTF.getText().isEmpty()){
+                    try {
+                        settings.setMovementWeight((int) Float.parseFloat(movementWeightTF.getText()));
+                    } catch(NumberFormatException e){
+                        movementWeightTF.setText("");
+                    }
+                }
             }
         });
 
@@ -211,8 +237,13 @@ public class AISettingsState extends MenuState
         directCommTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!directCommTF.equals(""))
-                    settings.setDirectComWeight((int) Float.parseFloat(directCommTF.getText()));
+                if (!directCommTF.getText().isEmpty()) {
+                    try {
+                        settings.setDirectComWeight((int) Float.parseFloat(directCommTF.getText()));
+                    } catch (NumberFormatException e) {
+                        directCommTF.setText("");
+                    }
+                }
             }
         });
         indirectCommL = new Label("Indirect Communication", StateManager.skin);
@@ -222,8 +253,13 @@ public class AISettingsState extends MenuState
         indirectCommTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!indirectCommTF.equals(""))
-                    settings.setIndirectComWeight((int) Float.parseFloat(indirectCommTF.getText()));
+                if (!indirectCommTF.getText().isEmpty()) {
+                    try {
+                        settings.setIndirectComWeight((int) Float.parseFloat(indirectCommTF.getText()));
+                    } catch (NumberFormatException e) {
+                        indirectCommTF.setText("");
+                    }
+                }
             }
         });
         table.add(centerTable).expand().top().row();
