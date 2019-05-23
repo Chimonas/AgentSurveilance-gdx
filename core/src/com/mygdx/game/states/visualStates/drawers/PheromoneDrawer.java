@@ -14,7 +14,7 @@ public class PheromoneDrawer
         Vector2 position = pheromone.getPosition();
         Color color = new Color(pheromone.getPheromoneType().getColor());
 
-        color.sub(0.0f,0.0f,0.0f,0.75f * (1.0f - pheromone.getIntensity()));
+        color.sub(0.0f,0.0f,0.0f,0.5f + 0.25f * (1.0f - pheromone.getIntensity()));
 
         Gdx.gl.glEnable(GL20.GL_BLEND);
 

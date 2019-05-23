@@ -12,6 +12,7 @@ import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.states.visualStates.SimulationState;
 import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
+import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
 import com.mygdx.game.worldAttributes.agents.intruder.IntruderAI;
 
 public class AISettingsState extends MenuState
@@ -53,9 +54,9 @@ public class AISettingsState extends MenuState
     }
 
     private Table table, topTable, centerTable, bottomTable;
-    private Label titleL, agentsL, guardL, guardAmountL, intruderL, intruderAmountL, timeL, maxTimeL, explorationPhaseL,
+    private Label titleL, agentsL, guardL, explorationL, guardAmountL, intruderL, intruderAmountL, timeL, maxTimeL, explorationPhaseL,
             explorationTimeL, weightsL, timeWeightL, movementWeightL, directCommL, indirectCommL;
-    private SelectBox guardSB, intruderSB;
+    private SelectBox guardSB, explorationSB, intruderSB;
     private TextField guardAmountTF, intruderAmountTF, maxTimeTF, explorationTimeTF, timeWeightTF, movementWeightTF,
             directCommTF, indirectCommTF;
     private TextButton okB, cancelB;
@@ -97,12 +98,12 @@ public class AISettingsState extends MenuState
         guardSB = new SelectBox(StateManager.skin);
         guardSB.setItems(GuardAI.GuardAIType.values());
         centerTable.add(guardSB).pad(5).row();
-//        guardSB.addListener(new ChangeListener() {
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor) {
-//            }
-//
-//        });
+
+        explorationL = new Label("Exploration agents:", StateManager.skin);
+        centerTable.add(explorationL).pad(5);
+        explorationSB = new SelectBox(StateManager.skin);
+        explorationSB.setItems(ExplorationAI.ExplorationAIType.values());
+        centerTable.add(explorationSB).pad(5).row();
 
         guardAmountL = new Label("Number of Guards:", StateManager.skin);
         centerTable.add(guardAmountL).pad(5);
@@ -126,12 +127,6 @@ public class AISettingsState extends MenuState
         intruderSB = new SelectBox(StateManager.skin);
         intruderSB.setItems(IntruderAI.IntruderAIType.values());
         centerTable.add(intruderSB).pad(5).row();
-//        intruderSB.addListener(new ChangeListener() {
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor) {
-//                settings.setIntruderAIType((IntruderAI.IntruderAIType)intruderSB.getSelected());
-//            }
-//        });
 
         intruderAmountL = new Label("Number of Intruders:", StateManager.skin);
         centerTable.add(intruderAmountL).pad(5);
@@ -274,8 +269,8 @@ public class AISettingsState extends MenuState
             public void clicked(InputEvent event, float x, float y)
             {
                 settings.setGuardAIType((GuardAI.GuardAIType)guardSB.getSelected());
+                settings.setExplorationAIType((ExplorationAI.ExplorationAIType)explorationSB.getSelected());
                 settings.setIntruderAIType((IntruderAI.IntruderAIType)intruderSB.getSelected());
-
 
 
                 stateManager.push(new SimulationState(stateManager, settings, map));

@@ -2,9 +2,8 @@ package com.mygdx.game.worldAttributes.agents;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gamelogic.GameLoop;
-import com.mygdx.game.gamelogic.Map;
-import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.gamelogic.World;
+import com.mygdx.game.worldAttributes.Communication;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.Sound;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
@@ -19,9 +18,8 @@ import java.util.Random;
 abstract public class Agent
 {
     protected World world;
-    protected Settings settings;
 
-    public final float VISUALANGLE = 45.0f, MAXVELOCITY = 1.4f, MAXTURNVELOCITY = 180.0f, PHEROMONECOOLDOWN = 5.0f;
+    public final float VISUALANGLE = 45.0f, MAXVELOCITY = 1.4f, MAXTURNVELOCITY = 180.0f, PHEROMONECOOLDOWN = 10.0f;
     protected AI ai;
     protected float maxVelocity, visualMultiplier, visibility;
 
@@ -31,10 +29,9 @@ abstract public class Agent
 
 //    protected boolean inShade;
 
-    public Agent(World world, Settings settings)
+    public Agent(World world)
     {
         this.world = world;
-        this.settings = settings;
 
         maxVelocity = MAXVELOCITY;
         visualMultiplier = 1.0f;
@@ -56,57 +53,58 @@ abstract public class Agent
         velocity = 0.0f;
     }
 
-    public void spawnRandom(Map map)
-    {
-        Vector2 randomPosition = new Vector2();
-        randomPosition.x = (float) Math.random() * map.getWidth();
-        randomPosition.y = (float) Math.random() * map.getHeight();
-
-        spawn(randomPosition, (float)Math.random() * 360.0f);
-    }
-
     public void update()
     {
-        float newVelocity = ai.getNewVelocity();
-
-        newVelocity = newVelocity < 0.0f ? 0.0f : (newVelocity > maxVelocity ? maxVelocity : newVelocity);
-
-        velocity = newVelocity;
-        System.out.println(velocity);
-
-
-        float newAngleFacing = ai.getNewAngle();
-
-        newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
-
-        float angleDifference = newAngleFacing - angleFacing;
-        angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
-
-        if(Math.abs(angleDifference) >= 45.0f / GameLoop.TICKRATE)
+        if(active)
         {
-            //TODO: descrease visibility, start blindness timer
+            ai.update();
 
-            if(Math.abs(angleDifference) > 180.0f / GameLoop.TICKRATE)
-                newAngleFacing = angleFacing + (float) (Math.signum(angleDifference) * 180.0f / GameLoop.TICKRATE);
+            float newVelocity = ai.getNewVelocity();
+
+            newVelocity = newVelocity < 0.0f ? 0.0f : (newVelocity > maxVelocity ? maxVelocity : newVelocity);
+
+            velocity = newVelocity;
+
+            float newAngleFacing = ai.getNewAngle();
+
+            newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
+
+            float angleDifference = newAngleFacing - angleFacing;
+            angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
+
+            if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICKRATE) {
+                //TODO: descrease visibility, start blindness timer
+
+                if (Math.abs(angleDifference) > 180.0f / GameLoop.TICKRATE)
+                    newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICKRATE);
+            }
+
+            angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
+
+
+            world.addSound(new Sound(new Vector2(position), velocity * 4.0f));
         }
-
-        angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
     }
 
     private Vector2 newPosition;
     private float velocityX, velocityY, angleRad;
 
-    public void updatePosition()
+    public void updatePosition() //TODO: skidding along walls
     {
-        angleRad = (float)Math.toRadians(angleFacing);
+        if(active)
+        {
+            angleRad = (float) Math.toRadians(angleFacing);
 
-        velocityX = velocity * (float)Math.cos(angleRad);
-        velocityY = velocity * (float)Math.sin(angleRad);
+            velocityX = velocity * (float) Math.cos(angleRad);
+            velocityY = velocity * (float) Math.sin(angleRad);
 
-        newPosition = new Vector2((float) (position.x + velocityX / GameLoop.TICKRATE), (float) (position.y + velocityY / GameLoop.TICKRATE));
+            newPosition = new Vector2((float) (position.x + velocityX / GameLoop.TICKRATE), (float) (position.y + velocityY / GameLoop.TICKRATE));
 
-        if(isValidMove(position,newPosition))
-            position.set(newPosition); // Maybe add close approach for when path intersects wall
+            if (isValidMove(position, newPosition))
+                position.set(newPosition);
+            else
+                velocity = 0.0f;
+        }
     }
 
     public boolean isValidMove(Vector2 position, Vector2 newPosition)
@@ -120,16 +118,19 @@ abstract public class Agent
         return true;
     }
 
-    public ArrayList<Agent> getVisibleAgents()
+    public boolean getAgentVisible(Agent agent)
     {
-        ArrayList<Agent> visibleAgents = new ArrayList<>();
-
         if(active)
-            for(Agent agent : world.getAgents())
-                if (agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
-                    visibleAgents.add(agent);
+            if (agent.active && agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
+            {
+                float beginAngle = modulo(angleFacing - VISUALANGLE * 0.5f, 360.0f);
+                float endAngle = modulo(angleFacing + VISUALANGLE * 0.5f, 360.0f);
+                float agentAngle = modulo((float)(Math.toDegrees(Math.atan2(agent.getPosition().y - position.y, agent.getPosition().x - position.x))),360.0f);
 
-        return visibleAgents;
+                return agentAngle >= beginAngle && agentAngle <= endAngle;
+            }
+
+        return false;
     }
 
     public ArrayList<Guard> getVisibleGuards()
@@ -137,9 +138,11 @@ abstract public class Agent
         ArrayList<Guard> visibleGuards = new ArrayList<>();
 
         if(active)
+        {
             for(Guard guard : world.getGuards())
-                if (guard != this && position.dst2(guard.position) < (guard.visibility * guard.visibility))
+                if(getAgentVisible(guard))
                     visibleGuards.add(guard);
+        }
 
         return visibleGuards;
     }
@@ -149,11 +152,29 @@ abstract public class Agent
         ArrayList<Intruder> visibleIntruders = new ArrayList<>();
 
         if(active)
+        {
             for(Intruder intruder : world.getIntruders())
-                if (intruder != this && position.dst2(intruder.position) < (intruder.visibility * intruder.visibility))
+                if(getAgentVisible(intruder))
                     visibleIntruders.add(intruder);
+        }
 
         return visibleIntruders;
+    }
+
+    public ArrayList<Communication> getReceivedCommunications()
+    {
+        ArrayList<Communication> receivedCommunications = new ArrayList<>();
+
+        if(active)
+            for (Communication communication : world.getCommunications())
+            {
+                if (communication.getReceivingAgent() == this)
+                {
+                    receivedCommunications.add(communication);
+                }
+            }
+
+        return receivedCommunications;
     }
 
     public ArrayList<Float> getVisibleSounds()
@@ -171,11 +192,11 @@ abstract public class Agent
 
         for(Sound sound : visibleSounds)
         {
-            float soundAngle = (float)(Math.atan2(sound.getPosition().y - position.y, sound.getPosition().x - position.x) / Math.PI * 180.0f);
+            float soundAngle = (float)(Math.toDegrees(Math.atan2(sound.getPosition().y - position.y, sound.getPosition().x - position.x)));
 
             soundAngle += random.nextGaussian() * 10.0f;
 
-            soundAngle = (soundAngle % 360.0f + 360.0f) % 360.0f;
+            soundAngle = modulo(soundAngle, 360.0f);
 
             soundAngles.add(soundAngle);
         }
@@ -199,17 +220,34 @@ abstract public class Agent
 
     public boolean createPheromone(Pheromone.PheromoneType pheromoneType)
     {
-        int currentTick = world.getGameLoop().getTicks();
-
-        if(currentTick - lastPheromoneTick >= (int)(PHEROMONECOOLDOWN * GameLoop.TICKRATE))
+        if(active)
         {
-            world.addPheromone(new Pheromone(pheromoneType, new Vector2(position)));
-            lastPheromoneTick = currentTick;
+            int currentTick = world.getGameLoop().getTicks();
 
-            return true;
+            if (currentTick - lastPheromoneTick >= (int) (PHEROMONECOOLDOWN * GameLoop.TICKRATE)) {
+                world.addPheromone(new Pheromone(pheromoneType, new Vector2(position)));
+                lastPheromoneTick = currentTick;
+
+                return true;
+            }
         }
-
         return false;
+    }
+
+    public boolean createCommunication(Agent receivingAgent, ArrayList<?> message)
+    {
+        if(active)
+            if(receivingAgent != this)
+            {
+                world.addCommunication(new Communication(this, receivingAgent, message));
+                return true;
+            }
+        return false;
+    }
+
+    public float modulo(float dividend, float divisor)
+    {
+        return ((dividend % divisor) + divisor) % divisor;
     }
 
     public boolean getActive()
@@ -227,15 +265,11 @@ abstract public class Agent
         return angleFacing;
     }
 
-    public void setAngleFacing(float angleFacing) {
-        this.angleFacing = angleFacing;
-    }
-
     public float getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(float velocity) {
-        this.velocity = velocity;
+    public World getWorld() {
+        return world;
     }
 }

@@ -6,7 +6,7 @@ import com.mygdx.game.gamelogic.GameLoop;
 
 public class Pheromone
 {
-    public static final float GROWTHRATE = 0.5f, DECAYRATE = 0.05f;
+    private static final float GROWTHRATE = 0.5f, DECAYRATE = 0.05f;
 
     private PheromoneType pheromoneType;
     private Vector2 position;

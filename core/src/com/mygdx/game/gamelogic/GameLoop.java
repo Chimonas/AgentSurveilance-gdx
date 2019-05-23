@@ -5,49 +5,65 @@ public class GameLoop
     private World world;
     public static final double TICKRATE = 30.0f, SPEEDSTEP = 2.0f;
 
-    private boolean pause, exploration;
+    private boolean running, pause, exploration;
     private int ticks;
-    private double time, speed, lastTickTime, timeBeforeTick, explorationTime; // !All time related variables have to be in double for precision!
+    private double time, speed, lastTickTime, timeBeforeTick, simulationTime, explorationTime; // !All time related variables have to be in double for precision!
 
-    public GameLoop(World world, boolean exploration)
+    public GameLoop(World world, double simulationTime, boolean exploration, double explorationTime)
     {
         this.world = world;
+        this.simulationTime = simulationTime;
         this.exploration = exploration;
+        this.explorationTime = explorationTime;
 
-        setPause(false);
+        pause = false;
         ticks = 0;
-        time = 0.0f;
-        setSpeed(1.0f);
+        time = 0.0;
+        setSpeed(1.0);
     }
 
     public void update()
     {
         ticks++;
         lastTickTime += timeBeforeTick;
-        world.update(exploration);
+        world.update();
     }
 
     public void check()
     {
-        time = System.nanoTime();
+        if(running && !pause)
+        {
+            time = System.nanoTime();
 
-        try {
-            if (exploration) {
-                if (time > this.world.settings.getExplorationTime() * Math.pow(10, 9)) {
-                    //Stops the exploration phase and the simulation phase starts
-                    stopLoop();
-                    this.world.settings.setExplorationPhase(false);
-
-                }
+            if(exploration && ticks >= (int)(explorationTime * TICKRATE))
+            {
+                exploration = false;
+                world.startSimulationPhase();
             }
-        }catch(NumberFormatException e){
-            //If the exploration phase is on but no exploration time is given
 
-        }
-        if(!pause) {
+            if(simulationTime != 0.0)
+                if (ticks >= (int) (explorationTime + simulationTime) * TICKRATE)
+                    stop();
+
             while (time - lastTickTime > timeBeforeTick)
                 update();
         }
+    }
+
+    public void start()
+    {
+        running = true;
+        lastTickTime = System.nanoTime();
+
+        if(exploration)
+            world.startExplorationPhase();
+        else
+            world.startSimulationPhase();
+    }
+
+    public void stop()
+    {
+        running = false;
     }
 
     public void setPause(boolean pause)
@@ -82,12 +98,5 @@ public class GameLoop
     public void decrementSpeed()
     {
         setSpeed(speed / SPEEDSTEP);
-    }
-
-    public void stopLoop(){
-        setPause(false);
-        ticks = 0;
-        time = 0.0f;
-        setSpeed(1.0f);
     }
 }

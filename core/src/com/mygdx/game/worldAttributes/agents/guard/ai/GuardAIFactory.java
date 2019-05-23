@@ -13,6 +13,8 @@ public class GuardAIFactory
         {
             case STUPID:
                 return new Stupid(guard);
+            case PHEROMONE:
+                return new PheromoneAI(guard);
             default:
                 return new Stupid(guard);
 

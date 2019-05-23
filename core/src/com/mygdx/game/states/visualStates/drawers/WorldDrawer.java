@@ -2,6 +2,7 @@ package com.mygdx.game.states.visualStates.drawers;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.gamelogic.World;
+import com.mygdx.game.worldAttributes.Communication;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.Sound;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
@@ -26,5 +27,10 @@ public class WorldDrawer
 
         for (Sound sound : world.getSounds())
             SoundDrawer.render(shapeRenderer, sound);
+
+        for(Communication communication : world.getCommunications())
+        {
+            CommunicationDrawer.render(shapeRenderer, communication);
+        }
     }
 }
