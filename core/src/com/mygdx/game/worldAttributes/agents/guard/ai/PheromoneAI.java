@@ -1,11 +1,8 @@
 package com.mygdx.game.worldAttributes.agents.guard.ai;
 
 import com.mygdx.game.gamelogic.GameLoop;
-import com.mygdx.game.worldAttributes.Communication;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
-
-import java.util.ArrayList;
 
 public class PheromoneAI extends GuardAI
 {
@@ -19,17 +16,9 @@ public class PheromoneAI extends GuardAI
     {
         super.update();
 
-        for(Communication communication : receivedCommunications)
-        {
-            System.out.println(communication.getMessage().size());
-        }
-
         if(!visibleIntruders.isEmpty())
         {
             agent.createPheromone(Pheromone.PheromoneType.RED);
-            ArrayList<Boolean> test = new ArrayList<>();
-            test.add(true);
-            agent.createCommunication(agent.getWorld().getGuards().get(0),test);
             newVelocity = agent.MAXVELOCITY;
         }
         else if(!visiblePheromones.isEmpty())
