@@ -7,6 +7,8 @@ import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.gamelogic.World;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.Sound;
+import com.mygdx.game.worldAttributes.agents.guard.Guard;
+import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 import com.mygdx.game.worldAttributes.areas.Area;
 import com.mygdx.game.worldAttributes.areas.Shade;
 import com.mygdx.game.worldAttributes.areas.Target;
@@ -130,26 +132,26 @@ abstract public class Agent
         return visibleAgents;
     }
 
-    public ArrayList<Agent> getVisibleGuards()
+    public ArrayList<Guard> getVisibleGuards()
     {
-        ArrayList<Agent> visibleGuards = new ArrayList<>();
+        ArrayList<Guard> visibleGuards = new ArrayList<>();
 
         if(active)
-            for(Agent agent : world.getGuards())
-                if (agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
-                    visibleGuards.add(agent);
+            for(Guard guard : world.getGuards())
+                if (guard != this && position.dst2(guard.position) < (guard.visibility * guard.visibility))
+                    visibleGuards.add(guard);
 
         return visibleGuards;
     }
 
-    public ArrayList<Agent> getVisibleIntruders()
+    public ArrayList<Intruder> getVisibleIntruders()
     {
-        ArrayList<Agent> visibleIntruders = new ArrayList<>();
+        ArrayList<Intruder> visibleIntruders = new ArrayList<>();
 
         if(active)
-            for(Agent agent : world.getIntruders())
-                if (agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
-                    visibleIntruders.add(agent);
+            for(Intruder intruder : world.getIntruders())
+                if (intruder != this && position.dst2(intruder.position) < (intruder.visibility * intruder.visibility))
+                    visibleIntruders.add(intruder);
 
         return visibleIntruders;
     }
@@ -173,6 +175,8 @@ abstract public class Agent
 
             soundAngle += random.nextGaussian() * 10.0f;
 
+            soundAngle = (soundAngle % 360.0f + 360.0f) % 360.0f;
+
             soundAngles.add(soundAngle);
         }
 
@@ -191,13 +195,13 @@ abstract public class Agent
         return visiblePheromones;
     }
 
-    private int lastPheromoneTick;
+    private int lastPheromoneTick = (int)(-PHEROMONECOOLDOWN * GameLoop.TICKRATE);
 
     public boolean createPheromone(Pheromone.PheromoneType pheromoneType)
     {
         int currentTick = world.getGameLoop().getTicks();
 
-        if(currentTick - lastPheromoneTick <= (int)(PHEROMONECOOLDOWN * GameLoop.TICKRATE))
+        if(currentTick - lastPheromoneTick >= (int)(PHEROMONECOOLDOWN * GameLoop.TICKRATE))
         {
             world.addPheromone(new Pheromone(pheromoneType, new Vector2(position)));
             lastPheromoneTick = currentTick;

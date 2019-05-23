@@ -2,7 +2,6 @@ package com.mygdx.game.worldAttributes.agents.guard.ai;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.worldAttributes.Pheromone;
-import com.mygdx.game.worldAttributes.Sound;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 
@@ -93,11 +92,15 @@ public class HeuristicBot extends GuardAI {
 
     public void getSoundVec() {
         float[] soundVec = new float[360];
-        Vector2 pos = guard.getPosition();
-        for (Sound s : visibleSounds) {
-            Vector2 soundPos = s.getPosition();
-            soundVec[Math.round(getAngle(pos,soundPos))] += 1;
-        }
+
+        Vector2 pos = agent.getPosition();
+//        for (float f : visibleSounds)
+//        {
+//            soundVec[Math.round(getAngle(pos,soundPos))] += 1;
+//        }
+
+        //TODO: sounds are now floats of the direction they are from
+
         this.angles.add(soundVec);
 //        return soundVec;
     }
@@ -108,7 +111,7 @@ public class HeuristicBot extends GuardAI {
         float[] blueVec = new float[360];
         float[] yellowVec = new float[360];
 
-        Vector2 pos = guard.getPosition();
+        Vector2 pos = agent.getPosition();
 
         for (Pheromone p : visiblePheromones) {
             Vector2 pherPos = p.getPosition();
@@ -129,7 +132,7 @@ public class HeuristicBot extends GuardAI {
         float[] guardVec = new float[360];
         float[] intruderVec = new float[360];
 
-        Vector2 pos = guard.getPosition();
+        Vector2 pos = agent.getPosition();
         for (Agent a : visibleGuards) {
             Vector2 other = a.getPosition();
             guardVec = distributedAngle(guardVec,10,Math.round(getAngle(pos,other)));
@@ -137,7 +140,7 @@ public class HeuristicBot extends GuardAI {
         }
         for (Agent a : visibleIntruders) {
             Vector2 other = a.getPosition();
-            guard.createPheromone(Pheromone.PheromoneType.RED);
+            agent.createPheromone(Pheromone.PheromoneType.RED);
             intruderVec[Math.round(getAngle(pos,other))] += 1;
         }
 
@@ -165,10 +168,9 @@ public class HeuristicBot extends GuardAI {
     }
 
 
-    private float getAngle(Vector2 agent, Vector2 other) {
-
-
-        return (float)Math.toDegrees(Math.atan((agent.y - other.y)/(agent.x - other.x))) + 180 ;
+    private float getAngle(Vector2 agent, Vector2 other)
+    {
+        return (float)Math.toDegrees(Math.atan((agent.y - other.y)/(agent.x - other.x))) + 180 ; //agent.x - other.x could be 0 and fail
     }
 
     private float euclideanDistance(Vector2 agent, Vector2 other) {
