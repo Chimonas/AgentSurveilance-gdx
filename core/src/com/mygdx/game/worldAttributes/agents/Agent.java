@@ -127,6 +127,7 @@ abstract public class Agent
                 float endAngle = modulo(angleFacing + VISUALANGLE * 0.5f, 360.0f);
                 float agentAngle = modulo((float)(Math.toDegrees(Math.atan2(agent.getPosition().y - position.y, agent.getPosition().x - position.x))),360.0f);
 
+                System.out.println("I see him!!");
                 return agentAngle >= beginAngle && agentAngle <= endAngle;
             }
 

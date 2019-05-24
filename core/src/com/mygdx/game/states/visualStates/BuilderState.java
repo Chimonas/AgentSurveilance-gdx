@@ -20,8 +20,7 @@ import com.mygdx.game.states.visualStates.drawers.AreaDrawer;
 import com.mygdx.game.states.visualStates.drawers.MapDrawer;
 import com.mygdx.game.worldAttributes.areas.Area;
 import com.mygdx.game.worldAttributes.areas.AreaFactory;
-
-//import com.mygdx.game.gamelogic.FileHandler;
+import com.mygdx.game.gamelogic.FileHandler;
 
 public class BuilderState extends VisualState
 {

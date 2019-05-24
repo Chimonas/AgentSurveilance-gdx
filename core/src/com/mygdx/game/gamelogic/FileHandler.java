@@ -7,6 +7,7 @@ import com.mygdx.game.worldAttributes.areas.Area;
 import com.mygdx.game.worldAttributes.areas.AreaFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class FileHandler {
@@ -50,7 +51,11 @@ public class FileHandler {
 
             map.setSize(mapWidth,mapHeight);
 
-            in.nextLine();
+            try {
+                in.nextLine();
+            }catch(NoSuchElementException e){
+                return map;
+            }
             while (in.hasNextLine()) {
                 String areaData = in.nextLine();
                  String[] parts = areaData.split(" ");
