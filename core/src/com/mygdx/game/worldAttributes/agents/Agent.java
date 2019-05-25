@@ -84,7 +84,8 @@ abstract public class Agent
 //            angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
 
             angleFacing = newAngleFacing;
-            System.out.println(angleFacing);
+//
+//          System.out.println(angleFacing);
             world.addSound(new Sound(new Vector2(position), velocity * 4.0f));
         }
     }
@@ -128,7 +129,7 @@ abstract public class Agent
             {
                 float beginAngle = modulo(angleFacing - VISUALANGLE * 0.5f, 360.0f);
                 float endAngle = modulo(angleFacing + VISUALANGLE * 0.5f, 360.0f);
-                float angleBetweenAgents = modulo((float)(Math.toDegrees(Math.atan2(agent.getPosition().y - position.y, agent.getPosition().x - position.x))),360.0f);
+                float angleBetweenAgents = modulo((float)(getAngleBetweenTwoPos(agent.getPosition(), position)),360.0f);
 
                 if(endAngle< beginAngle)
                     return (angleBetweenAgents >= 0 && angleBetweenAgents <= endAngle) ||
@@ -168,6 +169,7 @@ abstract public class Agent
         return visibleIntruders;
     }
 
+
     public ArrayList<Communication> getReceivedCommunications()
     {
         ArrayList<Communication> receivedCommunications = new ArrayList<>();
@@ -199,7 +201,7 @@ abstract public class Agent
 
         for(Sound sound : visibleSounds)
         {
-            float soundAngle = (float)(Math.toDegrees(Math.atan2(sound.getPosition().y - position.y, sound.getPosition().x - position.x)));
+            float soundAngle = getAngleBetweenTwoPos(sound.getPosition(), position);
 
             soundAngle += random.nextGaussian() * 10.0f;
 
@@ -278,5 +280,10 @@ abstract public class Agent
 
     public World getWorld() {
         return world;
+    }
+
+    public float getAngleBetweenTwoPos(Vector2 pos1, Vector2 pos2){
+
+        return (float)(Math.toDegrees(Math.atan2(pos1.y - pos2.y, pos1.x - pos2.x)));
     }
 }

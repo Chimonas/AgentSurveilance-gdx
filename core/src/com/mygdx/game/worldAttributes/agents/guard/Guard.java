@@ -5,10 +5,10 @@ import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.World;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
-import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAIFactory;
 import com.mygdx.game.worldAttributes.agents.guard.ai.HeuristicBot;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAIFactory;
+import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 import com.mygdx.game.worldAttributes.areas.Area;
 
 import java.util.ArrayList;
@@ -54,4 +54,16 @@ public class Guard extends Agent
 
         return world.getMap().getAreaList();
     }
+
+    private float getAngle(Vector2 agent, Vector2 other)
+    {
+        return modulo((float)(Math.toDegrees(Math.atan2(agent.y - other.y, agent.x - other.x))),360.0f);
+        //    return modulo((float)Math.toDegrees(Math.atan((agent.y - other.y)/(agent.x - other.x))), 360.0f); //agent.x - other.x could be 0 and fail
+    }
+
+    public float modulo(float dividend, float divisor)
+    {
+        return ((dividend % divisor) + divisor) % divisor;
+    }
+
 }

@@ -5,7 +5,6 @@ import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -48,15 +47,12 @@ public class HeuristicBot extends GuardAI {
 
         for (int i = 0; i < angles.size(); i++) {
 
-            float[] values = angles.remove();;
-//            if (i == 1)
-//                System.out.println(Arrays.toString(values));
-            for (int j = 0; j < values.length; j++) {
+            float[] values = angles.remove();
+            for (int j = 0; j < values.length; j++)
                 best_actions[j] += values[j] * coefficients[i];
-            }
 
         }
-        System.out.println(Arrays.toString(best_actions));
+//        System.out.println(Arrays.toString(best_actions));
         return best_actions;
     }
 
@@ -76,8 +72,8 @@ public class HeuristicBot extends GuardAI {
             }
         }
 
-        System.out.println("Old angle: " + oldAngle + " and its value:" + best_actions[(int)oldAngle]);
-        System.out.println("New angle: " + angle + " and its value:" + best_actions[(int)angle]);
+//        System.out.println("Old angle: " + oldAngle + " and its value:" + best_actions[(int)oldAngle]);
+//        System.out.println("New angle: " + angle + " and its value:" + best_actions[(int)angle]);
 
         if(best_actions[(int)angle] <= best_actions[(int)oldAngle])
             angle = oldAngle;
@@ -98,7 +94,7 @@ public class HeuristicBot extends GuardAI {
 ////            }
 //        }
 
-        System.out.println("Angle choice:" + angle);
+//        System.out.println("Angle choice:" + angle);
         return angle ;
     }
 
@@ -106,15 +102,12 @@ public class HeuristicBot extends GuardAI {
         float[] soundVec = new float[360];
 
         Vector2 pos = agent.getPosition();
-//        for (float f : visibleSounds)
-//        {
-//            soundVec[Math.round(getAngle(pos,soundPos))] += 1;
-//        }
-
-        //TODO: sounds are now floats of the direction they are from
+        for (float f : visibleSounds)
+        {
+            soundVec[(int) f] += 1;
+        }
 
         this.angles.add(soundVec);
-//        return soundVec;
     }
 
     public void getPherVec() {
@@ -128,10 +121,10 @@ public class HeuristicBot extends GuardAI {
         for (Pheromone p : visiblePheromones) {
             Vector2 pherPos = p.getPosition();
             switch (p.getPheromoneType()) {
-                case RED: redVec[Math.round(getAngle(pos,pherPos))] += 1;
-                case BLUE: blueVec[Math.round(getAngle(pos,pherPos))] += 1;
-                case GREEN: greenVec[Math.round(getAngle(pos,pherPos))] += 1;
-                case YELLOW: yellowVec[Math.round(getAngle(pos,pherPos))] += 1;
+                case RED: redVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1;
+                case BLUE: blueVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1;
+                case GREEN: greenVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1;
+                case YELLOW: yellowVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1;
             }
         }
         this.angles.add(redVec);
@@ -147,14 +140,14 @@ public class HeuristicBot extends GuardAI {
         Vector2 pos = agent.getPosition();
         for (Agent a : visibleGuards) {
             Vector2 other = a.getPosition();
-            System.out.println("Angle difference: " + (int) getAngle(other, pos));
-            guardVec = distributedAngle(guardVec,10, (int) getAngle(other,pos));
-//            guardVec[Math.round(getAngle(pos,other))] += 1;
+//            System.out.println("Angle difference: " + (int) getPositiveAngleBetweenTwoPos(other, pos));
+            guardVec = distributedAngle(guardVec,10, (int) getPositiveAngleBetweenTwoPos(other,pos));
+//            guardVec[Math.round(getPositiveAngleBetweenTwoPos(pos,other))] += 1;
         }
         for (Agent a : visibleIntruders) {
             Vector2 other = a.getPosition();
             agent.createPheromone(Pheromone.PheromoneType.RED);
-            intruderVec[Math.round(getAngle(pos,other))] += 1;
+            intruderVec = distributedAngle(intruderVec, 10, (int) getPositiveAngleBetweenTwoPos(other, pos));
         }
 
         this.angles.add(guardVec);
@@ -163,7 +156,7 @@ public class HeuristicBot extends GuardAI {
 
     private float[] distributedAngle(float[] vec, double std, int pos) {
 
-        System.out.println("Visible agents angle position: " + pos);
+//        System.out.println("Visible agents angle position: " + pos);
         double scalar = 1/(Math.sqrt(2*Math.PI*Math.pow(std,2)));
         for(int i=0; i<90; i++){
             float value = (float) (Math.exp(-Math.pow(i,2)/(2*Math.pow(std,2)))/(Math.sqrt(2*Math.PI*Math.pow(std,2)))/scalar);
@@ -181,28 +174,35 @@ public class HeuristicBot extends GuardAI {
         return vec;
     }
 
-    public static void main(String[] args){
+//    public static void main(String[] args){
+//
+//        Vector2 me = new Vector2();
+//        me.x = (float)14.272554;
+//        me.y = (float)8.3916602;
+//        Vector2 him = new Vector2();
+//        him.x = (float)13.6618075;
+//        him.y = (float)3.229662;
+//
+//        System.out.println(getPositiveAngleBetweenTwoPos(me, him));
+//        System.out.println(getPositiveAngleBetweenTwoPos(him, me));
+//    }
 
-        Vector2 me = new Vector2();
-        me.x = (float)14.272554;
-        me.y = (float)8.3916602;
-        Vector2 him = new Vector2();
-        him.x = (float)13.6618075;
-        him.y = (float)3.229662;
-
-        System.out.println(getAngle(me, him));
-        System.out.println(getAngle(him, me));
-    }
-
-    private static float getAngle(Vector2 agent, Vector2 other)
-    {
-        return modulo((float)(Math.toDegrees(Math.atan2(agent.y - other.y, agent.x - other.x))),360.0f);
-    //    return modulo((float)Math.toDegrees(Math.atan((agent.y - other.y)/(agent.x - other.x))), 360.0f); //agent.x - other.x could be 0 and fail
-    }
 
     private float euclideanDistance(Vector2 agent, Vector2 other) {
         return (float)Math.sqrt(Math.pow(agent.x - other.x,2)+Math.pow(agent.y - other.y,2));
     }
+
+    private float getPositiveAngleBetweenTwoPos(Vector2 agent, Vector2 other)
+    {
+        return modulo(getAngleBetweenTwoPos(agent, other),360.0f);
+        //    return modulo((float)Math.toDegrees(Math.atan((agent.y - other.y)/(agent.x - other.x))), 360.0f); //agent.x - other.x could be 0 and fail
+    }
+
+    public float getAngleBetweenTwoPos(Vector2 pos1, Vector2 pos2){
+
+        return (float)(Math.toDegrees(Math.atan2(pos1.y - pos2.y, pos1.x - pos2.x)));
+    }
+
 
     public static float modulo(float dividend, float divisor)
     {
