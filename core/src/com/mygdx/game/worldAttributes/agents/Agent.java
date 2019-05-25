@@ -65,23 +65,26 @@ abstract public class Agent
 
             velocity = newVelocity;
 
-            float newAngleFacing = ai.getNewAngle();
-
-            newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
-
-            float angleDifference = newAngleFacing - angleFacing;
-            angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
-
-            if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICKRATE) {
-                //TODO: descrease visibility, start blindness timer
-
-                if (Math.abs(angleDifference) > 180.0f / GameLoop.TICKRATE)
-                    newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICKRATE);
-            }
-
-            angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
+            float newAngleFacing = ai.getNewAngle(this.angleFacing);
 
 
+            // Commented out because fucks up the heuristic bot when agent's are trying to avoid each other
+
+//            newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
+//
+//            float angleDifference = newAngleFacing - angleFacing;
+//            angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
+//
+//            if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICKRATE) {
+//                //TODO: descrease visibility, start blindness timer
+//
+//                if (Math.abs(angleDifference) > 180.0f / GameLoop.TICKRATE)
+//                    newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICKRATE);
+//            }
+//            angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
+
+            angleFacing = newAngleFacing;
+            System.out.println(angleFacing);
             world.addSound(new Sound(new Vector2(position), velocity * 4.0f));
         }
     }
@@ -125,10 +128,12 @@ abstract public class Agent
             {
                 float beginAngle = modulo(angleFacing - VISUALANGLE * 0.5f, 360.0f);
                 float endAngle = modulo(angleFacing + VISUALANGLE * 0.5f, 360.0f);
-                float agentAngle = modulo((float)(Math.toDegrees(Math.atan2(agent.getPosition().y - position.y, agent.getPosition().x - position.x))),360.0f);
+                float angleBetweenAgents = modulo((float)(Math.toDegrees(Math.atan2(agent.getPosition().y - position.y, agent.getPosition().x - position.x))),360.0f);
 
-                System.out.println("I see him!!");
-                return agentAngle >= beginAngle && agentAngle <= endAngle;
+                if(endAngle< beginAngle)
+                    return (angleBetweenAgents >= 0 && angleBetweenAgents <= endAngle) ||
+                            (angleBetweenAgents >= beginAngle && angleBetweenAgents <= 360);
+                else return angleBetweenAgents >= beginAngle && angleBetweenAgents <= endAngle;
             }
 
         return false;
@@ -141,8 +146,9 @@ abstract public class Agent
         if(active)
         {
             for(Guard guard : world.getGuards())
-                if(getAgentVisible(guard))
+                if(getAgentVisible(guard)){
                     visibleGuards.add(guard);
+                }
         }
 
         return visibleGuards;

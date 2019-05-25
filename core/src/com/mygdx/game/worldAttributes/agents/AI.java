@@ -21,13 +21,16 @@ public abstract class AI
     public void update()
     {
         visibleGuards = agent.getVisibleGuards();
+        System.out.println("");
+        System.out.println("Position: " + agent.position.x + " " + agent.position.y);
+        for(Guard g:  visibleGuards) System.out.println("Visible agents position: " + g.position.x + " " + g.position.y);
         visibleIntruders = agent.getVisibleIntruders();
         receivedCommunications = agent.getReceivedCommunications();
         visibleSounds = agent.getVisibleSounds();
         visiblePheromones = agent.getVisiblePheromones();
     }
 
-    public float getNewAngle()
+    public float getNewAngle(float oldAngle)
     {
         return newAngle;
     }

@@ -5,6 +5,7 @@ import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -47,7 +48,7 @@ public class HeuristicBot extends GuardAI {
 
         for (int i = 0; i < angles.size(); i++) {
 
-            float[] values = angles.remove();
+            float[] values = angles.remove();;
 //            if (i == 1)
 //                System.out.println(Arrays.toString(values));
             for (int j = 0; j < values.length; j++) {
@@ -55,7 +56,7 @@ public class HeuristicBot extends GuardAI {
             }
 
         }
-//        System.out.println(Arrays.toString(best_actions));
+        System.out.println(Arrays.toString(best_actions));
         return best_actions;
     }
 
@@ -65,28 +66,39 @@ public class HeuristicBot extends GuardAI {
     }
 
     @Override
-    public float getNewAngle() {
+    public float getNewAngle(float oldAngle) {
         float max = -100;
-        float angle = 0;
+        float angle = oldAngle;
         for (int i = 0; i < best_actions.length; i++) {
             if (best_actions[i] >= max) {
                 max = best_actions[i];
                 angle = i;
-                System.out.println("Max value " + max);
-                System.out.println("angle " + i);
             }
         }
-//        System.out.println("New angle " + angle);
-//        System.out.println();
 
+        System.out.println("Old angle: " + oldAngle + " and its value:" + best_actions[(int)oldAngle]);
+        System.out.println("New angle: " + angle + " and its value:" + best_actions[(int)angle]);
+
+        if(best_actions[(int)angle] <= best_actions[(int)oldAngle])
+            angle = oldAngle;
+
+//        float min =0;
+//        int minAngle = 0;
 //        if (max == 0) {
-//            angle = (float)Math.random() * 360 ;
-//            System.out.println(angle);
-//            while (best_actions[(int)Math.floor(angle)] != 0) {
-//                angle = (float)Math.random() * 360 ;
-//            }
+//            for(int i = 0; i< best_actions.length; i++)
+//                if(best_actions[i] < min){
+//                    min = best_actions[i];
+//                    minAngle = i;
+//                }
+//            System.out.println("Min angle " + minAngle);
+////            angle = (float)Math.random() * 360 ;
+////            System.out.println(angle);
+////            while (best_actions[(int)Math.floor(angle)] != 0) {
+////                angle = (float)Math.random() * 360 ;
+////            }
 //        }
-        System.out.println(max);
+
+        System.out.println("Angle choice:" + angle);
         return angle ;
     }
 
@@ -135,7 +147,8 @@ public class HeuristicBot extends GuardAI {
         Vector2 pos = agent.getPosition();
         for (Agent a : visibleGuards) {
             Vector2 other = a.getPosition();
-            guardVec = distributedAngle(guardVec,10,Math.round(getAngle(pos,other)));
+            System.out.println("Angle difference: " + (int) getAngle(other, pos));
+            guardVec = distributedAngle(guardVec,10, (int) getAngle(other,pos));
 //            guardVec[Math.round(getAngle(pos,other))] += 1;
         }
         for (Agent a : visibleIntruders) {
@@ -150,10 +163,11 @@ public class HeuristicBot extends GuardAI {
 
     private float[] distributedAngle(float[] vec, double std, int pos) {
 
+        System.out.println("Visible agents angle position: " + pos);
         double scalar = 1/(Math.sqrt(2*Math.PI*Math.pow(std,2)));
-        for(int i=0; i<45; i++){
+        for(int i=0; i<90; i++){
             float value = (float) (Math.exp(-Math.pow(i,2)/(2*Math.pow(std,2)))/(Math.sqrt(2*Math.PI*Math.pow(std,2)))/scalar);
-            if (pos+i>360)
+            if (pos+i>=360)
                 vec[pos+i-360] += value;
             else
                 vec[pos+i] += value;
@@ -167,13 +181,31 @@ public class HeuristicBot extends GuardAI {
         return vec;
     }
 
+    public static void main(String[] args){
 
-    private float getAngle(Vector2 agent, Vector2 other)
+        Vector2 me = new Vector2();
+        me.x = (float)14.272554;
+        me.y = (float)8.3916602;
+        Vector2 him = new Vector2();
+        him.x = (float)13.6618075;
+        him.y = (float)3.229662;
+
+        System.out.println(getAngle(me, him));
+        System.out.println(getAngle(him, me));
+    }
+
+    private static float getAngle(Vector2 agent, Vector2 other)
     {
-        return (float)Math.toDegrees(Math.atan((agent.y - other.y)/(agent.x - other.x))) + 180 ; //agent.x - other.x could be 0 and fail
+        return modulo((float)(Math.toDegrees(Math.atan2(agent.y - other.y, agent.x - other.x))),360.0f);
+    //    return modulo((float)Math.toDegrees(Math.atan((agent.y - other.y)/(agent.x - other.x))), 360.0f); //agent.x - other.x could be 0 and fail
     }
 
     private float euclideanDistance(Vector2 agent, Vector2 other) {
         return (float)Math.sqrt(Math.pow(agent.x - other.x,2)+Math.pow(agent.y - other.y,2));
+    }
+
+    public static float modulo(float dividend, float divisor)
+    {
+        return ((dividend % divisor) + divisor) % divisor;
     }
 }
