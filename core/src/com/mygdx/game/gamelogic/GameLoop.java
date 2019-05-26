@@ -1,5 +1,8 @@
 package com.mygdx.game.gamelogic;
 
+import com.mygdx.game.worldAttributes.agents.Agent;
+import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
+
 public class GameLoop
 {
     private World world;
@@ -45,9 +48,27 @@ public class GameLoop
                 if (ticks >= (int) (explorationTime + simulationTime) * TICKRATE)
                     stop();
 
+            checkWinningConditions();
+
             while (time - lastTickTime > timeBeforeTick)
                 update();
         }
+    }
+
+    public void checkWinningConditions(){
+
+        //Winning condition for Guards
+        for(Agent a : this.world.getGuards())
+            for (Intruder i : a.getVisibleIntruders())
+                if(a.getPosition().dst(i.getPosition()) <= 0.5){
+                    //TODO: Message that the guards won
+                    stop();
+                }
+
+        //TODO: Winning condition for Intruders
+
+
+
     }
 
     public void start()
@@ -99,4 +120,5 @@ public class GameLoop
     {
         setSpeed(speed / SPEEDSTEP);
     }
+
 }
