@@ -1,30 +1,42 @@
 package com.mygdx.game.gamelogic;
 
 import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
+import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
 import com.mygdx.game.worldAttributes.agents.intruder.IntruderAI;
 
 public class Settings
 {
-    private GuardAI guardAI;
-    private IntruderAI intruderAI;
+    private GuardAI.GuardAIType guardAIType;
+    private ExplorationAI.ExplorationAIType explorationAIType;
+    private IntruderAI.IntruderAIType intruderAIType;
     private int guardAmount, intruderAmount;
     private float explorationTime, maxTime, timeWeight, movementWeight, directComWeight, indirectComWeight;
     private boolean explorationPhase;
 
-    public GuardAI getGuardAI() {
-        return guardAI;
+    public GuardAI.GuardAIType getGuardAIType() {
+        return guardAIType;
     }
 
-    public void setGuardAI(GuardAI guardAI) {
-        this.guardAI = guardAI;
+    public void setGuardAIType(GuardAI.GuardAIType guardAIType) {
+        this.guardAIType = guardAIType;
     }
 
-    public IntruderAI getIntruderAI() {
-        return intruderAI;
+    public ExplorationAI.ExplorationAIType getExplorationAIType()
+    {
+        return explorationAIType;
     }
 
-    public void setIntruderAI(IntruderAI intruderAI) {
-        this.intruderAI = intruderAI;
+    public void setExplorationAIType(ExplorationAI.ExplorationAIType explorationAIType)
+    {
+        this.explorationAIType = explorationAIType;
+    }
+
+    public IntruderAI.IntruderAIType getIntruderAIType() {
+        return intruderAIType;
+    }
+
+    public void setIntruderAIType(IntruderAI.IntruderAIType intruderAIType) {
+        this.intruderAIType = intruderAIType;
     }
 
     public int getGuardAmount() {

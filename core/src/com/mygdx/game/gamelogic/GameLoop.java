@@ -5,18 +5,21 @@ public class GameLoop
     private World world;
     public static final double TICKRATE = 30.0f, SPEEDSTEP = 2.0f;
 
-    private boolean pause, exploration;
+    private boolean running, pause, exploration;
     private int ticks;
-    private double time, speed, lastTickTime, timeBeforeTick; // !All time related variables have to be in double for precision!
+    private double time, speed, lastTickTime, timeBeforeTick, simulationTime, explorationTime; // !All time related variables have to be in double for precision!
 
-    public GameLoop(World world, boolean exploration)
+    public GameLoop(World world, double simulationTime, boolean exploration, double explorationTime)
     {
         this.world = world;
+        this.simulationTime = simulationTime;
+        this.exploration = exploration;
+        this.explorationTime = explorationTime;
 
-        setPause(false);
+        pause = false;
         ticks = 0;
-        time = 0.0f;
-        setSpeed(1.0f);
+        time = 0.0;
+        setSpeed(1.0);
     }
 
     public void update()
@@ -28,11 +31,39 @@ public class GameLoop
 
     public void check()
     {
-        time = System.nanoTime();
+        if(running && !pause)
+        {
+            time = System.nanoTime();
 
-        if(!pause)
-            while(time - lastTickTime > timeBeforeTick )
+            if(exploration && ticks >= (int)(explorationTime * TICKRATE))
+            {
+                exploration = false;
+                world.startSimulationPhase();
+            }
+
+            if(simulationTime != 0.0)
+                if (ticks >= (int) (explorationTime + simulationTime) * TICKRATE)
+                    stop();
+
+            while (time - lastTickTime > timeBeforeTick)
                 update();
+        }
+    }
+
+    public void start()
+    {
+        running = true;
+        lastTickTime = System.nanoTime();
+
+        if(exploration)
+            world.startExplorationPhase();
+        else
+            world.startSimulationPhase();
+    }
+
+    public void stop()
+    {
+        running = false;
     }
 
     public void setPause(boolean pause)

@@ -3,7 +3,6 @@ package com.mygdx.game.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.mygdx.game.Screens.MenuScreen;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -46,6 +45,7 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new MenuScreen();
+                return null;
+                //return new MenuScreen();
         }
 }

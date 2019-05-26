@@ -1,16 +1,19 @@
 package com.mygdx.game.states.menuStates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.mygdx.game.StateManager;
+import com.mygdx.game.gamelogic.FileHandler;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.states.visualStates.BuilderState;
 
@@ -76,16 +79,14 @@ public class MainMenuState extends MenuState
         final Map[] selectedMap = {new Map()};
 
         worldSB = new SelectBox(StateManager.skin);
-//        worldSB.setItems(FileHandler.getListOfMaps());
-//        worldSB.setSelectedIndex(0);
+        worldSB.setItems(FileHandler.getListOfMaps());
 //        worldSB.addListener(new ChangeListener(){
 //            @Override
 //            public void changed(ChangeEvent event, Actor actor) {
-//                selectedMap[0] = FileHandler.importMap((String) worldSB.getSelected());
+//
 //            }
 //        });
-        table.add(worldSB).center().width(BUTTONWIDTH);
-        table.row();
+        table.add(worldSB).center().width(BUTTONWIDTH).row();
 
         loadWorldB = new TextButton("Load World", StateManager.skin, "default");
         loadWorldB.addListener(new ClickListener()
@@ -93,7 +94,9 @@ public class MainMenuState extends MenuState
             @Override
             public void clicked(InputEvent event, float x, float y)
             {
+                selectedMap[0] = FileHandler.importMap((String) worldSB.getSelected());
                 stateManager.push(new AISettingsState(stateManager, selectedMap[0])); //loadworldstate
+
             }
         });
         table.add(loadWorldB).center().width(BUTTONWIDTH);

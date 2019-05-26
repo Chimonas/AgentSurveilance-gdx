@@ -17,16 +17,9 @@ public class Stupid extends GuardAI
         super.update();
 
         if(Math.random() < 0.1f / GameLoop.TICKRATE)
-            guard.createPheromone(Pheromone.PheromoneType.values()[(int)(Math.random() * Pheromone.PheromoneType.values().length)]);
-    }
+            agent.createPheromone(Pheromone.PheromoneType.values()[(int) (Math.random() * Pheromone.PheromoneType.values().length)]);
 
-    public float getNewAngle()
-    {
-        return guard.getAngleFacing() + 2.0f * ((float)Math.random() - 0.5f) * 300.0f / (float) GameLoop.TICKRATE;
-    }
-
-    public float getNewVelocity()
-    {
-        return guard.getVelocity() + 2.0f * ((float)Math.random() - 0.5f) * 20.0f / (float) GameLoop.TICKRATE;
+        newAngle = agent.getAngleFacing() + 2.0f * ((float)Math.random() - 0.5f) * 300.0f / (float) GameLoop.TICKRATE;
+        newVelocity = agent.getVelocity() + 2.0f * ((float)Math.random() - 0.5f) * 20.0f / (float) GameLoop.TICKRATE;
     }
 }

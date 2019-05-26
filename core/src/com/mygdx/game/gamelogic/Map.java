@@ -27,7 +27,7 @@ public class Map
 
     public void addArea(Area area)
     {
-        areaList.add(area);
+            areaList.add(area);
     }
 
     public ArrayList<Area> getAreaList()

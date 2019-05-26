@@ -12,6 +12,7 @@ import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.states.visualStates.SimulationState;
 import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
+import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
 import com.mygdx.game.worldAttributes.agents.intruder.IntruderAI;
 
 public class AISettingsState extends MenuState
@@ -53,9 +54,9 @@ public class AISettingsState extends MenuState
     }
 
     private Table table, topTable, centerTable, bottomTable;
-    private Label titleL, agentsL, guardL, guardAmountL, intruderL, intruderAmountL, timeL, maxTimeL, explorationPhaseL,
+    private Label titleL, agentsL, guardL, explorationL, guardAmountL, intruderL, intruderAmountL, timeL, maxTimeL, explorationPhaseL,
             explorationTimeL, weightsL, timeWeightL, movementWeightL, directCommL, indirectCommL;
-    private SelectBox guardSB, intruderSB;
+    private SelectBox guardSB, explorationSB, intruderSB;
     private TextField guardAmountTF, intruderAmountTF, maxTimeTF, explorationTimeTF, timeWeightTF, movementWeightTF,
             directCommTF, indirectCommTF;
     private TextButton okB, cancelB;
@@ -95,15 +96,15 @@ public class AISettingsState extends MenuState
         guardL = new Label("Guard agents:", StateManager.skin);
         centerTable.add(guardL).pad(5);
         guardSB = new SelectBox(StateManager.skin);
-        guardSB.setItems(GuardAI.AIType.values());
+        guardSB.setItems(GuardAI.GuardAIType.values());
         centerTable.add(guardSB).pad(5).row();
-        guardSB.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                settings.setGuardAI((GuardAI) guardSB.getSelected());
-            }
 
-        });
+        explorationL = new Label("Exploration agents:", StateManager.skin);
+        centerTable.add(explorationL).pad(5);
+        explorationSB = new SelectBox(StateManager.skin);
+        explorationSB.setItems(ExplorationAI.ExplorationAIType.values());
+        centerTable.add(explorationSB).pad(5).row();
+
         guardAmountL = new Label("Number of Guards:", StateManager.skin);
         centerTable.add(guardAmountL).pad(5);
         guardAmountTF = new TextField("", StateManager.skin);
@@ -111,22 +112,21 @@ public class AISettingsState extends MenuState
         guardAmountTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!guardAmountTF.equals(""))
-                    settings.setGuardAmount((int) Float.parseFloat(guardAmountTF.getText()));
+                if(!guardAmountTF.getText().isEmpty()) {
+                    try {
+                        settings.setGuardAmount((int) Float.parseFloat(guardAmountTF.getText()));
+                    } catch (NumberFormatException e) {
+                        guardAmountTF.setText("");
+                    }
+                }
             }
         });
 
         intruderL = new Label("Intruder agents:", StateManager.skin);
         centerTable.add(intruderL).pad(5);
         intruderSB = new SelectBox(StateManager.skin);
-        intruderSB.setItems(IntruderAI.AIType.values());
+        intruderSB.setItems(IntruderAI.IntruderAIType.values());
         centerTable.add(intruderSB).pad(5).row();
-        intruderSB.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                settings.setIntruderAI((IntruderAI) intruderSB.getSelected());
-            }
-        });
 
         intruderAmountL = new Label("Number of Intruders:", StateManager.skin);
         centerTable.add(intruderAmountL).pad(5);
@@ -135,8 +135,12 @@ public class AISettingsState extends MenuState
         intruderAmountTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!intruderAmountTF.equals(""))
-                    settings.setIntruderAmount((int) Float.parseFloat(intruderAmountTF.getText()));
+                if(!intruderAmountTF.getText().isEmpty())
+                    try{
+                        settings.setIntruderAmount((int) Float.parseFloat(intruderAmountTF.getText()));
+                    } catch(NumberFormatException e){
+                        intruderAmountTF.setText("");
+                    }
             }
         });
 
@@ -151,8 +155,12 @@ public class AISettingsState extends MenuState
         maxTimeTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!maxTimeTF.equals(""))
-                    settings.setMaxTime((int) Float.parseFloat(maxTimeTF.getText()));
+                if(!maxTimeTF.getText().isEmpty())
+                    try {
+                        settings.setMaxTime((int) Float.parseFloat(maxTimeTF.getText()));
+                    } catch(NumberFormatException e){
+                        maxTimeTF.setText("");
+                    }
             }
         });
         explorationPhaseL = new Label("Exploration Phase", StateManager.skin);
@@ -173,8 +181,12 @@ public class AISettingsState extends MenuState
         explorationTimeTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!explorationTimeTF.equals(""))
-                    settings.setExplorationTime((int) Float.parseFloat(explorationTimeTF.getText()));
+                if(!explorationTimeTF.getText().isEmpty())
+                    try {
+                        settings.setExplorationTime((int) Float.parseFloat(explorationTimeTF.getText()));
+                    } catch(NumberFormatException e){
+                        explorationTimeTF.setText("");
+                    }
             }
         });
         weightsL = new Label("Performance weights", StateManager.skin);
@@ -188,8 +200,12 @@ public class AISettingsState extends MenuState
         timeWeightTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!timeWeightTF.equals(""))
-                    settings.setTimeWeight((int) Float.parseFloat(timeWeightTF.getText()));
+                if(!timeWeightTF.getText().isEmpty())
+                    try {
+                        settings.setTimeWeight((int) Float.parseFloat(timeWeightTF.getText()));
+                    } catch(NumberFormatException e){
+                        timeWeightTF.setText("");
+                    }
             }
         });
         movementWeightL = new Label("Movement", StateManager.skin);
@@ -199,8 +215,13 @@ public class AISettingsState extends MenuState
         movementWeightTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!movementWeightTF.equals(""))
-                    settings.setMovementWeight((int) Float.parseFloat(movementWeightTF.getText()));
+                if(!movementWeightTF.getText().isEmpty()){
+                    try {
+                        settings.setMovementWeight((int) Float.parseFloat(movementWeightTF.getText()));
+                    } catch(NumberFormatException e){
+                        movementWeightTF.setText("");
+                    }
+                }
             }
         });
 
@@ -211,8 +232,13 @@ public class AISettingsState extends MenuState
         directCommTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!directCommTF.equals(""))
-                    settings.setDirectComWeight((int) Float.parseFloat(directCommTF.getText()));
+                if (!directCommTF.getText().isEmpty()) {
+                    try {
+                        settings.setDirectComWeight((int) Float.parseFloat(directCommTF.getText()));
+                    } catch (NumberFormatException e) {
+                        directCommTF.setText("");
+                    }
+                }
             }
         });
         indirectCommL = new Label("Indirect Communication", StateManager.skin);
@@ -222,8 +248,13 @@ public class AISettingsState extends MenuState
         indirectCommTF.setTextFieldListener(new TextField.TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char c) {
-                if(!indirectCommTF.equals(""))
-                    settings.setIndirectComWeight((int) Float.parseFloat(indirectCommTF.getText()));
+                if (!indirectCommTF.getText().isEmpty()) {
+                    try {
+                        settings.setIndirectComWeight((int) Float.parseFloat(indirectCommTF.getText()));
+                    } catch (NumberFormatException e) {
+                        indirectCommTF.setText("");
+                    }
+                }
             }
         });
         table.add(centerTable).expand().top().row();
@@ -237,6 +268,11 @@ public class AISettingsState extends MenuState
             @Override
             public void clicked(InputEvent event, float x, float y)
             {
+                settings.setGuardAIType((GuardAI.GuardAIType)guardSB.getSelected());
+                settings.setExplorationAIType((ExplorationAI.ExplorationAIType)explorationSB.getSelected());
+                settings.setIntruderAIType((IntruderAI.IntruderAIType)intruderSB.getSelected());
+
+
                 stateManager.push(new SimulationState(stateManager, settings, map));
             }
         });

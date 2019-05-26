@@ -12,9 +12,9 @@ import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 public class AgentDrawer
 {
     private static final Color
-            GUARDCOLOR = Color.ROYAL,
-            INTRUDERCOLOR = Color.WHITE,
-            VISUALRANGECOLOR = new Color(1, 0, 0, 0.2f);
+            GUARDCOLOR = Color.WHITE,
+            INTRUDERCOLOR = Color.SCARLET,
+            VISUALRANGECOLOR = new Color(1, 1, 1, 0.1f);
     private static final float AGENTSIZE = .5f;
 
     public static void render(ShapeRenderer shapeRenderer, Agent agent, boolean showVisualRange)
