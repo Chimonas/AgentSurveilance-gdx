@@ -144,12 +144,9 @@ abstract public class Agent
         ArrayList<Guard> visibleGuards = new ArrayList<>();
 
         if(active)
-        {
             for(Guard guard : world.getGuards())
-                if(getAgentVisible(guard)){
+                if(getAgentVisible(guard))
                     visibleGuards.add(guard);
-                }
-        }
 
         return visibleGuards;
     }
@@ -159,11 +156,10 @@ abstract public class Agent
         ArrayList<Intruder> visibleIntruders = new ArrayList<>();
 
         if(active)
-        {
             for(Intruder intruder : world.getIntruders())
                 if(getAgentVisible(intruder))
                     visibleIntruders.add(intruder);
-        }
+
 
         return visibleIntruders;
     }
@@ -175,12 +171,8 @@ abstract public class Agent
 
         if(active)
             for (Communication communication : world.getCommunications())
-            {
                 if (communication.getReceivingAgent() == this)
-                {
                     receivedCommunications.add(communication);
-                }
-            }
 
         return receivedCommunications;
     }

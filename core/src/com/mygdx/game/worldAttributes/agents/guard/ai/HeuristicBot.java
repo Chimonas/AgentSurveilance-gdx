@@ -5,6 +5,7 @@ import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -16,13 +17,22 @@ public class HeuristicBot extends GuardAI {
     private Queue<float[]> angles;
     private float[] coefficients;
     private float[] best_actions;
+    PheromoneAI pherAI;
 
     public HeuristicBot(Guard guard) {
         super(guard);
+        this.pherAI = new PheromoneAI(guard);
     }
 
     public void update() {
         super.update();
+        this.pherAI.update();
+
+        //HERE THE MEANING FOR EACH PHEROMONE IS SET
+        this.pherAI.setPheromoneToAction(Pheromone.PheromoneType.RED, PheromoneAI.PheromoneAction.FOLLOWINTRUDER);
+        this.pherAI.setPheromoneToAction(Pheromone.PheromoneType.BLUE, PheromoneAI.PheromoneAction.HEARDSOUND);
+        this.pherAI.setPheromoneToAction(Pheromone.PheromoneType.GREEN, PheromoneAI.PheromoneAction.FOUNDSHADE);
+
         this.best_actions = evaluateActions();
 
     }
@@ -34,9 +44,9 @@ public class HeuristicBot extends GuardAI {
         getPherVec(); // red, green, blue, yellow
 
         coefficients = new float[] {
-                /* coefficient for sound: */ 5,
-                /* coefficient for amount of visible guards: */ -5,
-                /* coefficient for amount of visible intruders: */ 100,
+                /* coefficient for sound: */ 0, //SOUND REALLY FUCKS UP GUARDS
+                /* coefficient for amount of visible guards: */ -20,
+                /* coefficient for amount of visible intruders: */ 10,
                 /* coefficient for red pheromones: */ 10,
                 /* coefficient for green pheromones: */ 10,
                 /* coefficient for blue pheromones: */ 10,
@@ -53,7 +63,7 @@ public class HeuristicBot extends GuardAI {
                 best_actions[j] += values[j] * coefficients[i];
 
         }
-//        System.out.println(Arrays.toString(best_actions));
+
         return best_actions;
     }
 
@@ -73,29 +83,9 @@ public class HeuristicBot extends GuardAI {
             }
         }
 
-//        System.out.println("Old angle: " + oldAngle + " and its value:" + best_actions[(int)oldAngle]);
-//        System.out.println("New angle: " + angle + " and its value:" + best_actions[(int)angle]);
-
         if(best_actions[(int)angle] <= best_actions[(int)oldAngle])
             angle = oldAngle;
 
-//        float min =0;
-//        int minAngle = 0;
-//        if (max == 0) {
-//            for(int i = 0; i< best_actions.length; i++)
-//                if(best_actions[i] < min){
-//                    min = best_actions[i];
-//                    minAngle = i;
-//                }
-//            System.out.println("Min angle " + minAngle);
-////            angle = (float)Math.random() * 360 ;
-////            System.out.println(angle);
-////            while (best_actions[(int)Math.floor(angle)] != 0) {
-////                angle = (float)Math.random() * 360 ;
-////            }
-//        }
-
-//        System.out.println("Angle choice:" + angle);
         return angle ;
     }
 
@@ -105,7 +95,7 @@ public class HeuristicBot extends GuardAI {
         Vector2 pos = agent.getPosition();
         for (float f : visibleSounds)
         {
-            agent.createPheromone(Pheromone.PheromoneType.BLUE);
+//            agent.createPheromone(Pheromone.PheromoneType.BLUE);
             soundVec[(int) f] += 1;
         }
 
@@ -142,13 +132,10 @@ public class HeuristicBot extends GuardAI {
         Vector2 pos = agent.getPosition();
         for (Agent a : visibleGuards) {
             Vector2 other = a.getPosition();
-//            System.out.println("Angle difference: " + (int) getPositiveAngleBetweenTwoPos(other, pos));
             guardVec = distributedAngle(guardVec,10, (int) getPositiveAngleBetweenTwoPos(other,pos));
-//            guardVec[Math.round(getPositiveAngleBetweenTwoPos(pos,other))] += 1;
         }
         for (Agent a : visibleIntruders) {
             Vector2 other = a.getPosition();
-            agent.createPheromone(Pheromone.PheromoneType.RED);
             intruderVec = distributedAngle(intruderVec, 10, (int) getPositiveAngleBetweenTwoPos(other, pos));
         }
 
@@ -176,20 +163,6 @@ public class HeuristicBot extends GuardAI {
         return vec;
     }
 
-//    public static void main(String[] args){
-//
-//        Vector2 me = new Vector2();
-//        me.x = (float)14.272554;
-//        me.y = (float)8.3916602;
-//        Vector2 him = new Vector2();
-//        him.x = (float)13.6618075;
-//        him.y = (float)3.229662;
-//
-//        System.out.println(getPositiveAngleBetweenTwoPos(me, him));
-//        System.out.println(getPositiveAngleBetweenTwoPos(him, me));
-//    }
-
-
     private float euclideanDistance(Vector2 agent, Vector2 other) {
         return (float)Math.sqrt(Math.pow(agent.x - other.x,2)+Math.pow(agent.y - other.y,2));
     }
@@ -204,7 +177,6 @@ public class HeuristicBot extends GuardAI {
 
         return (float)(Math.toDegrees(Math.atan2(pos1.y - pos2.y, pos1.x - pos2.x)));
     }
-
 
     public static float modulo(float dividend, float divisor)
     {

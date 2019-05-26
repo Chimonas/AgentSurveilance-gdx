@@ -53,7 +53,7 @@ public class Guard extends Agent
             internalAreas = ((ExplorationAI) ai).getInternalAreas();
 
 //        ai = GuardAIFactory.newGuardAI(guardAIType, this, internalAreas);
-        ai = new PheromoneAI(this);
+        ai = new HeuristicBot(this);
     }
 
     public ArrayList<Area> getVisibleAreas()
