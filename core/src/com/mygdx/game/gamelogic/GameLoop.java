@@ -1,7 +1,9 @@
 package com.mygdx.game.gamelogic;
 
-import com.mygdx.game.worldAttributes.agents.Agent;
+import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
+import com.mygdx.game.worldAttributes.areas.Area;
+import com.mygdx.game.worldAttributes.areas.Target;
 
 public class GameLoop
 {
@@ -10,7 +12,7 @@ public class GameLoop
 
     private boolean running, pause, exploration;
     private int ticks;
-    private double time, speed, lastTickTime, timeBeforeTick, simulationTime, explorationTime; // !All time related variables have to be in double for precision!
+    private double time, speed, lastTickTime, timeBeforeTick, simulationTime, explorationTime, targetAreaTimer, enteredAreaTime; // !All time related variables have to be in double for precision!
 
     public GameLoop(World world, double simulationTime, boolean exploration, double explorationTime)
     {
@@ -22,6 +24,8 @@ public class GameLoop
         pause = false;
         ticks = 0;
         time = 0.0;
+        targetAreaTimer = 3.0;
+        enteredAreaTime = -1;
         setSpeed(1.0);
     }
 
@@ -58,15 +62,19 @@ public class GameLoop
     public void checkWinningConditions(){
 
         //Winning condition for Guards
-        for(Agent a : this.world.getGuards())
-            for (Intruder i : a.getVisibleIntruders())
-                if(a.getPosition().dst(i.getPosition()) <= 0.5){
-                    //TODO: Message that the guards won
-                    stop();
-                }
+        for(Guard g : this.world.getGuards())
+            for (Intruder i : g.getVisibleIntruders())
+                if(g.getPosition().dst(i.getPosition()) <= 0.5)
+                    stop(); //TODO: Message that the guards won
 
-        //TODO: Winning condition for Intruders
-
+        //Winning condition for Intruders
+        for(Intruder i : this.world.getIntruders())
+            for(Area a : this.world.getMap().getAreaList())
+                if(a instanceof Target && a.contains(i.getPosition())) {
+                    if(i.enteredAreaTime == -1) i.enteredAreaTime = System.nanoTime();
+                    if(Math.pow(10,-9) * (System.nanoTime() - i.enteredAreaTime) * TICKRATE >= (targetAreaTimer * TICKRATE))
+                        stop();
+                } else i.enteredAreaTime = -1; //TODO: Message that intruders won
 
 
     }

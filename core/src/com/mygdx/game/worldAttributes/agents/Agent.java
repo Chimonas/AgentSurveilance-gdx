@@ -288,4 +288,5 @@ abstract public class Agent
 
         return (float)(Math.toDegrees(Math.atan2(pos1.y - pos2.y, pos1.x - pos2.x)));
     }
+
 }
