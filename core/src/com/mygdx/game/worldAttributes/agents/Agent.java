@@ -39,8 +39,7 @@ abstract public class Agent
         active = false;
     }
 
-    public void spawn(Vector2 position, float angleFacing)
-    {
+    public void spawn(Vector2 position, float angleFacing) {
         active = true;
         this.position = position;
         this.angleFacing = angleFacing;

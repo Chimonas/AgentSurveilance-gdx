@@ -6,6 +6,7 @@ import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.Sound;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
+import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
 import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class World
     ArrayList<Communication> communications;
     ArrayList<Sound> sounds;
     ArrayList<Pheromone> pheromones;
+    float divideMap; //for spawning
 
     public World(Map map, Settings settings)
     {
@@ -52,10 +54,17 @@ public class World
 
     public void startExplorationPhase()
     {
-        for(Guard guard : guards)
-        {
+        int increment = 0;
+        for(Guard guard : guards) {
             guard.setExplorationAI(settings.getExplorationAIType());
-            guard.spawnRandom(map);
+
+            if(settings.getExplorationAIType() == ExplorationAI.ExplorationAIType.HEURISTIC) {
+                divideMap = map.getWidth() / guards.size();
+                guard.spawnLeft(map, divideMap, increment);
+            }
+            else
+                guard.spawnRandom(map);
+            increment++;
         }
     }
 
@@ -167,5 +176,9 @@ public class World
     public void addPheromone(Pheromone pheromone)
     {
         pheromones.add(pheromone);
+    }
+
+    public float getDivideMap() {
+        return divideMap;
     }
 }

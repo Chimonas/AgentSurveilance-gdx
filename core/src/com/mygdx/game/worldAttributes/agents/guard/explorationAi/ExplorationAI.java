@@ -10,7 +10,7 @@ public abstract class ExplorationAI extends GuardAI
 {
     public enum ExplorationAIType
     {
-        STUPID,SWARM
+        STUPID,SWARM,HEURISTIC
     }
 
     protected ArrayList<Area> internalAreas;

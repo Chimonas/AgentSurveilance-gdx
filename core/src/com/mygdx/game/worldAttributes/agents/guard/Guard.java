@@ -8,7 +8,6 @@ import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
 import com.mygdx.game.worldAttributes.agents.guard.ai.HeuristicBot;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAIFactory;
-import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 import com.mygdx.game.worldAttributes.areas.Area;
 
 import java.util.ArrayList;
@@ -30,6 +29,14 @@ public class Guard extends Agent
         randomPosition.y = (float) Math.random() * map.getHeight();
 
         spawn(randomPosition, (float)Math.random() * 360.0f);
+    }
+
+    public void spawnLeft(Map map, float divideMap, int guardNumber) {
+        Vector2 position = new Vector2();
+        position.x = 0.0f;
+        position.y = divideMap*guardNumber;
+
+        spawn(position, 0.0f);
     }
 
     public void setExplorationAI(ExplorationAI.ExplorationAIType explorationAI)
