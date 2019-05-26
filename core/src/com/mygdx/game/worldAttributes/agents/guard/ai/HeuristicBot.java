@@ -37,10 +37,11 @@ public class HeuristicBot extends GuardAI {
                 /* coefficient for sound: */ 5,
                 /* coefficient for amount of visible guards: */ -5,
                 /* coefficient for amount of visible intruders: */ 100,
-                /* coefficient for red pheromones: */ 70,
+                /* coefficient for red pheromones: */ 10,
                 /* coefficient for green pheromones: */ 10,
                 /* coefficient for blue pheromones: */ 10,
-                /* coefficient for yellow pheromones: */ 10
+                /* coefficient for yellow pheromones: */ 10,
+                /* coefficient for purple pheromones: */ 10,
         };
 
         float[] best_actions = new float[360];
@@ -104,6 +105,7 @@ public class HeuristicBot extends GuardAI {
         Vector2 pos = agent.getPosition();
         for (float f : visibleSounds)
         {
+            agent.createPheromone(Pheromone.PheromoneType.BLUE);
             soundVec[(int) f] += 1;
         }
 

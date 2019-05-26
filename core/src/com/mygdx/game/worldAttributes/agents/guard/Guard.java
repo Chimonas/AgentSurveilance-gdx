@@ -6,6 +6,7 @@ import com.mygdx.game.gamelogic.World;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
 import com.mygdx.game.worldAttributes.agents.guard.ai.HeuristicBot;
+import com.mygdx.game.worldAttributes.agents.guard.ai.PheromoneAI;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAIFactory;
 import com.mygdx.game.worldAttributes.areas.Area;
@@ -52,7 +53,7 @@ public class Guard extends Agent
             internalAreas = ((ExplorationAI) ai).getInternalAreas();
 
 //        ai = GuardAIFactory.newGuardAI(guardAIType, this, internalAreas);
-        ai = new HeuristicBot(this);
+        ai = new PheromoneAI(this);
     }
 
     public ArrayList<Area> getVisibleAreas()

@@ -99,8 +99,8 @@ public abstract class Area
     public boolean contains(Vector2 point) {
         return ((point.x < bottomRight.x) &&
                 (point.x > topLeft.x) &&
-                (point.y > topLeft.y) &&
-                (point.y < bottomRight.y));
+                (point.y < topLeft.y) &&
+                (point.y > bottomRight.y));
     }
 
     public boolean isInside(Vector2 topLeft, Vector2 bottomRight) {

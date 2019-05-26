@@ -253,6 +253,17 @@ abstract public class Agent
         return false;
     }
 
+    public boolean inShade(){
+
+        for(Area area: world.getMap().getAreaList()){
+            area.contains(position);
+            if(area instanceof Shade && area.contains(position)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public float modulo(float dividend, float divisor)
     {
         return ((dividend % divisor) + divisor) % divisor;

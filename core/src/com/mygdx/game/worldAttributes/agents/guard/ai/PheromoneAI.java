@@ -16,6 +16,7 @@ public class PheromoneAI extends GuardAI
     {
         super.update();
 
+        //RED pheromone for seeing Intruders + maximize speed
         if(!visibleIntruders.isEmpty())
         {
             agent.createPheromone(Pheromone.PheromoneType.RED);
@@ -34,5 +35,14 @@ public class PheromoneAI extends GuardAI
 
             newAngle = agent.getAngleFacing() + 0.2f * agent.MAXTURNVELOCITY / (float)GameLoop.TICKRATE;
         }
+
+
+        //PURPLE pheromone for being in a Shade
+        if(agent.inShade()){
+            agent.createPheromone(Pheromone.PheromoneType.PURPLE);
+        }
+
+        //
+
     }
 }
