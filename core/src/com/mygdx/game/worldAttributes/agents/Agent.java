@@ -50,6 +50,7 @@ abstract public class Agent
 
     public void spawn()
     {
+
         ai.spawn(world.getMap());
     }
 

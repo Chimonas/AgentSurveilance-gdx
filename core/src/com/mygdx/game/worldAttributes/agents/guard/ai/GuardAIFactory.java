@@ -2,6 +2,7 @@ package com.mygdx.game.worldAttributes.agents.guard.ai;
 
 import com.mygdx.game.worldAttributes.agents.AI;
 import com.mygdx.game.worldAttributes.agents.Agent;
+import com.mygdx.game.worldAttributes.agents.HeuristicBot;
 import com.mygdx.game.worldAttributes.agents.PheromoneAI;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.areas.Area;
@@ -20,7 +21,7 @@ public class GuardAIFactory
             case STUPID:
                 return new Stupid(guard);
             case PHEROMONE:
-                return new PheromoneAI(agent);
+                return new HeuristicBot(agent);
             default:
                 return new Stupid(guard);
 

@@ -50,8 +50,6 @@ public class GameLoop
             time = System.nanoTime();
 
 //            if(exploration && (time - startExplorationTIme)* Math.pow(10,-9) >= (int)(explorationTime))
-            System.out.println(explorationTime * TICK_RATE);
-            System.out.println(ticks);
             if (exploration && ticks >= (int) (explorationTime * TICK_RATE)) {
                 exploration = false;
                 world.settings.setExplorationPhase(false);

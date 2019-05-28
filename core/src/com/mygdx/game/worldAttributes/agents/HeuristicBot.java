@@ -73,7 +73,11 @@ public class HeuristicBot extends AI {
 
     @Override
     public void spawn(Map map) {
+        Vector2 randomPosition = new Vector2();
+        randomPosition.x = (float) Math.random() * map.getWidth();
+        randomPosition.y = (float) Math.random() * map.getHeight();
 
+        agent.spawnPosition(randomPosition, (float)Math.random() * 360.0f);
     }
 
     @Override
