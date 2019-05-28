@@ -148,7 +148,7 @@ public class AISettingsState extends MenuState
         timeL.setFontScale(1.3f);
         centerTable.add(timeL).pad(5).row();
 
-        maxTimeL = new Label("Simulation Time", StateManager.skin);
+        maxTimeL = new Label("Simulation Time (s)", StateManager.skin);
         centerTable.add(maxTimeL).pad(5);
         maxTimeTF = new TextField("", StateManager.skin);
         centerTable.add(maxTimeTF).pad(5).row();
@@ -174,7 +174,7 @@ public class AISettingsState extends MenuState
             }
         });
 
-        explorationTimeL =  new Label("Exploration Time", StateManager.skin);
+        explorationTimeL =  new Label("Exploration Time (s)", StateManager.skin);
         centerTable.add(explorationTimeL).pad(5);
         explorationTimeTF = new TextField("", StateManager.skin);
         centerTable.add(explorationTimeTF).pad(5).row();
