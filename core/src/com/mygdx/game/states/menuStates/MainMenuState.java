@@ -80,12 +80,6 @@ public class MainMenuState extends MenuState
 
         worldSB = new SelectBox(StateManager.skin);
         worldSB.setItems(FileHandler.getListOfMaps());
-//        worldSB.addListener(new ChangeListener(){
-//            @Override
-//            public void changed(ChangeEvent event, Actor actor) {
-//
-//            }
-//        });
         table.add(worldSB).center().width(BUTTONWIDTH).row();
 
         loadWorldB = new TextButton("Load World", StateManager.skin, "default");

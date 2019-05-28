@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class HeuristicSearch extends ExplorationAI {
     ArrayList<Area> exploredAreas; //arraylist of areas found
-    float maxVelocity=1.4f, visibleRange=12;
+    float maxVelocity = 1.4f, visibleRange = 12;
     Vector2 startPosition;
 
     public HeuristicSearch(Guard guard) {

@@ -11,6 +11,6 @@ public abstract class IntruderAI extends AI
 
     public IntruderAI(Intruder intruder)
     {
-        agent = intruder;
+        super(intruder);
     }
 }

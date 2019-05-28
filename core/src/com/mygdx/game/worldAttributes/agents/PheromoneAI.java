@@ -1,18 +1,17 @@
-package com.mygdx.game.worldAttributes.agents.guard.ai;
+package com.mygdx.game.worldAttributes.agents;
 
 import com.mygdx.game.gamelogic.GameLoop;
 import com.mygdx.game.worldAttributes.Pheromone;
+import com.mygdx.game.worldAttributes.agents.AI;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
+import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
 import com.mygdx.game.worldAttributes.areas.Area;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-public class PheromoneAI extends GuardAI
+public class PheromoneAI extends AI
 {
-    public PheromoneAI(Guard guard)
+    public PheromoneAI(Agent agent)
     {
-        super(guard);
+        super(agent);
 
     }
 

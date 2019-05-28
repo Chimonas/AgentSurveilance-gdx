@@ -1,6 +1,7 @@
 package com.mygdx.game.gamelogic;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.StateManager;
 import com.mygdx.game.worldAttributes.Communication;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.Sound;
@@ -25,11 +26,11 @@ public class World
     ArrayList<Pheromone> pheromones;
     float divideMap; //for spawning
 
-    public World(Map map, Settings settings)
+    public World(Map map, Settings settings, StateManager sm)
     {
         this.map = map;
         this.settings = settings;
-        gameLoop = new GameLoop(this, settings.getMaxTime(), settings.isExplorationPhase(), settings.getExplorationTime());
+        gameLoop = new GameLoop(this, settings.getMaxTime(), settings.isExplorationPhase(), settings.getExplorationTime(), sm);
 
         guards = new ArrayList<>();
         intruders = new ArrayList<>();
@@ -125,6 +126,10 @@ public class World
     public Map getMap()
     {
         return map;
+    }
+
+    public Settings getSettings(){
+        return settings;
     }
 
     public GameLoop getGameLoop()

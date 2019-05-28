@@ -22,6 +22,7 @@ abstract public class Agent
     public final float VISUALANGLE = 45.0f, MAXVELOCITY = 1.4f, MAXTURNVELOCITY = 180.0f, PHEROMONECOOLDOWN = 10.0f;
     protected AI ai;
     protected float maxVelocity, visualMultiplier, visibility;
+    private float maxTimeSamePosition = 3.0f;
 
     protected boolean active;
     protected Vector2 position;
@@ -66,7 +67,6 @@ abstract public class Agent
 
             float newAngleFacing = ai.getNewAngle(this.angleFacing);
 
-
             // Commented out because fucks up the heuristic bot when agent's are trying to avoid each other
 
 //            newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
@@ -83,8 +83,7 @@ abstract public class Agent
 //            angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
 
             angleFacing = newAngleFacing;
-//
-//          System.out.println(angleFacing);
+
             world.addSound(new Sound(new Vector2(position), velocity * 4.0f));
         }
     }
@@ -103,11 +102,37 @@ abstract public class Agent
 
             newPosition = new Vector2((float) (position.x + velocityX / GameLoop.TICKRATE), (float) (position.y + velocityY / GameLoop.TICKRATE));
 
+            checkChangeDirection();
             if (isValidMove(position, newPosition))
                 position.set(newPosition);
             else
                 velocity = 0.0f;
+
+
         }
+    }
+
+    private float samePositionTime = -1;
+    boolean check = false;
+
+    public void checkChangeDirection(){
+
+        if(!isValidMove(position, newPosition) && samePositionTime == -1) {
+            samePositionTime = System.nanoTime();
+            check = true;
+        }
+
+        if(Math.pow(10,-9) * (System.nanoTime() - samePositionTime) > maxTimeSamePosition && check) {
+
+            if(newPosition.x < 0) angleFacing = (float) (Math.random()*180 + 270)%360;
+            else if(newPosition.y < 0) angleFacing = (float) (Math.random()*180);
+            else if(newPosition.x > world.getMap().getWidth()) angleFacing = (float) (Math.random()*180 + 90) ;
+            else if(newPosition.y > world.getMap().getHeight()) angleFacing = (float) (Math.random()*180 + 180);
+            else angleFacing = (float) (Math.random() * 360.0);
+            samePositionTime = -1;
+            check = false;
+        }
+
     }
 
     public boolean isValidMove(Vector2 position, Vector2 newPosition)
@@ -233,6 +258,7 @@ abstract public class Agent
         }
         return false;
     }
+
 
     public boolean createCommunication(Agent receivingAgent, ArrayList<?> message)
     {

@@ -1,16 +1,14 @@
-package com.mygdx.game.worldAttributes.agents.guard.ai;
+package com.mygdx.game.worldAttributes.agents;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.worldAttributes.Pheromone;
-import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
+import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class HeuristicBot extends GuardAI {
-
+public class HeuristicBot extends AI {
 
     //Have an array of all angles
 
@@ -19,9 +17,9 @@ public class HeuristicBot extends GuardAI {
     private float[] best_actions;
     PheromoneAI pherAI;
 
-    public HeuristicBot(Guard guard) {
-        super(guard);
-        this.pherAI = new PheromoneAI(guard);
+    public HeuristicBot(Agent agent) {
+        super(agent);
+        this.pherAI = new PheromoneAI(agent);
     }
 
     public void update() {
@@ -95,7 +93,6 @@ public class HeuristicBot extends GuardAI {
         Vector2 pos = agent.getPosition();
         for (float f : visibleSounds)
         {
-//            agent.createPheromone(Pheromone.PheromoneType.BLUE);
             soundVec[(int) f] += 1;
         }
 

@@ -17,7 +17,7 @@ public abstract class GuardAI extends AI
 
     public GuardAI(Guard guard)
     {
-        this.agent = guard;
+        super(guard);
     }
 
     public void update()

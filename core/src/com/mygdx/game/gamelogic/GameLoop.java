@@ -1,5 +1,7 @@
 package com.mygdx.game.gamelogic;
 
+import com.mygdx.game.StateManager;
+import com.mygdx.game.states.menuStates.StartSimulationState;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 import com.mygdx.game.worldAttributes.areas.Area;
@@ -14,12 +16,15 @@ public class GameLoop
     private int ticks;
     private double time, speed, lastTickTime, timeBeforeTick, simulationTime, explorationTime, targetAreaTimer, enteredAreaTime; // !All time related variables have to be in double for precision!
 
-    public GameLoop(World world, double simulationTime, boolean exploration, double explorationTime)
+    public StateManager sm;
+
+    public GameLoop(World world, double simulationTime, boolean exploration, double explorationTime, StateManager sm)
     {
         this.world = world;
         this.simulationTime = simulationTime;
         this.exploration = exploration;
         this.explorationTime = explorationTime;
+        this.sm = sm;
 
         pause = false;
         ticks = 0;
@@ -36,16 +41,20 @@ public class GameLoop
         world.update();
     }
 
+    float startExplorationTIme = System.nanoTime();
+
     public void check()
     {
         if(running && !pause)
         {
             time = System.nanoTime();
 
-            if(exploration && ticks >= (int)(explorationTime * TICKRATE))
+            if(exploration && (time - startExplorationTIme)* Math.pow(10,-9) >= (int)(explorationTime))
             {
                 exploration = false;
+                world.settings.setExplorationPhase(false);
                 world.startSimulationPhase();
+                sm.push(new StartSimulationState(sm, world));
             }
 
             if(simulationTime != 0.0)
@@ -75,8 +84,6 @@ public class GameLoop
                     if(Math.pow(10,-9) * (System.nanoTime() - i.enteredAreaTime) * TICKRATE >= (targetAreaTimer * TICKRATE))
                         stop();
                 } else i.enteredAreaTime = -1; //TODO: Message that intruders won
-
-
     }
 
     public void start()
