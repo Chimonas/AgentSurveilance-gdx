@@ -1,6 +1,7 @@
 package com.mygdx.game.worldAttributes.agents;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
@@ -68,6 +69,11 @@ public class HeuristicBot extends AI {
     @Override
     public float getNewVelocity() {
         return 1.4f;
+    }
+
+    @Override
+    public void spawn(Map map) {
+
     }
 
     @Override

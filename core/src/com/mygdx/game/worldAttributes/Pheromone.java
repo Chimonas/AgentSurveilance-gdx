@@ -43,8 +43,8 @@ public class Pheromone
 
     public void update()
     {
-        intensity -= DECAYRATE / GameLoop.TICKRATE;
-        visibility += GROWTHRATE / GameLoop.TICKRATE;
+        intensity -= DECAYRATE / GameLoop.TICK_RATE;
+        visibility += GROWTHRATE / GameLoop.TICK_RATE;
     }
 
     public PheromoneType getPheromoneType() {

@@ -47,7 +47,7 @@ public class AgentDrawer
             Gdx.gl.glEnable(GL20.GL_BLEND);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor(VISUALRANGECOLOR);
-            shapeRenderer.arc(position.x, position.y, visualRange, agent.getAngleFacing() - agent.VISUALANGLE / 2.0f, agent.VISUALANGLE, 12);
+            shapeRenderer.arc(position.x, position.y, visualRange, agent.getAngleFacing() - agent.VISUAL_ANGLE / 2.0f, agent.VISUAL_ANGLE, 12);
             shapeRenderer.end();
             Gdx.gl.glDisable(GL20.GL_BLEND);
         }

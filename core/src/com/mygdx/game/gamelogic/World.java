@@ -24,7 +24,6 @@ public class World
     ArrayList<Communication> communications;
     ArrayList<Sound> sounds;
     ArrayList<Pheromone> pheromones;
-    float divideMap; //for spawning
 
     public World(Map map, Settings settings, StateManager sm)
     {
@@ -55,18 +54,26 @@ public class World
 
     public void startExplorationPhase()
     {
-        int increment = 0;
-        for(Guard guard : guards) {
+        for(Guard guard : guards)
+        {
             guard.setExplorationAI(settings.getExplorationAIType());
-
-            if(settings.getExplorationAIType() == ExplorationAI.ExplorationAIType.HEURISTIC) {
-                divideMap = map.getWidth() / guards.size();
-                guard.spawnLeft(map, divideMap, increment);
-            }
-            else
-                guard.spawnRandom(map);
-            increment++;
+            guard.spawn();
         }
+
+        // V THIS V = BIG NO NO
+//        int increment = 0;
+//        for(Guard guard : guards)
+//        {
+//            guard.setExplorationAI(settings.getExplorationAIType());
+//
+//            if(settings.getExplorationAIType() == ExplorationAI.ExplorationAIType.HEURISTIC) {
+//                divideMap = map.getWidth() / guards.size();
+//                guard.spawnLeft(map, divideMap, increment);
+//            }
+//            else
+//                guard.spawnRandom(map);
+//            increment++;
+//        }
     }
 
     public void startSimulationPhase()
@@ -74,13 +81,13 @@ public class World
         for(Guard guard : guards)
         {
             guard.setSimulationAI(settings.getGuardAIType());
-            guard.spawnRandom(map);
+            guard.spawn();
         }
 
         for(Intruder intruder : intruders)
         {
             intruder.setIntruderAI(settings.getIntruderAIType());
-            intruder.spawnRandomEdge(map);
+            intruder.spawn();
         }
 
         pheromones.clear();
@@ -92,7 +99,7 @@ public class World
         sounds.clear();
 
         for(int i = 0; i < (int)(map.getWidth() * map.getHeight() / 25.0f); i++)
-            if (Math.random() < 1.0f / (600.0f * GameLoop.TICKRATE)) {
+            if (Math.random() < 1.0f / (600.0f * GameLoop.TICK_RATE)) {
                 Vector2 randomPosition = new Vector2();
                 randomPosition.x = (float) Math.random() * map.getWidth();
                 randomPosition.y = (float) Math.random() * map.getHeight();
@@ -181,9 +188,5 @@ public class World
     public void addPheromone(Pheromone pheromone)
     {
         pheromones.add(pheromone);
-    }
-
-    public float getDivideMap() {
-        return divideMap;
     }
 }

@@ -19,7 +19,7 @@ abstract public class Agent
 {
     protected World world;
 
-    public final float VISUALANGLE = 45.0f, MAXVELOCITY = 1.4f, MAXTURNVELOCITY = 180.0f, PHEROMONECOOLDOWN = 10.0f;
+    public final float VISUAL_ANGLE = 45.0f, MAX_VELOCITY = 1.4f, MAX_TURN_VELOCITY = 180.0f, PHEROMONE_COOL_DOWN = 10.0f;
     protected AI ai;
     protected float maxVelocity, visualMultiplier, visibility;
     private float maxTimeSamePosition = 3.0f;
@@ -34,17 +34,23 @@ abstract public class Agent
     {
         this.world = world;
 
-        maxVelocity = MAXVELOCITY;
+        maxVelocity = MAX_VELOCITY;
         visualMultiplier = 1.0f;
 
         active = false;
     }
 
-    public void spawn(Vector2 position, float angleFacing) {
+    public void spawnPosition(Vector2 position, float angleFacing)
+    {
         active = true;
         this.position = position;
         this.angleFacing = angleFacing;
         velocity = 0f;
+    }
+
+    public void spawn()
+    {
+        ai.spawn(world.getMap());
     }
 
     public void despawn()
@@ -67,18 +73,18 @@ abstract public class Agent
 
             float newAngleFacing = ai.getNewAngle(this.angleFacing);
 
-            // Commented out because fucks up the heuristic bot when agent's are trying to avoid each other
-
+//            Commented out cuz fucks up
 //            newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
 //
 //            float angleDifference = newAngleFacing - angleFacing;
 //            angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
 //
-//            if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICKRATE) {
+//            if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICK_RATE)
+//            {
 //                //TODO: descrease visibility, start blindness timer
 //
-//                if (Math.abs(angleDifference) > 180.0f / GameLoop.TICKRATE)
-//                    newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICKRATE);
+//                if (Math.abs(angleDifference) > 180.0f / GameLoop.TICK_RATE)
+//                    newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICK_RATE);
 //            }
 //            angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
 
@@ -100,15 +106,13 @@ abstract public class Agent
             velocityX = velocity * (float) Math.cos(angleRad);
             velocityY = velocity * (float) Math.sin(angleRad);
 
-            newPosition = new Vector2((float) (position.x + velocityX / GameLoop.TICKRATE), (float) (position.y + velocityY / GameLoop.TICKRATE));
+            newPosition = new Vector2((float) (position.x + velocityX / GameLoop.TICK_RATE), (float) (position.y + velocityY / GameLoop.TICK_RATE));
 
             checkChangeDirection();
             if (isValidMove(position, newPosition))
                 position.set(newPosition);
             else
                 velocity = 0.0f;
-
-
         }
     }
 
@@ -151,8 +155,8 @@ abstract public class Agent
         if(active)
             if (agent.active && agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
             {
-                float beginAngle = modulo(angleFacing - VISUALANGLE * 0.5f, 360.0f);
-                float endAngle = modulo(angleFacing + VISUALANGLE * 0.5f, 360.0f);
+                float beginAngle = modulo(angleFacing - VISUAL_ANGLE * 0.5f, 360.0f);
+                float endAngle = modulo(angleFacing + VISUAL_ANGLE * 0.5f, 360.0f);
                 float angleBetweenAgents = modulo((float)(getAngleBetweenTwoPos(agent.getPosition(), position)),360.0f);
 
                 if(endAngle< beginAngle)
@@ -219,7 +223,7 @@ abstract public class Agent
         {
             float soundAngle = getAngleBetweenTwoPos(sound.getPosition(), position);
 
-            soundAngle += random.nextGaussian() * 10.0f;
+            soundAngle += random.nextGaussian() * 10.0f; //Adding random factor with standard deviation of 10 degrees
 
             soundAngle = modulo(soundAngle, 360.0f);
 
@@ -241,7 +245,7 @@ abstract public class Agent
         return visiblePheromones;
     }
 
-    private int lastPheromoneTick = (int)(-PHEROMONECOOLDOWN * GameLoop.TICKRATE);
+    private int lastPheromoneTick = (int)(-PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE);
 
     public boolean createPheromone(Pheromone.PheromoneType pheromoneType)
     {
@@ -249,7 +253,7 @@ abstract public class Agent
         {
             int currentTick = world.getGameLoop().getTicks();
 
-            if (currentTick - lastPheromoneTick >= (int) (PHEROMONECOOLDOWN * GameLoop.TICKRATE)) {
+            if (currentTick - lastPheromoneTick >= (int) (PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE)) {
                 world.addPheromone(new Pheromone(pheromoneType, new Vector2(position)));
                 lastPheromoneTick = currentTick;
 
@@ -258,7 +262,6 @@ abstract public class Agent
         }
         return false;
     }
-
 
     public boolean createCommunication(Agent receivingAgent, ArrayList<?> message)
     {
@@ -271,20 +274,23 @@ abstract public class Agent
         return false;
     }
 
-    public boolean inShade(){
-
-        for(Area area: world.getMap().getAreaList()){
-            area.contains(position);
-            if(area instanceof Shade && area.contains(position)){
+    public boolean inShade()
+    {
+        for(Area area: world.getMap().getAreaList())
+            if(area instanceof Shade && area.contains(position))
                 return true;
-            }
-        }
+
         return false;
     }
 
     public float modulo(float dividend, float divisor)
     {
         return ((dividend % divisor) + divisor) % divisor;
+    }
+
+    public float getAngleBetweenTwoPos(Vector2 pos1, Vector2 pos2)
+    {
+        return (float)(Math.toDegrees(Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x)));
     }
 
     public boolean getActive()
@@ -308,11 +314,6 @@ abstract public class Agent
 
     public World getWorld() {
         return world;
-    }
-
-    public float getAngleBetweenTwoPos(Vector2 pos1, Vector2 pos2){
-
-        return (float)(Math.toDegrees(Math.atan2(pos1.y - pos2.y, pos1.x - pos2.x)));
     }
 
 }

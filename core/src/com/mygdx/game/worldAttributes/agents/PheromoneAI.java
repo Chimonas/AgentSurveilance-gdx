@@ -1,6 +1,7 @@
 package com.mygdx.game.worldAttributes.agents;
 
 import com.mygdx.game.gamelogic.GameLoop;
+import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.agents.AI;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
@@ -19,6 +20,11 @@ public class PheromoneAI extends AI
     public void update()
     {
         super.update();
+
+    }
+
+    @Override
+    public void spawn(Map map) {
 
     }
 
@@ -48,20 +54,20 @@ public class PheromoneAI extends AI
         if(!visibleIntruders.isEmpty())
         {
             agent.createPheromone(color);
-            newVelocity = agent.MAXVELOCITY;
+            newVelocity = agent.MAX_VELOCITY;
         }
         else if(!visiblePheromones.isEmpty())
         {
-            newVelocity = agent.MAXVELOCITY;
+            newVelocity = agent.MAX_VELOCITY;
         }
         else
         {
-            if(agent.getVelocity() == agent.MAXVELOCITY)
+            if(agent.getVelocity() == agent.MAX_VELOCITY)
                 newVelocity = 1.0f;
             else
-                newVelocity = agent.getVelocity() + 0.05f / (float)GameLoop.TICKRATE;
+                newVelocity = agent.getVelocity() + 0.05f / (float)GameLoop.TICK_RATE;
 
-            newAngle = agent.getAngleFacing() + 0.2f * agent.MAXTURNVELOCITY / (float)GameLoop.TICKRATE;
+            newAngle = agent.getAngleFacing() + 0.2f * agent.MAX_TURN_VELOCITY / (float)GameLoop.TICK_RATE;
         }
     }
 
