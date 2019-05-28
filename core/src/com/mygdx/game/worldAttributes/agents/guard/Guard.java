@@ -5,8 +5,7 @@ import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.World;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
-import com.mygdx.game.worldAttributes.agents.guard.ai.HeuristicBot;
-import com.mygdx.game.worldAttributes.agents.guard.ai.PheromoneAI;
+import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAIFactory;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAIFactory;
 import com.mygdx.game.worldAttributes.areas.Area;
@@ -23,23 +22,6 @@ public class Guard extends Agent
         visibility = VISIBILITY;
     }
 
-    public void spawnRandom(Map map)
-    {
-        Vector2 randomPosition = new Vector2();
-        randomPosition.x = (float) Math.random() * map.getWidth();
-        randomPosition.y = (float) Math.random() * map.getHeight();
-
-        spawn(randomPosition, (float)Math.random() * 360.0f);
-    }
-
-    public void spawnLeft(Map map, float divideMap, int guardNumber) {
-        Vector2 position = new Vector2();
-        position.x = 0.0f;
-        position.y = divideMap*guardNumber;
-
-        spawn(position, 0.0f);
-    }
-
     public void setExplorationAI(ExplorationAI.ExplorationAIType explorationAI)
     {
         ai = ExplorationAIFactory.newExplorationAI(explorationAI, this);
@@ -52,8 +34,7 @@ public class Guard extends Agent
         if(ai instanceof ExplorationAI)
             internalAreas = ((ExplorationAI) ai).getInternalAreas();
 
-//        ai = GuardAIFactory.newGuardAI(guardAIType, this, internalAreas);
-        ai = new HeuristicBot(this);
+        ai = GuardAIFactory.newGuardAI(guardAIType, this, internalAreas);
     }
 
     public ArrayList<Area> getVisibleAreas()
@@ -61,12 +42,6 @@ public class Guard extends Agent
         ArrayList<Area> visibleAreas = new ArrayList<>(); //add all visible areas and return
 
         return world.getMap().getAreaList();
-    }
-
-    private float getAngle(Vector2 agent, Vector2 other)
-    {
-        return modulo((float)(Math.toDegrees(Math.atan2(agent.y - other.y, agent.x - other.x))),360.0f);
-        //    return modulo((float)Math.toDegrees(Math.atan((agent.y - other.y)/(agent.x - other.x))), 360.0f); //agent.x - other.x could be 0 and fail
     }
 
     public float modulo(float dividend, float divisor)

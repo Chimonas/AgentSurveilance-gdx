@@ -3,13 +3,10 @@ package com.mygdx.game.worldAttributes.agents.guard.explorationAi;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
-import com.mygdx.game.worldAttributes.areas.Area;
 
-import java.util.ArrayList;
-
-public class HeuristicSearch extends ExplorationAI {
-    ArrayList<Area> exploredAreas; //arraylist of areas found
-    float maxVelocity=1.4f, visibleRange=12;
+public class HeuristicSearch extends ExplorationAI
+{
+    float maxVelocity=1.4f, visibleRange=12; //use agent.getmaxvelocity and area.getvisibility please, NO MAGIC NUMBERS!
     Vector2 startPosition;
 
     public HeuristicSearch(Guard guard) {
@@ -33,12 +30,15 @@ public class HeuristicSearch extends ExplorationAI {
         if(agent.getPosition().y == startPosition.y && agent.getPosition().x == startPosition.x)
             setNewAngle(startPosition.x+visibleRange,startPosition.y);
 
-        //all other normal cases:
-        if((agent.getPosition().x+visibleRange)%4 == 0 && agent.getPosition().y != (agent.getWorld().getDivideMap()-visibleRange))
-            setNewAngle(agent.getPosition().x,agent.getWorld().getDivideMap()-visibleRange);
 
-        if(agent.getPosition().y == (agent.getWorld().getDivideMap()-visibleRange) && (agent.getPosition().x+3*visibleRange)%4 != 0)
-            setNewAngle(agent.getPosition().x+2*visibleRange,agent.getPosition().y);
+        //removed getdivide map, spawning now done from within ai itself, use static variable for increment
+
+        //all other normal cases:
+//        if((agent.getPosition().x+visibleRange)%4 == 0 && agent.getPosition().y != (agent.getWorld().getDivideMap()-visibleRange))
+//            setNewAngle(agent.getPosition().x,agent.getWorld().getDivideMap()-visibleRange);
+//
+//        if(agent.getPosition().y == (agent.getWorld().getDivideMap()-visibleRange) && (agent.getPosition().x+3*visibleRange)%4 != 0)
+//            setNewAngle(agent.getPosition().x+2*visibleRange,agent.getPosition().y);
 
         if((agent.getPosition().x+3*visibleRange)%4 == 0 && agent.getPosition().y != (startPosition.y+visibleRange))
             setNewAngle(agent.getPosition().x,startPosition.y+visibleRange);
@@ -66,4 +66,14 @@ public class HeuristicSearch extends ExplorationAI {
     public float setNewVelocity() {
         return maxVelocity;
     }
+
+//    @Override
+//    public void spawn(Map map)
+//    {
+//        Vector2 position = new Vector2();
+//        position.x = 0.0f;
+//        position.y = divideMap*guardNumber;
+//
+//        agent.spawnPosition(position, 0.0f);
+//    }
 }

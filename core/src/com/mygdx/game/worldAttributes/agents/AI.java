@@ -1,5 +1,6 @@
 package com.mygdx.game.worldAttributes.agents;
 
+import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.worldAttributes.Communication;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
@@ -36,4 +37,6 @@ public abstract class AI
     {
         return newVelocity;
     }
+
+    public abstract void spawn(Map map);
 } 
