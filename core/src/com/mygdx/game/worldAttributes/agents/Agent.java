@@ -8,9 +8,7 @@ import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.Sound;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
-import com.mygdx.game.worldAttributes.areas.Area;
-import com.mygdx.game.worldAttributes.areas.Shade;
-import com.mygdx.game.worldAttributes.areas.Target;
+import com.mygdx.game.worldAttributes.areas.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -148,7 +146,6 @@ abstract public class Agent
     }
 
 
-
     public ArrayList<Guard> getVisibleGuards()
     {
         ArrayList<Guard> visibleGuards = new ArrayList<>();
@@ -188,10 +185,10 @@ abstract public class Agent
 //                    System.out.println("Detected top wall");
                     visibleBounds[0] = new Vector2((worldHeight-bias)/angle,worldHeight+1);
                 }
-                else if (position.dst2(new Vector2(-bias,-1)) < (visibility * visibility)) {
+                else if (position.dst2(new Vector2(-bias,1)) < (visibility * visibility)) {
                     //check if it sees the bot border
 //                    System.out.println("Detected bot wall");
-                    visibleBounds[1] = new Vector2(-bias,-1);
+                    visibleBounds[1] = new Vector2(-bias,1);
                 }
                 else if (position.dst2(new Vector2(worldWidth+1,angle*worldWidth+bias)) < (visibility * visibility)) {
                     //check if it sees the right border
@@ -206,14 +203,6 @@ abstract public class Agent
             }
         }
 
-        //have only unique borders
-//        for (int i = 0; i < visibleBounds.length-1; i++) {
-//            for (int j = i+1; j < visibleBounds.length; j++) {
-//                if (visibleBounds[i].equals(visibleBounds[j])) {
-//                    visibleBounds[i] = new Vector2(-1,-1);
-//                }
-//            }
-//        }
 
         return visibleBounds;
     }
@@ -231,6 +220,100 @@ abstract public class Agent
         return visibleIntruders;
     }
 
+    private ArrayList<Vector2[]> visibleSentryTowers = new ArrayList<>();
+    private ArrayList<Vector2[]> visibleShade = new ArrayList<>();
+    private ArrayList<Vector2[]> visibleStructure = new ArrayList<>();
+
+
+    public ArrayList<Vector2[]> getVisibleSentryTowers() {
+        return visibleSentryTowers;
+    }
+
+    public ArrayList<Vector2[]> getVisibleShade() {
+        return visibleShade;
+    }
+
+    public ArrayList<Vector2[]> getVisibleStructure() {
+        return visibleStructure;
+    }
+
+
+    public void updateVisibleAreas() {
+        ArrayList<Area> visibleAreas = new ArrayList<>();
+
+        if (active)
+            for (Area a : world.getMap().getAreaList()) {
+                if (getAreaVisible(a)) {
+
+                    float[] checkAngles = new float[]{(float) Math.tan(Math.toRadians(angleFacing - VISUAL_ANGLE * 0.5f)),
+                        (float) Math.tan(Math.toRadians(angleFacing + VISUAL_ANGLE * 0.5f))};
+                    //get visible bounds
+                    //set them to the arraylist corresponding their own kind of area
+                    Vector2[] visibleBounds = getVisibleBounds(checkAngles,a.getTopLeft(),a.getBottomRight());
+                    visibleSentryTowers = new ArrayList<>();
+                    visibleStructure = new ArrayList<>();
+                    visibleShade = new ArrayList<>();
+                    if (a instanceof SentryTower) visibleSentryTowers.add(visibleBounds);
+                    if (a instanceof Shade) visibleShade.add(visibleBounds);
+                    if (a instanceof Structure) visibleStructure.add(visibleBounds);
+
+
+                }
+            }
+
+    }
+
+    public boolean getAreaVisible(Area area) {
+
+        if(active) {
+
+            if ((position.dst2(new Vector2(area.getBottomRight().x,position.y)) < area.getVisibility() * area.getVisibility()) ||
+                position.dst2(new Vector2(area.getTopLeft().x,position.y)) < area.getVisibility() * area.getVisibility() ||
+                position.dst2(new Vector2(position.x,area.getBottomRight().y)) < area.getVisibility() * area.getVisibility() ||
+                position.dst2(new Vector2(position.x,area.getTopLeft().y)) < area.getVisibility() * area.getVisibility() ) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+    }
+
+
+    public Vector2[] getVisibleBounds(float[] anglesToCheck,Vector2 topLeft, Vector2 botRight) {
+        Vector2[] visibleBounds = {new Vector2(-5,-5),
+                                    new Vector2(-5,-5),
+                                    new Vector2(-5,-5),
+                                    new Vector2(-5,-5),};
+
+        for (float angle : anglesToCheck) {
+            float bias = position.y - angle * position.x;
+//                System.out.println(position.x + " " + position.y);
+            if (position.dst2(new Vector2((topLeft.y-bias)/angle,topLeft.y)) < (visibility * visibility)) {
+                //check if it sees the top border
+//                    System.out.println("Detected top wall");
+                visibleBounds[0] = new Vector2((topLeft.y-bias)/angle,topLeft.y+1);
+            }
+            else if (position.dst2(new Vector2((botRight.y-bias)/angle,botRight.y)) < (visibility * visibility)) {
+                //check if it sees the bot border
+                    System.out.println("Detected bot wall");
+                visibleBounds[1] = new Vector2((botRight.y-bias)/angle,botRight.y);
+            }
+            else if (position.dst2(new Vector2(botRight.x,angle*botRight.x+bias)) < (visibility * visibility)) {
+                //check if it sees the right border
+//                    System.out.println("Detected right wall");
+                visibleBounds[2] = new Vector2(botRight.x,angle*botRight.x+bias);
+            }
+            else if (position.dst2(new Vector2(topLeft.x,angle*topLeft.x+bias)) < (visibility * visibility)) {
+                //check if it sees the left border
+//                    System.out.println("Detected left wall");
+                visibleBounds[3] = new Vector2(topLeft.x,angle*topLeft.x+bias);
+            }
+        }
+        return visibleBounds;
+    }
 
     public ArrayList<Communication> getReceivedCommunications()
     {
@@ -282,6 +365,7 @@ abstract public class Agent
 
         return visiblePheromones;
     }
+
 
     private int lastPheromoneTick = (int)(-PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE);
 

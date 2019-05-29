@@ -151,6 +151,8 @@ public abstract class Area
         return color;
     }
 
+    public float getVisibility() {return visibility;}
+
     public void setColor(Color color) {
         this.color = color;
     }
