@@ -17,6 +17,7 @@ public class HeuristicBot extends AI {
     private float[] best_actions = new float[360];
     public Vector2 oldPosition = new Vector2();
     PheromoneAI pherAI;
+
     private int samePositionTick = -1;
     boolean check = false;
     private float maxTimeSamePosition = 3.0f;
@@ -27,7 +28,7 @@ public class HeuristicBot extends AI {
         this.newVelocity= agent.MAX_VELOCITY;
 
         //this.numberCoefficients = 0;
-        for(int i = 0; i<best_actions.length; i++) best_actions[i] = (float)Math.random()*5;
+        for(int i = 0; i<best_actions.length; i++) best_actions[i] = (float)Math.random();
 //        best_actions[(int)Math.random()*360] = 0.1f;
 
         coefficients = new float[] {
@@ -53,10 +54,11 @@ public class HeuristicBot extends AI {
         System.out.println(this.oldPosition.x + " " + this.oldPosition.y );
         System.out.println(agent.position.x + " " + agent.position.y );
         System.out.println(newAngle);
+        System.out.println(" ");
 
         if(this.oldPosition.equals(agent.position) && !check){
 
-            samePositionTick = agent.getWorld().getGameLoop().getTicks();
+        //    samePositionTick = agent.getWorld().getGameLoop().getTicks();
             check= true;
         }
 
@@ -72,30 +74,34 @@ public class HeuristicBot extends AI {
     }
 
     public float[] evaluateActions() {
-        historyFade();
+
+        //changes angles array
         getSoundVec();
         getAgents(); // guards, intruders
         getPherVec(); // red, green, blue, yellow
 
+        //changes angles best_actions
+        historyFade();
 
         for (int i = 0; i < angles.length; i++)
             for (int j = 0; j < angles[i].length; j++)
                 best_actions[j] += angles[i][j] * coefficients[i];
 
+        System.out.println(Arrays.toString(best_actions));
         return best_actions;
     }
-
-    public float[][] historyFade2() {
-        float[][] newAngles = angles;
-        //new float[360][numberCoefficients];
-
-        for (int i = 0; i < newAngles.length; i++)
-            for (int j = 0; j < newAngles[i].length; j++)
-                newAngles[i][j] *= 0.95;
-
-        System.out.println("angle: " + Arrays.deepToString(newAngles));
-        return newAngles;
-    }
+//
+//    public float[][] historyFade2() {
+//        float[][] newAngles = angles;
+//        //new float[360][numberCoefficients];
+//
+//        for (int i = 0; i < newAngles.length; i++)
+//            for (int j = 0; j < newAngles[i].length; j++)
+//                newAngles[i][j] *= 0.95;
+//
+//        System.out.println("angle: " + Arrays.deepToString(newAngles));
+//        return newAngles;
+//    }
 
     public void historyFade() {
 
@@ -104,15 +110,6 @@ public class HeuristicBot extends AI {
         for (int i = 0; i < best_actions.length; i++)
             best_actions[i] *= 0.9;
 
-    }
-
-    private void addAngles(float[][] addAngle) {
-
-        for (int i = 0; i < addAngle.length; i++) {
-            for (int j = 0; j < addAngle[i].length; j++) {
-                angles[i][j] += addAngle[i][j];
-            }
-        }
     }
 
     @Override
@@ -140,17 +137,17 @@ public class HeuristicBot extends AI {
 //        (agent.getWorld().getGameLoop().getTicks() - samePositionTick) > maxTimeSamePosition* GameLoop.TICK_RATE &&
         if(check) {
 
-            if(agent.position.x < 1.0f) angle = (float) (Math.random()*180 + 270)%360;
-            else if(agent.position.y < 1.0f) angle = (float) (Math.random()*180);
-            else if(agent.position.x > agent.getWorld().getMap().getWidth()- 1.0f) angle = (float) (Math.random()*180 + 90) ;
-            else if(agent.position.y > agent.getWorld().getMap().getHeight() - 1.0f) angle = (float) (Math.random()*180 + 180);
+            if(agent.position.x < 2f) angle = (float) (Math.random()*180 + 270)%360;
+            else if(agent.position.y < 2f) angle = (float) (Math.random()*180);
+            else if(agent.position.x > agent.getWorld().getMap().getWidth()- 2f) angle = (float) (Math.random()*180 + 90) ;
+            else if(agent.position.y > agent.getWorld().getMap().getHeight() - 2f) angle = (float) (Math.random()*180 + 180);
             else angle = (float) (Math.random() * 360.0);
 
 //            angle = (oldAngle + 180)%360;
 //            if (angle < 0)
 //                angle = 360 + angle;
-            samePositionTick = -1;
-           check = false;
+         //   samePositionTick = -1;
+            check = false;
         }
 
         newAngle = angle;
@@ -164,7 +161,7 @@ public class HeuristicBot extends AI {
         {
             soundVec[(int) f] += 1;
         }
-//TODO: put order of coefficients in the constructor
+       //TODO: put order of coefficients in the constructor
         this.angles[0] = soundVec;
     }
 

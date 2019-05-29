@@ -23,7 +23,6 @@ public class PheromoneAI extends AI
     public void update()
     {
         super.update();
-        visibleAreas = ((Guard)agent).getVisibleAreas();
 
     }
 

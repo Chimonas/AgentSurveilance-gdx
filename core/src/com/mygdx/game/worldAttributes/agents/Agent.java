@@ -111,10 +111,16 @@ abstract public class Agent
 
             newPosition = new Vector2((float) (position.x + velocityX / GameLoop.TICK_RATE), (float) (position.y + velocityY / GameLoop.TICK_RATE));
 
+
             if (isValidMove(position, newPosition))
                 position.set(newPosition);
             else
                 velocity = 0.0f;
+
+            System.out.println("New angle facing: " + angleFacing);
+            System.out.println("Old Pos : " + position.x + " " + position.y);
+            System.out.println("New Pos : " + newPosition.x + " " + newPosition.y);
+
         }
     }
 
