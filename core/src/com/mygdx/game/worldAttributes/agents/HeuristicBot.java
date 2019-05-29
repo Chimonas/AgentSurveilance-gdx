@@ -14,7 +14,8 @@ public class HeuristicBot extends AI {
 
     private float[][] angles;
     private float[] coefficients;
-    private float[] best_actions = new float[360];
+    private final int DEGREE_LEVEL = 120;
+    private float[] best_actions = new float[DEGREE_LEVEL];
     public Vector2 oldPosition = new Vector2();
     PheromoneAI pherAI;
     private int samePositionTick = -1;
@@ -42,7 +43,7 @@ public class HeuristicBot extends AI {
                 /* coefficient for map border: */ -1,
         };
 
-        this.angles = new float[coefficients.length][360];
+        this.angles = new float[coefficients.length][DEGREE_LEVEL];
 
     }
 
@@ -84,18 +85,6 @@ public class HeuristicBot extends AI {
         return best_actions;
     }
 
-    public float[][] historyFade2() {
-        float[][] newAngles = angles;
-        //new float[360][numberCoefficients];
-
-        for (int i = 0; i < newAngles.length; i++)
-            for (int j = 0; j < newAngles[i].length; j++)
-                newAngles[i][j] *= 0.95;
-
-        System.out.println("angle: " + Arrays.deepToString(newAngles));
-        return newAngles;
-    }
-
     public void historyFade() {
 
         //new float[360][numberCoefficients];
@@ -107,15 +96,6 @@ public class HeuristicBot extends AI {
                 best_actions[i] = 0;
         }
 
-    }
-
-    private void addAngles(float[][] addAngle) {
-
-        for (int i = 0; i < addAngle.length; i++) {
-            for (int j = 0; j < addAngle[i].length; j++) {
-                angles[i][j] += addAngle[i][j];
-            }
-        }
     }
 
     @Override
@@ -156,38 +136,38 @@ public class HeuristicBot extends AI {
            check = false;
         }
 
-        newAngle = angle;
+        newAngle = angle*360/DEGREE_LEVEL;
     }
 
     public void getSoundVec() {
-        float[] soundVec = new float[360];
+        float[] soundVec = new float[DEGREE_LEVEL];
 
         Vector2 pos = agent.getPosition();
         for (float f : visibleSounds)
         {
-            soundVec[(int) f] += 1;
+            soundVec[(int) f*DEGREE_LEVEL/360] += 1;
         }
 //TODO: put order of coefficients in the constructor
         this.angles[0] = soundVec;
     }
 
     public void getPherVec() {
-        float[] redVec = new float[360];
-        float[] greenVec = new float[360];
-        float[] blueVec = new float[360];
-        float[] yellowVec = new float[360];
-        float[] purpleVec = new float[360];
+        float[] redVec = new float[DEGREE_LEVEL];
+        float[] greenVec = new float[DEGREE_LEVEL];
+        float[] blueVec = new float[DEGREE_LEVEL];
+        float[] yellowVec = new float[DEGREE_LEVEL];
+        float[] purpleVec = new float[DEGREE_LEVEL];
 
         Vector2 pos = agent.getPosition();
 
         for (Pheromone p : visiblePheromones) {
             Vector2 pherPos = p.getPosition();
             switch (p.getPheromoneType()) {
-                case RED: redVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1; break;
-                case BLUE: blueVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1; break;
-                case GREEN: greenVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1; break;
-                case YELLOW: yellowVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1; break;
-                case PURPLE: purpleVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1; break;
+                case RED: redVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360] += 1; break;
+                case BLUE: blueVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360] += 1; break;
+                case GREEN: greenVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360] += 1; break;
+                case YELLOW: yellowVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360] += 1; break;
+                case PURPLE: purpleVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360] += 1; break;
             }
         }
         this.angles[3] = redVec;
@@ -198,7 +178,7 @@ public class HeuristicBot extends AI {
 
     public void getBorderVec() {
         Vector2[] bounds = agent.getVisibleBounds();
-        float[] borderVec = new float[360];
+        float[] borderVec = new float[DEGREE_LEVEL];
 
         Vector2 pos = agent.getPosition();
 
@@ -206,13 +186,13 @@ public class HeuristicBot extends AI {
             //top bounds
 //            float lambdaPoisson = (float) (Math.sin(getPositiveAngleBetweenTwoPos(pos,bounds[0]))/2);
 //            borderVec = distributedAnglePoisson(borderVec,lambdaPoisson,(int)getPositiveAngleBetweenTwoPos(pos,bounds[0]));
-            borderVec = distributedAngle(borderVec,50,90);
+            borderVec = distributedAngle(borderVec,50,DEGREE_LEVEL/4);
         }
         if (bounds[1].x > -2) {
             //bot bounds
 //            float lambdaPoisson = (float) (Math.sin(getPositiveAngleBetweenTwoPos(pos,bounds[1]))/2);
 //            borderVec = distributedAnglePoisson(borderVec,lambdaPoisson,(int)getPositiveAngleBetweenTwoPos(pos,bounds[1]));
-            borderVec = distributedAngle(borderVec,50,270);
+            borderVec = distributedAngle(borderVec,50,DEGREE_LEVEL*3/4);
         }
         if (bounds[2].x > -2) {
             //right bounds
@@ -224,24 +204,24 @@ public class HeuristicBot extends AI {
             //left bounds
 //            float lambdaPoisson = (float) (Math.cos(getPositiveAngleBetweenTwoPos(pos,bounds[3]))/2);
 //            borderVec = distributedAnglePoisson(borderVec,lambdaPoisson,(int)getPositiveAngleBetweenTwoPos(pos,bounds[3]));
-            borderVec = distributedAngle(borderVec,50,180);
+            borderVec = distributedAngle(borderVec,50,DEGREE_LEVEL/2);
         }
 
         this.angles[8] = borderVec;
     }
 
     public void getAgents() {
-        float[] guardVec = new float[360];
-        float[] intruderVec = new float[360];
+        float[] guardVec = new float[DEGREE_LEVEL];
+        float[] intruderVec = new float[DEGREE_LEVEL];
 
         Vector2 pos = agent.getPosition();
         for (Agent a : visibleGuards) {
             Vector2 other = a.getPosition();
-            guardVec = distributedAngle(guardVec,10, (int) getPositiveAngleBetweenTwoPos(pos,other));
+            guardVec = distributedAngle(guardVec,10, (int) getPositiveAngleBetweenTwoPos(pos,other)*DEGREE_LEVEL/360);
         }
         for (Agent a : visibleIntruders) {
             Vector2 other = a.getPosition();
-            intruderVec = distributedAngle(intruderVec, 10, (int) getPositiveAngleBetweenTwoPos(pos, other));
+            intruderVec = distributedAngle(intruderVec, 10, (int) getPositiveAngleBetweenTwoPos(pos, other)*DEGREE_LEVEL/360);
         }
 
         //TODO: same shit
@@ -249,40 +229,19 @@ public class HeuristicBot extends AI {
         this.angles[2] = intruderVec;
     }
 
-    private static float[] distributedAnglePoisson(float[] vec, float percentage,int pos) {
-        int k = 120;
-        float[] vecToUpdate = new float[k];
-        percentage = Math.abs(percentage);
-        int startAngle = (int)(pos - percentage * k);
-        percentage = 1 - percentage;
-
-        for (int i = 0; i < k; i++) {
-            vecToUpdate[i] = (float)Math.pow(percentage,Math.abs(pos - startAngle - i));
-        }
-        for (int i = startAngle; i < startAngle + k; i++) {
-            if (i < 0)
-                vec[i+360] += vecToUpdate[i-startAngle];
-            else if (i > 359)
-                vec[i-360] += vecToUpdate[i-startAngle];
-            else vec[i] += vecToUpdate[i-startAngle];
-        }
-
-        return vec;
-    }
-
     private float[] distributedAngle(float[] vec, double std, int pos) {
 
 //        System.out.println("Visible agents angle position: " + pos);
         double scalar = 1/(Math.sqrt(2*Math.PI*Math.pow(std,2)));
-        for(int i=0; i<100; i++){
+        for(int i=0; i<(DEGREE_LEVEL*5/18); i++){
             float value = (float) (Math.exp(-Math.pow(i,2)/(2*Math.pow(std,2)))/(Math.sqrt(2*Math.PI*Math.pow(std,2)))/scalar);
-            if (pos+i>=360)
-                vec[pos+i-360] += value;
+            if (pos+i>=DEGREE_LEVEL)
+                vec[pos+i-DEGREE_LEVEL] += value;
             else
                 vec[pos+i] += value;
 
             if (pos-i<0)
-                vec[pos-i+360] += value;
+                vec[pos-i+DEGREE_LEVEL] += value;
             else
                 vec[pos-i] += value;
 
