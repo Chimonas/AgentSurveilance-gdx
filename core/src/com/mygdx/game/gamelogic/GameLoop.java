@@ -14,13 +14,13 @@ public class GameLoop
 
     private final float GUARD_WINNING_DISTANCE = 0.5f, INTRUDER_WINNING_TIME = 3.0f;
 
-    private boolean running, pause, exploration;
+    private boolean running, pause, exploration, exploring;
     private int ticks, firstIntruderInTargetTick;
     private double time, speed, lastTickTime, timeBeforeTick, simulationTime, explorationTime; // !All time related variables have to be in double for precision!
 
     public StateManager sm;
 
-    public GameLoop(World world, double simulationTime, boolean exploration, double explorationTime, StateManager sm)
+    public GameLoop(World world, double simulationTime, boolean exploration, double explorationTime)
     {
         this.world = world;
         this.simulationTime = simulationTime;
@@ -49,12 +49,9 @@ public class GameLoop
         if (running && !pause) {
             time = System.nanoTime();
 
-//            if(exploration && (time - startExplorationTIme)* Math.pow(10,-9) >= (int)(explorationTime))
-            if (exploration && ticks >= (int) (explorationTime * TICK_RATE)) {
-                exploration = false;
-                world.settings.setExplorationPhase(false);
+            if (exploring && ticks >= (int) (explorationTime * TICK_RATE)) {
+                exploring = false;
                 world.startSimulationPhase();
-                sm.push(new StartSimulationState(sm, world));
             }
 
             if (simulationTime != 0.0)
@@ -65,7 +62,7 @@ public class GameLoop
 
             while (running && time - lastTickTime > timeBeforeTick) {
                 update();
-                checkWinningConditions();
+                //checkWinningConditions();
             }
         }
     }
@@ -111,6 +108,7 @@ public class GameLoop
         firstIntruderInTargetTick = Integer.MAX_VALUE;
 
         pause = false;
+        exploring = exploration;
         time = 0.0;
         lastTickTime = System.nanoTime();
         setSpeed(1.0);
@@ -143,6 +141,8 @@ public class GameLoop
     {
         return ticks;
     }
+
+    public boolean getExploring (){return exploring;}
 
     public void setSpeed ( double speed)
     {

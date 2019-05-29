@@ -20,7 +20,7 @@ public class GuardAIFactory
         {
             case STUPID:
                 return new Stupid(guard);
-            case PHEROMONE:
+            case HEURISTIC:
                 return new HeuristicBot(agent);
             default:
                 return new Stupid(guard);

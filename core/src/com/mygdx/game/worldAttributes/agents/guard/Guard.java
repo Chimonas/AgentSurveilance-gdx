@@ -41,7 +41,6 @@ public class Guard extends Agent
     public ArrayList<Area> getVisibleAreas()
     {
         ArrayList<Area> visibleAreas = new ArrayList<>(); //add all visible areas and return
-
         return world.getMap().getAreaList();
     }
 

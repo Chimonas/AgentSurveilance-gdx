@@ -1,31 +1,64 @@
 package com.mygdx.game.worldAttributes.agents;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.gamelogic.GameLoop;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.worldAttributes.Pheromone;
-import com.mygdx.game.worldAttributes.agents.guard.Guard;
-import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
 
+import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class HeuristicBot extends AI {
 
     //Have an array of all angles
 
-    private Queue<float[]> angles;
+    private float[][] angles;
     private float[] coefficients;
-    private float[] best_actions;
+    private float[] best_actions = new float[360];
+    public Vector2 oldPosition = new Vector2();
     PheromoneAI pherAI;
+    private int samePositionTick = -1;
+    boolean check = false;
+    private float maxTimeSamePosition = 3.0f;
 
     public HeuristicBot(Agent agent) {
         super(agent);
         this.pherAI = new PheromoneAI(agent);
+        this.newVelocity= agent.MAX_VELOCITY;
+
+        //this.numberCoefficients = 0;
+        for(int i = 0; i<best_actions.length; i++) best_actions[i] = (float)Math.random()*5;
+//        best_actions[(int)Math.random()*360] = 0.1f;
+
+        coefficients = new float[] {
+                /* coefficient for sound: */ 0, //SOUND REALLY FUCKS UP GUARDS
+                /* coefficient for amount of visible guards: */ -20,
+                /* coefficient for amount of visible intruders: */ 100,
+                /* coefficient for red pheromones: */ 10,
+                /* coefficient for green pheromones: */ 10,
+                /* coefficient for blue pheromones: */ 10,
+                /* coefficient for yellow pheromones: */ 10,
+                /* coefficient for purple pheromones: */ 10,
+        };
+
+        this.angles = new float[coefficients.length][360];
+
     }
 
     public void update() {
+
         super.update();
         this.pherAI.update();
+
+        System.out.println(this.oldPosition.x + " " + this.oldPosition.y );
+        System.out.println(agent.position.x + " " + agent.position.y );
+        System.out.println(newAngle);
+
+        if(this.oldPosition.equals(agent.position) && !check){
+
+            samePositionTick = agent.getWorld().getGameLoop().getTicks();
+            check= true;
+        }
 
         //HERE THE MEANING FOR EACH PHEROMONE IS SET
         this.pherAI.setPheromoneToAction(Pheromone.PheromoneType.RED, PheromoneAI.PheromoneAction.FOLLOWINTRUDER);
@@ -34,41 +67,52 @@ public class HeuristicBot extends AI {
 
         this.best_actions = evaluateActions();
 
+        updateNewAngle(agent.getAngleFacing());
+        this.oldPosition.set(agent.position);
     }
 
     public float[] evaluateActions() {
-        this.angles = new LinkedList();
+        historyFade();
         getSoundVec();
         getAgents(); // guards, intruders
         getPherVec(); // red, green, blue, yellow
 
-        coefficients = new float[] {
-                /* coefficient for sound: */ 0, //SOUND REALLY FUCKS UP GUARDS
-                /* coefficient for amount of visible guards: */ -20,
-                /* coefficient for amount of visible intruders: */ 10,
-                /* coefficient for red pheromones: */ 10,
-                /* coefficient for green pheromones: */ 10,
-                /* coefficient for blue pheromones: */ 10,
-                /* coefficient for yellow pheromones: */ 10,
-                /* coefficient for purple pheromones: */ 10,
-        };
 
-        float[] best_actions = new float[360];
-
-        for (int i = 0; i < angles.size(); i++) {
-
-            float[] values = angles.remove();
-            for (int j = 0; j < values.length; j++)
-                best_actions[j] += values[j] * coefficients[i];
-
-        }
+        for (int i = 0; i < angles.length; i++)
+            for (int j = 0; j < angles[i].length; j++)
+                best_actions[j] += angles[i][j] * coefficients[i];
 
         return best_actions;
     }
 
-    @Override
-    public float getNewVelocity() {
-        return 1.4f;
+    public float[][] historyFade2() {
+        float[][] newAngles = angles;
+        //new float[360][numberCoefficients];
+
+        for (int i = 0; i < newAngles.length; i++)
+            for (int j = 0; j < newAngles[i].length; j++)
+                newAngles[i][j] *= 0.95;
+
+        System.out.println("angle: " + Arrays.deepToString(newAngles));
+        return newAngles;
+    }
+
+    public void historyFade() {
+
+        //new float[360][numberCoefficients];
+
+        for (int i = 0; i < best_actions.length; i++)
+            best_actions[i] *= 0.9;
+
+    }
+
+    private void addAngles(float[][] addAngle) {
+
+        for (int i = 0; i < addAngle.length; i++) {
+            for (int j = 0; j < addAngle[i].length; j++) {
+                angles[i][j] += addAngle[i][j];
+            }
+        }
     }
 
     @Override
@@ -80,8 +124,7 @@ public class HeuristicBot extends AI {
         agent.spawnPosition(randomPosition, (float)Math.random() * 360.0f);
     }
 
-    @Override
-    public float getNewAngle(float oldAngle) {
+    public void updateNewAngle(float oldAngle) {
         float max = -100;
         float angle = oldAngle;
         for (int i = 0; i < best_actions.length; i++) {
@@ -90,11 +133,27 @@ public class HeuristicBot extends AI {
                 angle = i;
             }
         }
+        //System.out.println(angle + " " + oldAngle);
+//        if(best_actions[(int)angle] <= best_actions[(int)oldAngle])
+//            angle = oldAngle;
 
-        if(best_actions[(int)angle] <= best_actions[(int)oldAngle])
-            angle = oldAngle;
+//        (agent.getWorld().getGameLoop().getTicks() - samePositionTick) > maxTimeSamePosition* GameLoop.TICK_RATE &&
+        if(check) {
 
-        return angle ;
+            if(agent.position.x < 1.0f) angle = (float) (Math.random()*180 + 270)%360;
+            else if(agent.position.y < 1.0f) angle = (float) (Math.random()*180);
+            else if(agent.position.x > agent.getWorld().getMap().getWidth()- 1.0f) angle = (float) (Math.random()*180 + 90) ;
+            else if(agent.position.y > agent.getWorld().getMap().getHeight() - 1.0f) angle = (float) (Math.random()*180 + 180);
+            else angle = (float) (Math.random() * 360.0);
+
+//            angle = (oldAngle + 180)%360;
+//            if (angle < 0)
+//                angle = 360 + angle;
+            samePositionTick = -1;
+           check = false;
+        }
+
+        newAngle = angle;
     }
 
     public void getSoundVec() {
@@ -105,8 +164,8 @@ public class HeuristicBot extends AI {
         {
             soundVec[(int) f] += 1;
         }
-
-        this.angles.add(soundVec);
+//TODO: put order of coefficients in the constructor
+        this.angles[0] = soundVec;
     }
 
     public void getPherVec() {
@@ -114,22 +173,24 @@ public class HeuristicBot extends AI {
         float[] greenVec = new float[360];
         float[] blueVec = new float[360];
         float[] yellowVec = new float[360];
+        float[] purpleVec = new float[360];
 
         Vector2 pos = agent.getPosition();
 
         for (Pheromone p : visiblePheromones) {
             Vector2 pherPos = p.getPosition();
             switch (p.getPheromoneType()) {
-                case RED: redVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1;
-                case BLUE: blueVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1;
-                case GREEN: greenVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1;
-                case YELLOW: yellowVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1;
+                case RED: redVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1; break;
+                case BLUE: blueVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1; break;
+                case GREEN: greenVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1; break;
+                case YELLOW: yellowVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1; break;
+                case PURPLE: purpleVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)] += 1; break;
             }
         }
-        this.angles.add(redVec);
-        this.angles.add(greenVec);
-        this.angles.add(blueVec);
-        this.angles.add(yellowVec);
+        this.angles[3] = redVec;
+        this.angles[4] = greenVec;
+        this.angles[5] = blueVec;
+        this.angles[6] = yellowVec;
     }
 
     public void getAgents() {
@@ -139,16 +200,18 @@ public class HeuristicBot extends AI {
         Vector2 pos = agent.getPosition();
         for (Agent a : visibleGuards) {
             Vector2 other = a.getPosition();
-            guardVec = distributedAngle(guardVec,10, (int) getPositiveAngleBetweenTwoPos(other,pos));
+            guardVec = distributedAngle(guardVec,10, (int) getPositiveAngleBetweenTwoPos(pos,other));
         }
         for (Agent a : visibleIntruders) {
             Vector2 other = a.getPosition();
-            intruderVec = distributedAngle(intruderVec, 10, (int) getPositiveAngleBetweenTwoPos(other, pos));
+            intruderVec = distributedAngle(intruderVec, 10, (int) getPositiveAngleBetweenTwoPos(pos, other));
         }
 
-        this.angles.add(guardVec);
-        this.angles.add(intruderVec);
+        //TODO: same shit
+        this.angles[1] = guardVec;
+        this.angles[2] = intruderVec;
     }
+
 
     private float[] distributedAngle(float[] vec, double std, int pos) {
 
@@ -182,7 +245,7 @@ public class HeuristicBot extends AI {
 
     public float getAngleBetweenTwoPos(Vector2 pos1, Vector2 pos2){
 
-        return (float)(Math.toDegrees(Math.atan2(pos1.y - pos2.y, pos1.x - pos2.x)));
+        return (float)(Math.toDegrees(Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x)));
     }
 
     public static float modulo(float dividend, float divisor)

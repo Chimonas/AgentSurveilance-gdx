@@ -5,16 +5,18 @@ import com.mygdx.game.StateManager;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.Settings;
 import com.mygdx.game.gamelogic.World;
+import com.mygdx.game.states.menuStates.StartSimulationState;
 import com.mygdx.game.states.visualStates.drawers.WorldDrawer;
 
 public class SimulationState extends VisualState
 {
     private World world;
+    boolean showedTransitionState = false;
 
     public SimulationState(StateManager stateManager, Settings settings, Map map)
     {
         super(stateManager, map);
-        world = new World(map, settings, stateManager);
+        world = new World(map, settings);
     }
 
     @Override
@@ -26,6 +28,10 @@ public class SimulationState extends VisualState
     @Override
     public void render()
     {
+        if(!world.getGameLoop().getExploring() && world.getSettings().isExplorationPhase() && !showedTransitionState) {
+            showedTransitionState = true;
+            stateManager.push(new StartSimulationState(stateManager, world));
+        }
         world.getGameLoop().check();
         super.render();
 

@@ -35,7 +35,7 @@ public abstract class AI
         visiblePheromones = agent.getVisiblePheromones();
     }
 
-    public float getNewAngle(float oldAngle)
+    public float getNewAngle()
     {
         return newAngle;
     }

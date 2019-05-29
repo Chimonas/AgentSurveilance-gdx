@@ -25,11 +25,11 @@ public class World
     ArrayList<Sound> sounds;
     ArrayList<Pheromone> pheromones;
 
-    public World(Map map, Settings settings, StateManager sm)
+    public World(Map map, Settings settings)
     {
         this.map = map;
         this.settings = settings;
-        gameLoop = new GameLoop(this, settings.getMaxTime(), settings.isExplorationPhase(), settings.getExplorationTime(), sm);
+        gameLoop = new GameLoop(this, settings.getMaxTime(), settings.isExplorationPhase(), settings.getExplorationTime());
 
         guards = new ArrayList<>();
         intruders = new ArrayList<>();

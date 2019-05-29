@@ -9,6 +9,8 @@ import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
 import com.mygdx.game.worldAttributes.areas.Area;
 
+import java.util.Arrays;
+
 public class PheromoneAI extends AI
 {
     public PheromoneAI(Agent agent)
@@ -57,6 +59,7 @@ public class PheromoneAI extends AI
 
     private void setFollowingIntruders(Pheromone.PheromoneType color){
 
+//        System.out.println(visibleIntruders);
         if(!visibleIntruders.isEmpty())
         {
             agent.createPheromone(color);

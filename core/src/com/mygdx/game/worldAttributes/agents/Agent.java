@@ -72,9 +72,11 @@ abstract public class Agent
 
             velocity = newVelocity;
 
-            float newAngleFacing = ai.getNewAngle(this.angleFacing);
+            float newAngleFacing = ai.getNewAngle();
 
-//            Commented out cuz fucks up
+            //MAybe fucks up
+            //IT GIVES A BIGGER ANGLE THAN 360
+
 //            newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
 //
 //            float angleDifference = newAngleFacing - angleFacing;
@@ -109,35 +111,11 @@ abstract public class Agent
 
             newPosition = new Vector2((float) (position.x + velocityX / GameLoop.TICK_RATE), (float) (position.y + velocityY / GameLoop.TICK_RATE));
 
-            checkChangeDirection();
             if (isValidMove(position, newPosition))
                 position.set(newPosition);
             else
                 velocity = 0.0f;
         }
-    }
-
-    private float samePositionTime = -1;
-    boolean check = false;
-
-    public void checkChangeDirection(){
-
-        if(!isValidMove(position, newPosition) && samePositionTime == -1) {
-            samePositionTime = System.nanoTime();
-            check = true;
-        }
-
-        if(Math.pow(10,-9) * (System.nanoTime() - samePositionTime) > maxTimeSamePosition && check) {
-
-            if(newPosition.x < 0) angleFacing = (float) (Math.random()*180 + 270)%360;
-            else if(newPosition.y < 0) angleFacing = (float) (Math.random()*180);
-            else if(newPosition.x > world.getMap().getWidth()) angleFacing = (float) (Math.random()*180 + 90) ;
-            else if(newPosition.y > world.getMap().getHeight()) angleFacing = (float) (Math.random()*180 + 180);
-            else angleFacing = (float) (Math.random() * 360.0);
-            samePositionTime = -1;
-            check = false;
-        }
-
     }
 
     public boolean isValidMove(Vector2 position, Vector2 newPosition)
@@ -158,7 +136,7 @@ abstract public class Agent
             {
                 float beginAngle = modulo(angleFacing - VISUAL_ANGLE * 0.5f, 360.0f);
                 float endAngle = modulo(angleFacing + VISUAL_ANGLE * 0.5f, 360.0f);
-                float angleBetweenAgents = modulo((float)(getAngleBetweenTwoPos(agent.getPosition(), position)),360.0f);
+                float angleBetweenAgents = modulo((float)(getAngleBetweenTwoPos(position, agent.getPosition())),360.0f);
 
                 if(endAngle< beginAngle)
                     return (angleBetweenAgents >= 0 && angleBetweenAgents <= endAngle) ||
@@ -222,7 +200,7 @@ abstract public class Agent
 
         for(Sound sound : visibleSounds)
         {
-            float soundAngle = getAngleBetweenTwoPos(sound.getPosition(), position);
+            float soundAngle = getAngleBetweenTwoPos(position, sound.getPosition());
 
             soundAngle += random.nextGaussian() * 10.0f; //Adding random factor with standard deviation of 10 degrees
 
