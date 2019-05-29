@@ -147,6 +147,8 @@ abstract public class Agent
         return false;
     }
 
+
+
     public ArrayList<Guard> getVisibleGuards()
     {
         ArrayList<Guard> visibleGuards = new ArrayList<>();
@@ -157,6 +159,63 @@ abstract public class Agent
                     visibleGuards.add(guard);
 
         return visibleGuards;
+    }
+
+    public Vector2[] getVisibleBounds() {
+
+        Vector2[] visibleBounds = new Vector2[] {new Vector2(-5,-5), //top
+            new Vector2(-5,-5), //bot
+            new Vector2(-5,-5), //right
+            new Vector2(-5,-5), //left
+        };
+
+        float worldHeight = world.getMap().getHeight();
+        float worldWidth = world.getMap().getWidth();
+
+        //in this case visibility == VISUAL_RANGE
+        if (active) {
+
+            float[] checkAngles = new float[]{(float)Math.tan(Math.toRadians(angleFacing - VISUAL_ANGLE * 0.5f)), //beginAngle
+                (float)Math.tan(Math.toRadians(angleFacing)), //midAngle
+                (float)Math.tan(Math.toRadians(angleFacing + VISUAL_ANGLE * 0.5f)) //endAngle
+            };
+
+            for (float angle : checkAngles) {
+                float bias = position.y - angle * position.x;
+//                System.out.println(position.x + " " + position.y);
+                if (position.dst2(new Vector2((worldHeight-bias)/angle,worldHeight+1)) < (visibility * visibility)) {
+                    //check if it sees the top border
+//                    System.out.println("Detected top wall");
+                    visibleBounds[0] = new Vector2((worldHeight-bias)/angle,worldHeight+1);
+                }
+                else if (position.dst2(new Vector2(-bias,-1)) < (visibility * visibility)) {
+                    //check if it sees the bot border
+//                    System.out.println("Detected bot wall");
+                    visibleBounds[1] = new Vector2(-bias,-1);
+                }
+                else if (position.dst2(new Vector2(worldWidth+1,angle*worldWidth+bias)) < (visibility * visibility)) {
+                    //check if it sees the right border
+//                    System.out.println("Detected right wall");
+                    visibleBounds[2] = new Vector2(worldWidth+1,angle*worldWidth+bias);
+                }
+                else if (position.dst2(new Vector2(-1,bias)) < (visibility * visibility)) {
+                    //check if it sees the left border
+//                    System.out.println("Detected left wall");
+                    visibleBounds[3] = new Vector2(-1,bias);
+                }
+            }
+        }
+
+        //have only unique borders
+//        for (int i = 0; i < visibleBounds.length-1; i++) {
+//            for (int j = i+1; j < visibleBounds.length; j++) {
+//                if (visibleBounds[i].equals(visibleBounds[j])) {
+//                    visibleBounds[i] = new Vector2(-1,-1);
+//                }
+//            }
+//        }
+
+        return visibleBounds;
     }
 
     public ArrayList<Intruder> getVisibleIntruders()
