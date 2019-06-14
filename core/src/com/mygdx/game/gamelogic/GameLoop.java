@@ -9,7 +9,9 @@ import com.mygdx.game.worldAttributes.areas.Target;
 
 public class GameLoop
 {
+    private final long startSimulationTime;
     private World world;
+
     public static final double TICK_RATE = 30.0f, SPEED_STEP = 2.0f;
 
     private final float GUARD_WINNING_DISTANCE = 0.5f, INTRUDER_WINNING_TIME = 3.0f;
@@ -27,6 +29,7 @@ public class GameLoop
         this.exploration = exploration;
         this.explorationTime = explorationTime;
         this.sm = sm;
+        this.startSimulationTime = System.currentTimeMillis();
 
 //        pause = false;
 //        ticks = 0;
@@ -56,13 +59,13 @@ public class GameLoop
 
             if (simulationTime != 0.0)
                 if (ticks >= (int) (explorationTime + simulationTime) * TICK_RATE) {
-                    System.out.println("Guards won");
+                    System.out.println("Simulation time done");
                     stop();
                 }
 
             while (running && time - lastTickTime > timeBeforeTick) {
                 update();
-                //checkWinningConditions();
+                checkWinningConditions();
             }
         }
     }
@@ -74,7 +77,8 @@ public class GameLoop
             for (Intruder i : guard.getVisibleIntruders())
                 if (guard.getPosition().dst2(i.getPosition()) <= GUARD_WINNING_DISTANCE * GUARD_WINNING_DISTANCE) //Using dst2 so no squareroot has to be calculated.
                 {
-                    System.out.println("Guards won");
+                    System.out.println("Guards won" + System.nanoTime());
+                    System.out.println((ticks - world.getSimulationStartTick()) / TICK_RATE);
                     stop(); //TODO: Message that the guards won
                 }
 
@@ -85,6 +89,7 @@ public class GameLoop
 
             if (ticks - firstIntruderInTargetTick >= INTRUDER_WINNING_TIME * TICK_RATE) {
                 System.out.println("Intruders won");
+                System.out.println((ticks - world.getSimulationStartTick()) / TICK_RATE);
                 stop(); //TODO: Message that the intruders won
             }
         }

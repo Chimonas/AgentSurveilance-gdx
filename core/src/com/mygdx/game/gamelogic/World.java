@@ -93,6 +93,17 @@ public class World
         pheromones.clear();
     }
 
+    private int simulationStartTick;
+
+    public void setSimulationStartTick(int simTick){
+        this.simulationStartTick = simTick;
+    }
+
+    public int getSimulationStartTick()
+    {
+        return simulationStartTick;
+    }
+
     public void update()
     {
         communications.clear();

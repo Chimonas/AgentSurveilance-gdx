@@ -8,7 +8,7 @@ public abstract class IntruderAI extends AI
 {
     public enum IntruderAIType
     {
-        STUPID
+        STUPID, SWARM_HEURISTIC;
     }
 
     public IntruderAI(Intruder intruder)

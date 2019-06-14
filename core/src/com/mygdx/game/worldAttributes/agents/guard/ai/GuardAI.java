@@ -12,7 +12,7 @@ public abstract class GuardAI extends AI
 {
     public enum GuardAIType
     {
-        STUPID,PHEROMONE, HEURISTIC;
+        STUPID, SWARM_HEURISTIC;
     }
 
     protected ArrayList<Area> visibleAreas;

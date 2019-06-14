@@ -22,29 +22,13 @@ public class HeuristicBot extends AI {
     boolean check = false;
     private float maxTimeSamePosition = 3.0f;
 
-    public HeuristicBot(Agent agent) {
+    public HeuristicBot(Agent agent, float[] coefficients) {
         super(agent);
         this.pherAI = new PheromoneAI(agent);
         this.newVelocity= agent.MAX_VELOCITY;
+        this.coefficients = coefficients;
 
-        //this.numberCoefficients = 0;
         for(int i = 0; i<best_actions.length; i++) best_actions[i] = (float)Math.random()*5;
-//        best_actions[(int)Math.random()*360] = 0.1f;
-
-        coefficients = new float[] {
-                /* coefficient for sound: */ 0, //SOUND REALLY FUCKS UP GUARDS
-                /* coefficient for amount of visible guards: */ -17f,
-                /* coefficient for amount of visible intruders: */ 100.0f,
-                /* coefficient for red pheromones: */ 2f,
-                /* coefficient for green pheromones: */ 0,
-                /* coefficient for blue pheromones: */ 0,
-                /* coefficient for yellow pheromones: */ 0,
-                /* coefficient for purple pheromones: */ 0,
-                /* coefficient for map border: */ -1.5f,
-                /* coefficient for sentry towers: */ 0,
-                /* coefficient for shade: */ 0,
-                /* coefficient for structures: */ 0
-        };
 
         this.angles = new float[coefficients.length][DEGREE_LEVEL];
 

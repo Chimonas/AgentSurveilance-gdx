@@ -17,7 +17,7 @@ abstract public class Agent
 {
     protected World world;
 
-    public final float VISUAL_ANGLE = 45.0f, MAX_VELOCITY = 1.4f, MAX_TURN_VELOCITY = 180.0f, PHEROMONE_COOL_DOWN = 10.0f;
+    public final float VISUAL_ANGLE = 45.0f, MAX_VELOCITY = 1.4f, MAX_TURN_VELOCITY = 180.0f, PHEROMONE_COOL_DOWN = 20.0f;
     protected AI ai;
     protected float maxVelocity, visualMultiplier, visibility;
     private float maxTimeSamePosition = 3.0f;
@@ -75,21 +75,21 @@ abstract public class Agent
             //MAybe fucks up
             //IT GIVES A BIGGER ANGLE THAN 360
 
-//            newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
-//
-//            float angleDifference = newAngleFacing - angleFacing;
-//            angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
-//
-//            if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICK_RATE)
-//            {
-//                //TODO: descrease visibility, start blindness timer
-//
-//                if (Math.abs(angleDifference) > 180.0f / GameLoop.TICK_RATE)
-//                    newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICK_RATE);
-//            }
-//            angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
+            newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
 
-            angleFacing = newAngleFacing;
+            float angleDifference = newAngleFacing - angleFacing;
+            angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
+
+            if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICK_RATE)
+            {
+                //TODO: descrease visibility, start blindness timer
+
+                if (Math.abs(angleDifference) > 180.0f / GameLoop.TICK_RATE)
+                    newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICK_RATE);
+            }
+            angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
+
+//            angleFacing = newAngleFacing;
 
             world.addSound(new Sound(new Vector2(position), velocity * 4.0f));
         }
@@ -115,9 +115,9 @@ abstract public class Agent
             else
                 velocity = 0.0f;
 
-            System.out.println("New angle facing: " + angleFacing);
-            System.out.println("Old Pos : " + position.x + " " + position.y);
-            System.out.println("New Pos : " + newPosition.x + " " + newPosition.y);
+//            System.out.println("New angle facing: " + angleFacing);
+//            System.out.println("Old Pos : " + position.x + " " + position.y);
+//            System.out.println("New Pos : " + newPosition.x + " " + newPosition.y);
 
         }
     }

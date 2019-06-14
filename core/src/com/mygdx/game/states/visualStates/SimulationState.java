@@ -17,6 +17,7 @@ public class SimulationState extends VisualState
     {
         super(stateManager, map);
         world = new World(map, settings);
+
     }
 
     @Override

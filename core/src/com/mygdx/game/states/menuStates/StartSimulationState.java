@@ -49,6 +49,8 @@ public class StartSimulationState extends MenuState {
     @Override
     protected void createStage() {
 
+
+        this.world.setSimulationStartTick(this.world.getGameLoop().getTicks());
         stage = new Stage((new ScalingViewport(Scaling.fit, Gdx.graphics.getWidth(), Gdx.graphics.getHeight())));
 
         Table table = new Table();
