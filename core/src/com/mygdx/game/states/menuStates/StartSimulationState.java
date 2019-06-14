@@ -62,7 +62,8 @@ public class StartSimulationState extends MenuState {
         continueB = new TextButton("Start Simulation", StateManager.skin, "default");
         continueB.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
-                stateManager.push(new SimulationState(stateManager, world.getSettings(), world.getMap()));
+                stateManager.pop();
+//                stateManager.push(new SimulationState(stateManager, world.getSettings(), world.getMap()));
             }
         } );
         table.add(continueB).center().width(BUTTONWIDTH);
