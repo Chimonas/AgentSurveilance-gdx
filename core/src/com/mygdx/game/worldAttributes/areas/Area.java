@@ -33,7 +33,7 @@ public abstract class Area
 
     public Area(Vector2 topLeft, Vector2 bottomRight, Color color, float visibility)
     {
-        this(topLeft, bottomRight, color, visibility, 1.0f, 1.0f);
+        this(topLeft, bottomRight, color, visibility, 2.0f, 2.0f);
     }
 
     public Area(float x, float y, float width, float height, Color defaultColor, float visibility) {

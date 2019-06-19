@@ -300,7 +300,7 @@ public class HeuristicBot extends AI {
         else
             vec[pos+DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
 
-        for(int i=1; i< importanceLevel*DEGREE_LEVEL/360; i++){
+        for(int i=1; i< importanceLevel*DEGREE_LEVEL/720; i++){
             value = (float) (Math.exp(-Math.pow(i,2)/(2*Math.pow(std,2)))/(Math.sqrt(2*Math.PI*Math.pow(std,2)))/scalar);
             if (pos+i>=DEGREE_LEVEL)
                 vec[pos+i-DEGREE_LEVEL] += value;

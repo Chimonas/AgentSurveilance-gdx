@@ -7,7 +7,7 @@ public class Entrance
     private EntranceType type;
     private Vector2 startPosition, endPosition;
 
-    private enum EntranceType
+    protected enum EntranceType
     {
         DOOR(5.0f, 5.0f),
         WINDOW(10.0f, 3.0f);
@@ -20,6 +20,12 @@ public class Entrance
             this.enteringTime = enteringTime;
         }
     }
+
+    public Entrance(EntranceType type)
+    {
+        this.type = type;
+    }
+
 
     public Entrance(EntranceType type, Vector2 startPosition, Vector2 endPosition)
     {
@@ -41,5 +47,8 @@ public class Entrance
     public Vector2 getEndPosition() {
         return endPosition;
     }
+
+    public EntranceType getType() { return type; }
+
 }
 

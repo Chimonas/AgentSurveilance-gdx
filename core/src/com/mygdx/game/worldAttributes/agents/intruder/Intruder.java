@@ -18,7 +18,6 @@ public class Intruder extends Agent
     {
         super(world);
         visibility = VISIBILITY;
-
 //        sprinting = false;
     }
 

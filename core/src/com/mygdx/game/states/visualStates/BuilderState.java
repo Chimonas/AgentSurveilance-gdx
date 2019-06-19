@@ -21,6 +21,7 @@ import com.mygdx.game.states.visualStates.drawers.MapDrawer;
 import com.mygdx.game.worldAttributes.areas.Area;
 import com.mygdx.game.worldAttributes.areas.AreaFactory;
 import com.mygdx.game.gamelogic.FileHandler;
+import com.mygdx.game.worldAttributes.areas.Structure;
 
 public class BuilderState extends VisualState
 {
@@ -308,7 +309,11 @@ public class BuilderState extends VisualState
         if(currentArea != null)
         {
             if (areaValid)
+            {
+                if(currentArea instanceof Structure)
+                    ((Structure) currentArea).createRandomEntrances();
                 map.addArea(currentArea);
+            }
             currentArea = null;
         }
     }
