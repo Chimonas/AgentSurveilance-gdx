@@ -20,7 +20,6 @@ import com.mygdx.game.states.visualStates.drawers.AreaDrawer;
 import com.mygdx.game.states.visualStates.drawers.MapDrawer;
 import com.mygdx.game.worldAttributes.areas.Area;
 import com.mygdx.game.worldAttributes.areas.AreaFactory;
-import com.mygdx.game.gamelogic.FileHandler;
 
 public class BuilderState extends VisualState
 {
@@ -177,6 +176,11 @@ public class BuilderState extends VisualState
             }
         }
 
+        if(keycode == Input.Keys.FORWARD_DEL)
+        {
+            currentArea = null;
+        }
+
         return super.keyDown(keycode);
     }
 
@@ -188,7 +192,7 @@ public class BuilderState extends VisualState
     private ButtonGroup areaButtons;
     private TextButton structurebtn,sentryTowerbtn,shadebtn,targetbtn,runbtn, savebtn, cancelB;
 
-    private static final float BUTTONWIDTH = 160;
+    private static final float BUTTONWIDTH = 160.0f;
 
     public void createHud()
     {
@@ -196,8 +200,6 @@ public class BuilderState extends VisualState
 
         content = new Table();
         content.setFillParent(true);
-
-        content.setDebug(true);
 
         structurebtn = new TextButton("Structure", StateManager.skin);
         structurebtn.addListener(new ClickListener() {
@@ -215,7 +217,7 @@ public class BuilderState extends VisualState
             @Override
             public void clicked(InputEvent event, float x, float y)
             {
-                AreaFactory.setAreaType(Area.AreaType.SENTRYTOWER);
+                AreaFactory.setAreaType(Area.AreaType.SENTRY_TOWER);
             }
         });
         content.add(sentryTowerbtn).width(BUTTONWIDTH);

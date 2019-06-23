@@ -15,6 +15,8 @@ public class GuardAIFactory
                 return new Stupid(guard);
             case PHEROMONE:
                 return new PheromoneAI(guard);
+            case COMTEST:
+                return new ComTestAI(guard);
             default:
                 return new Stupid(guard);
 

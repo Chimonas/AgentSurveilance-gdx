@@ -19,7 +19,7 @@ public class AISettingsState extends MenuState
 {
     private Stage stage;
     private Map map;
-    private static Settings settings;
+    private Settings settings;
 
     public AISettingsState(StateManager stateManager, Map map)
     {
@@ -55,17 +55,11 @@ public class AISettingsState extends MenuState
 
     private Table table, topTable, centerTable, bottomTable;
     private Label titleL, agentsL, guardL, explorationL, guardAmountL, intruderL, intruderAmountL, timeL, maxTimeL, explorationPhaseL,
-            explorationTimeL, weightsL, timeWeightL, movementWeightL, directCommL, indirectCommL;
+            explorationTimeL, simulationAmountL;
     private SelectBox guardSB, explorationSB, intruderSB;
-    private TextField guardAmountTF, intruderAmountTF, maxTimeTF, explorationTimeTF, timeWeightTF, movementWeightTF,
-            directCommTF, indirectCommTF;
-    private TextButton okB, cancelB;
+    private TextField guardAmountTF, intruderAmountTF, maxTimeTF, explorationTimeTF, simulationAmountTF;
+    private TextButton simulateB, okB, cancelB;
     private CheckBox explorationPhaseB;
-
-    public float nbGuards, typeGuards, nbIntruders, typeIntruders, maxTime, explorationTime, timeWeight, movementWeight,
-                directComm, indirectComm;
-    Settings gameSettings = new Settings();
-
 
     @Override
     protected void createStage()
@@ -109,18 +103,8 @@ public class AISettingsState extends MenuState
         centerTable.add(guardAmountL).pad(5);
         guardAmountTF = new TextField("", StateManager.skin);
         centerTable.add(guardAmountTF).pad(5).row();
-        guardAmountTF.setTextFieldListener(new TextField.TextFieldListener() {
-            @Override
-            public void keyTyped(TextField textField, char c) {
-                if(!guardAmountTF.getText().isEmpty()) {
-                    try {
-                        settings.setGuardAmount((int) Float.parseFloat(guardAmountTF.getText()));
-                    } catch (NumberFormatException e) {
-                        guardAmountTF.setText("");
-                    }
-                }
-            }
-        });
+
+        stage.setKeyboardFocus(guardAmountTF);
 
         intruderL = new Label("Intruder agents:", StateManager.skin);
         centerTable.add(intruderL).pad(5);
@@ -132,17 +116,6 @@ public class AISettingsState extends MenuState
         centerTable.add(intruderAmountL).pad(5);
         intruderAmountTF = new TextField("", StateManager.skin);
         centerTable.add(intruderAmountTF).pad(5).row();
-        intruderAmountTF.setTextFieldListener(new TextField.TextFieldListener() {
-            @Override
-            public void keyTyped(TextField textField, char c) {
-                if(!intruderAmountTF.getText().isEmpty())
-                    try{
-                        settings.setIntruderAmount((int) Float.parseFloat(intruderAmountTF.getText()));
-                    } catch(NumberFormatException e){
-                        intruderAmountTF.setText("");
-                    }
-            }
-        });
 
         timeL = new Label("Time Settings", StateManager.skin);
         timeL.setFontScale(1.3f);
@@ -152,17 +125,7 @@ public class AISettingsState extends MenuState
         centerTable.add(maxTimeL).pad(5);
         maxTimeTF = new TextField("", StateManager.skin);
         centerTable.add(maxTimeTF).pad(5).row();
-        maxTimeTF.setTextFieldListener(new TextField.TextFieldListener() {
-            @Override
-            public void keyTyped(TextField textField, char c) {
-                if(!maxTimeTF.getText().isEmpty())
-                    try {
-                        settings.setMaxTime((int) Float.parseFloat(maxTimeTF.getText()));
-                    } catch(NumberFormatException e){
-                        maxTimeTF.setText("");
-                    }
-            }
-        });
+
         explorationPhaseL = new Label("Exploration Phase", StateManager.skin);
         centerTable.add(explorationPhaseL).pad(5);
         explorationPhaseB = new CheckBox("",StateManager.skin);
@@ -170,7 +133,7 @@ public class AISettingsState extends MenuState
         explorationPhaseB.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                settings.setExplorationPhase(explorationPhaseB.isChecked());
+                explorationTimeTF.setDisabled(!explorationPhaseB.isChecked());
             }
         });
 
@@ -178,102 +141,59 @@ public class AISettingsState extends MenuState
         centerTable.add(explorationTimeL).pad(5);
         explorationTimeTF = new TextField("", StateManager.skin);
         centerTable.add(explorationTimeTF).pad(5).row();
-        explorationTimeTF.setTextFieldListener(new TextField.TextFieldListener() {
-            @Override
-            public void keyTyped(TextField textField, char c) {
-                if(!explorationTimeTF.getText().isEmpty())
-                    try {
-                        settings.setExplorationTime((int) Float.parseFloat(explorationTimeTF.getText()));
-                    } catch(NumberFormatException e){
-                        explorationTimeTF.setText("");
-                    }
-            }
-        });
-        weightsL = new Label("Performance weights", StateManager.skin);
-        weightsL.setFontScale(1.3f);
-        centerTable.add(weightsL).pad(5).row();
+        explorationTimeTF.setDisabled(true);
 
-        timeWeightL = new Label("Time", StateManager.skin);
-        centerTable.add(timeWeightL).pad(5);
-        timeWeightTF = new TextField("", StateManager.skin);
-        centerTable.add(timeWeightTF).pad(5).row();
-        timeWeightTF.setTextFieldListener(new TextField.TextFieldListener() {
-            @Override
-            public void keyTyped(TextField textField, char c) {
-                if(!timeWeightTF.getText().isEmpty())
-                    try {
-                        settings.setTimeWeight((int) Float.parseFloat(timeWeightTF.getText()));
-                    } catch(NumberFormatException e){
-                        timeWeightTF.setText("");
-                    }
-            }
-        });
-        movementWeightL = new Label("Movement", StateManager.skin);
-        centerTable.add(movementWeightL).pad(5);
-        movementWeightTF = new TextField("", StateManager.skin);
-        centerTable.add(movementWeightTF).pad(5).row();
-        movementWeightTF.setTextFieldListener(new TextField.TextFieldListener() {
-            @Override
-            public void keyTyped(TextField textField, char c) {
-                if(!movementWeightTF.getText().isEmpty()){
-                    try {
-                        settings.setMovementWeight((int) Float.parseFloat(movementWeightTF.getText()));
-                    } catch(NumberFormatException e){
-                        movementWeightTF.setText("");
-                    }
-                }
-            }
-        });
+        simulationAmountL = new Label("Number of simulations", StateManager.skin);
+        centerTable.add(simulationAmountL).pad(5);
+        simulationAmountTF = new TextField("", StateManager.skin);
+        centerTable.add(simulationAmountTF).pad(5).row();
 
-        directCommL = new Label("Direct Communication", StateManager.skin);
-        centerTable.add(directCommL).pad(5);
-        directCommTF = new TextField("", StateManager.skin);
-        centerTable.add(directCommTF).pad(5).row();
-        directCommTF.setTextFieldListener(new TextField.TextFieldListener() {
-            @Override
-            public void keyTyped(TextField textField, char c) {
-                if (!directCommTF.getText().isEmpty()) {
-                    try {
-                        settings.setDirectComWeight((int) Float.parseFloat(directCommTF.getText()));
-                    } catch (NumberFormatException e) {
-                        directCommTF.setText("");
-                    }
-                }
-            }
-        });
-        indirectCommL = new Label("Indirect Communication", StateManager.skin);
-        centerTable.add(indirectCommL).pad(5);
-        indirectCommTF = new TextField("", StateManager.skin);
-        centerTable.add(indirectCommTF).pad(5).row();
-        indirectCommTF.setTextFieldListener(new TextField.TextFieldListener() {
-            @Override
-            public void keyTyped(TextField textField, char c) {
-                if (!indirectCommTF.getText().isEmpty()) {
-                    try {
-                        settings.setIndirectComWeight((int) Float.parseFloat(indirectCommTF.getText()));
-                    } catch (NumberFormatException e) {
-                        indirectCommTF.setText("");
-                    }
-                }
-            }
-        });
         table.add(centerTable).expand().top().row();
 
         //Bottom table
         bottomTable = new Table();
         bottomTable.right().pad(20f);
 
+        simulateB = new TextButton("Simulate", StateManager.skin);
+        simulateB.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y)
+            {
+                if(setSettings())
+                {
+                    if(simulationAmountTF.getText().isEmpty())
+                    {
+                        stage.setKeyboardFocus(simulationAmountTF);
+                        return;
+                    }
+                    else
+                    {
+                        try {
+                            settings.setSimulationAmount((int)Float.parseFloat(simulationAmountTF.getText()));
+                        }
+                        catch (NumberFormatException e) {
+                            stage.setKeyboardFocus(guardAmountTF);
+                            return;
+                        }
+                    }
+
+                    settings.setMultipleSimulations(true);
+                    stateManager.push(new GraphiclessSimulationState(stateManager, settings, map));
+                }
+            }
+        });
+        bottomTable.add(simulateB).width(100f);
+
         okB = new TextButton("OK", StateManager.skin);
         okB.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y)
             {
-                settings.setGuardAIType((GuardAI.GuardAIType)guardSB.getSelected());
-                settings.setExplorationAIType((ExplorationAI.ExplorationAIType)explorationSB.getSelected());
-                settings.setIntruderAIType((IntruderAI.IntruderAIType)intruderSB.getSelected());
-
-
-                stateManager.push(new SimulationState(stateManager, settings, map));
+                if(setSettings())
+                {
+                    settings.setMultipleSimulations(false);
+                    stateManager.push(new SimulationState(stateManager, settings, map));
+                }
             }
         });
         bottomTable.add(okB).width(100f);
@@ -294,7 +214,76 @@ public class AISettingsState extends MenuState
         stage.addActor(table);
     }
 
-    public static Settings getSettings(){
+    public boolean setSettings()
+    {
+        settings.setGuardAIType((GuardAI.GuardAIType)guardSB.getSelected());
+        settings.setExplorationAIType((ExplorationAI.ExplorationAIType)explorationSB.getSelected());
+        settings.setIntruderAIType((IntruderAI.IntruderAIType)intruderSB.getSelected());
+
+        if(guardAmountTF.getText().isEmpty())
+            settings.setGuardAmount(0);
+        else
+        {
+            try {
+                settings.setGuardAmount((int) Float.parseFloat(guardAmountTF.getText()));
+            }
+            catch (NumberFormatException e) {
+                stage.setKeyboardFocus(guardAmountTF);
+                return false;
+            }
+        }
+
+        if(intruderAmountTF.getText().isEmpty())
+            settings.setIntruderAmount(0);
+        else
+        {
+            try{
+                settings.setIntruderAmount((int) Float.parseFloat(intruderAmountTF.getText()));
+            } catch(NumberFormatException e){
+                stage.setKeyboardFocus(intruderAmountTF);
+                return false;
+            }
+        }
+
+        if(maxTimeTF.getText().isEmpty())
+        {
+            stage.setKeyboardFocus(maxTimeTF);
+            return false;
+        }
+        else
+        {
+            try {
+                settings.setMaxTime((int) Float.parseFloat(maxTimeTF.getText()));
+            } catch (NumberFormatException e) {
+                stage.setKeyboardFocus(maxTimeTF);
+                return false;
+            }
+        }
+
+        settings.setExplorationPhase(explorationPhaseB.isChecked());
+
+        if(explorationPhaseB.isChecked())
+        {
+            if(explorationTimeTF.getText().isEmpty())
+            {
+                stage.setKeyboardFocus(explorationTimeTF);
+                return false;
+            }
+            else
+            {
+                try {
+                    settings.setExplorationTime((int) Float.parseFloat(explorationTimeTF.getText()));
+                } catch(NumberFormatException e){
+                    stage.setKeyboardFocus(explorationTimeTF);
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public Settings getSettings(){
         return settings;
     }
 

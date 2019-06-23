@@ -12,13 +12,14 @@ public class GameLoop
 
     private final float GUARD_WINNING_DISTANCE = 0.5f, INTRUDER_WINNING_TIME = 3.0f;
 
-    private boolean running, pause, exploration;
-    private int ticks, firstIntruderInTargetTick;
+    private boolean running, pause, multipleSimulation, exploration, exploring;
+    private int ticks, firstIntruderInTargetTick, result;
     private double time, speed, lastTickTime, timeBeforeTick, simulationTime, explorationTime; // !All time related variables have to be in double for precision!
 
-    public GameLoop(World world, double simulationTime, boolean exploration, double explorationTime)
+    public GameLoop(World world, boolean multipleSimulations, double simulationTime, boolean exploration, double explorationTime)
     {
         this.world = world;
+        this.multipleSimulation = multipleSimulations;
         this.simulationTime = simulationTime;
         this.exploration = exploration;
         this.explorationTime = explorationTime;
@@ -37,59 +38,61 @@ public class GameLoop
         {
             time = System.nanoTime();
 
-            if(exploration && ticks >= (int)(explorationTime * TICK_RATE))
-            {
-                exploration = false;
-                world.startSimulationPhase();
-            }
-
-            if(simulationTime != 0.0)
-                if (ticks >= (int) (explorationTime + simulationTime) * TICK_RATE)
-                {
-                    System.out.println("Guards won");
-                    stop();
-                }
-
             while (running && time - lastTickTime > timeBeforeTick)
             {
                 update();
-                checkWinningConditions();
+                if(!exploring)
+                    checkWinningConditions();
+            }
+
+            if(exploring && ticks >= (int)(explorationTime * TICK_RATE))
+            {
+                exploring = false;
+                world.startSimulationPhase();
             }
         }
     }
 
     public void checkWinningConditions()
     {
+        //Time Runs out
+        if(simulationTime > 0.0)
+            if (ticks >= (int)(explorationTime + simulationTime * TICK_RATE))
+            {
+                result = 0;
+                stop();
+            }
+
         //Winning condition for Guards
         for(Guard guard : world.getGuards())
             for (Intruder i : guard.getVisibleIntruders())
                 if(guard.getPosition().dst2(i.getPosition()) <= GUARD_WINNING_DISTANCE * GUARD_WINNING_DISTANCE) //Using dst2 so no squareroot has to be calculated.
                 {
-                    System.out.println("Guards won");
+                    result = 1;
+//                    System.out.println((ticks - world.getSimulationStartTick()) / TICK_RATE);
                     stop(); //TODO: Message that the guards won
                 }
 
         //Winning condition for Intruders
-        if(checkIntruderInTarget())
+        if(checkIntrudersInTarget())
         {
             if(ticks < firstIntruderInTargetTick)
                 firstIntruderInTargetTick = ticks;
 
             if(ticks - firstIntruderInTargetTick >= INTRUDER_WINNING_TIME * TICK_RATE)
             {
-                System.out.println("Intruders won");
+                result = -1;
                 stop(); //TODO: Message that the intruders won
             }
         }
     }
 
-    public boolean checkIntruderInTarget()
+    public boolean checkIntrudersInTarget()
     {
-        for(Area area : world.getMap().getAreaList())
-            if(area instanceof Target)
-                for(Intruder intruder : world.getIntruders())
-                    if(area.contains(intruder.getPosition()))
-                        return true;
+        for(Target target : world.getMap().getTargets())
+            for(Intruder intruder : world.getIntruders())
+                if(target.contains(intruder.getPosition()))
+                    return true;
 
         return false;
     }
@@ -101,6 +104,7 @@ public class GameLoop
         firstIntruderInTargetTick = Integer.MAX_VALUE;
 
         pause = false;
+        exploring = exploration;
         time = 0.0;
         lastTickTime = System.nanoTime();
         setSpeed(1.0);
@@ -114,6 +118,11 @@ public class GameLoop
     public void stop()
     {
         running = false;
+    }
+
+    public boolean isRunning()
+    {
+        return running;
     }
 
     public void setPause(boolean pause)
@@ -134,10 +143,18 @@ public class GameLoop
         return ticks;
     }
 
+    public int getResult()
+    {
+        return result;
+    }
+
     public void setSpeed(double speed)
     {
         this.speed = speed;
-        timeBeforeTick = 1.0e9f / (TICK_RATE * speed);
+        if(!multipleSimulation)
+            timeBeforeTick = 1.0e9f / (TICK_RATE * speed);
+        else
+            timeBeforeTick = 0.0f;
     }
 
     public void incrementSpeed()

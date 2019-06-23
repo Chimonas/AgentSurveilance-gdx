@@ -15,12 +15,4 @@ public class InfoGainAlgo extends GuardAI {
         //if(Math.random() < 0.1f / GameLoop.TICK_RATE)
            // guard.createPheromone(Pheromone.PheromoneType.values()[(int)(Math.random() * Pheromone.PheromoneType.values().length)]);
     }
-
-    public float getNewAngle() {
-        return 0;
-    }
-
-    public float getNewVelocity() {
-        return 0;
-    }
 }

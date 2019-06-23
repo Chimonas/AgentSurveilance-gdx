@@ -2,16 +2,13 @@ package com.mygdx.game.worldAttributes.agents;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gamelogic.GameLoop;
-import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.gamelogic.World;
 import com.mygdx.game.worldAttributes.Communication;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.Sound;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
-import com.mygdx.game.worldAttributes.areas.Area;
-import com.mygdx.game.worldAttributes.areas.Shade;
-import com.mygdx.game.worldAttributes.areas.Target;
+import com.mygdx.game.worldAttributes.areas.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,15 +17,13 @@ abstract public class Agent
 {
     protected World world;
 
-    public final float VISUAL_ANGLE = 45.0f, MAX_VELOCITY = 1.4f, MAX_TURN_VELOCITY = 180.0f, PHEROMONE_COOL_DOWN = 10.0f;
+    public static final float VISUAL_ANGLE = 45.0f, MAX_VELOCITY = 1.4f, MAX_TURN_VELOCITY = 180.0f, PHEROMONE_COOL_DOWN = 10.0f, FAST_TURN_COOL_DOWN = 0.5f, SENTRYTOWER_COOL_DOWN = 2.0f;
     protected AI ai;
     protected float maxVelocity, visualMultiplier, visibility;
 
-    protected boolean active;
+    protected boolean active, fastTurning;
     protected Vector2 position;
     protected float angleFacing, velocity;
-
-//    protected boolean inShade;
 
     public Agent(World world)
     {
@@ -40,7 +35,7 @@ abstract public class Agent
         active = false;
     }
 
-    public void spawnPosition(Vector2 position, float angleFacing)
+    public void spawn(Vector2 position, float angleFacing)
     {
         active = true;
         this.position = position;
@@ -48,7 +43,7 @@ abstract public class Agent
         velocity = 0f;
     }
 
-    public void spawn()
+    public void aiSpawn()
     {
         ai.spawn(world.getMap());
     }
@@ -59,37 +54,63 @@ abstract public class Agent
         velocity = 0.0f;
     }
 
+    private int lastFastTurnTick = (int)(-FAST_TURN_COOL_DOWN * GameLoop.TICK_RATE), firstSentryTowerTick = (int)(-SENTRYTOWER_COOL_DOWN * GameLoop.TICK_RATE);
+    private boolean transversingSentryTower;
+
     public void update()
     {
         if(active)
         {
+            transversingSentryTower = world.getGameLoop().getTicks() - firstSentryTowerTick < (int) (SENTRYTOWER_COOL_DOWN * GameLoop.TICK_RATE);
+
+            //Set visual multiplier
+            if(((world.getGameLoop().getTicks() - lastFastTurnTick) < (int) (FAST_TURN_COOL_DOWN * GameLoop.TICK_RATE)) || transversingSentryTower)
+            {
+                visualMultiplier = 0.0f;
+            }
+            else if(inSentryTower())
+                visualMultiplier = SentryTower.VISUAL_MULTIPLIER;
+            else if(inShade())
+                visualMultiplier = Shade.VISUAL_MULTIPLIER;
+            else
+                visualMultiplier = 1.0f;
+
+            //Update AI
             ai.update();
 
-            float newVelocity = ai.getNewVelocity();
-
-            newVelocity = newVelocity < 0.0f ? 0.0f : (newVelocity > maxVelocity ? maxVelocity : newVelocity);
-
-            velocity = newVelocity;
-
-            float newAngleFacing = ai.getNewAngle(this.angleFacing);
-
-            newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
-
-            float angleDifference = newAngleFacing - angleFacing;
-            angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
-
-            if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICK_RATE)
+            if(transversingSentryTower)
             {
-                //TODO: descrease visibility, start blindness timer
-
-                if (Math.abs(angleDifference) > 180.0f / GameLoop.TICK_RATE)
-                    newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICK_RATE);
+                velocity = 0.0f;
             }
-            angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
+            else
+            {
+                //Restrict, then update velocity
+                float newVelocity = ai.getNewVelocity();
 
-            angleFacing = newAngleFacing;
+                newVelocity = newVelocity < 0.0f ? 0.0f : (newVelocity > maxVelocity ? maxVelocity : newVelocity);
 
-            world.addSound(new Sound(new Vector2(position), velocity * 4.0f));
+                velocity = newVelocity;
+
+                //Restrict, then update angleFacing
+                float newAngleFacing = ai.getNewAngle();
+
+                newAngleFacing = modulo(newAngleFacing, 360.0f);
+
+                float angleDifference = newAngleFacing - angleFacing;
+                angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
+
+                if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICK_RATE)
+                {
+                    lastFastTurnTick = world.getGameLoop().getTicks();
+
+                    if (Math.abs(angleDifference) > 180.0f / GameLoop.TICK_RATE)
+                        newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICK_RATE);
+                }
+
+                angleFacing = modulo(newAngleFacing, 360.0f);
+
+                angleFacing = newAngleFacing;
+            }
         }
     }
 
@@ -119,25 +140,52 @@ abstract public class Agent
         if(Area.intersects(position, newPosition, new Vector2(0,world.getMap().getHeight()), new Vector2(world.getMap().getWidth(),world.getMap().getHeight()), new Vector2(0,0), new Vector2(world.getMap().getWidth(), 0)))
             return false;
 
-        for (Area area : world.getMap().getAreaList())
-            if (!(area instanceof Shade || area instanceof Target) && area.intersects(position, newPosition)) return false;
+        for(SentryTower sentryTower: world.getMap().getSentryTowers())
+        {
+            if(sentryTower.intersects(position, newPosition))
+            {
+                if(this instanceof Guard)
+                {
+                    firstSentryTowerTick = world.getGameLoop().getTicks();
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+
+        for(Structure structure: world.getMap().getStructures())
+        {
+            if(structure.intersects(position, newPosition))
+            {
+                for (Entrance entrance : structure.getEntrances()) {
+                    if (Area.intersects(position, newPosition, entrance.getStartPosition(), entrance.getEndPosition())) {
+                        world.addSound(new Sound(position, entrance.getSoundDistance()));
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
 
         return true;
     }
 
-    public boolean getAgentVisible(Agent agent)
+    public boolean agentVisible(Agent agent)
     {
         if(active)
-            if (agent.active && agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
+            if (agent.active && agent != this)
             {
-                float beginAngle = modulo(angleFacing - VISUAL_ANGLE * 0.5f, 360.0f);
-                float endAngle = modulo(angleFacing + VISUAL_ANGLE * 0.5f, 360.0f);
-                float angleBetweenAgents = modulo((float)(getAngleBetweenTwoPos(position, agent.getPosition())),360.0f);
+                for(Structure structure: world.getMap().getStructures())
+                {
+                    if(structure.contains(position))
+                    {
+                        return structure.contains(agent.position);
+                    }
+                }
 
-                if(endAngle< beginAngle)
-                    return (angleBetweenAgents >= 0 && angleBetweenAgents <= endAngle) ||
-                            (angleBetweenAgents >= beginAngle && angleBetweenAgents <= 360);
-                else return angleBetweenAgents >= beginAngle && angleBetweenAgents <= endAngle;
+                if(position.dst2(agent.position) < (agent.visibility * visualMultiplier * agent.visibility * visualMultiplier))
+                    return pointInVisualAngle(agent.position);
             }
 
         return false;
@@ -149,7 +197,7 @@ abstract public class Agent
 
         if(active)
             for(Guard guard : world.getGuards())
-                if(getAgentVisible(guard))
+                if(agentVisible(guard))
                     visibleGuards.add(guard);
 
         return visibleGuards;
@@ -161,12 +209,11 @@ abstract public class Agent
 
         if(active)
             for(Intruder intruder : world.getIntruders())
-                if(getAgentVisible(intruder))
+                if(agentVisible(intruder))
                     visibleIntruders.add(intruder);
 
         return visibleIntruders;
     }
-
 
     public ArrayList<Communication> getReceivedCommunications()
     {
@@ -178,6 +225,17 @@ abstract public class Agent
                     receivedCommunications.add(communication);
 
         return receivedCommunications;
+    }
+
+    public boolean createCommunication(Agent receivingAgent, ArrayList<?> message)
+    {
+        if(active)
+            if(receivingAgent != this)
+            {
+                world.addCommunication(new Communication(this, receivingAgent, message));
+                return true;
+            }
+        return false;
     }
 
     public ArrayList<Float> getVisibleSounds()
@@ -227,7 +285,8 @@ abstract public class Agent
         {
             int currentTick = world.getGameLoop().getTicks();
 
-            if (currentTick - lastPheromoneTick >= (int) (PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE)) {
+            if (currentTick - lastPheromoneTick >= (int) (PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE))
+            {
                 world.addPheromone(new Pheromone(pheromoneType, new Vector2(position)));
                 lastPheromoneTick = currentTick;
 
@@ -237,21 +296,19 @@ abstract public class Agent
         return false;
     }
 
-    public boolean createCommunication(Agent receivingAgent, ArrayList<?> message)
+    public boolean inSentryTower()
     {
-        if(active)
-            if(receivingAgent != this)
-            {
-                world.addCommunication(new Communication(this, receivingAgent, message));
+        for(SentryTower sentryTower: world.getMap().getSentryTowers())
+            if(sentryTower.contains(position))
                 return true;
-            }
+
         return false;
     }
 
     public boolean inShade()
     {
-        for(Area area: world.getMap().getAreaList())
-            if(area instanceof Shade && area.contains(position))
+        for(Shade shade: world.getMap().getShades())
+            if(shade.contains(position))
                 return true;
 
         return false;
@@ -265,6 +322,27 @@ abstract public class Agent
     public float getAngleBetweenTwoPos(Vector2 pos1, Vector2 pos2)
     {
         return (float)(Math.toDegrees(Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x)));
+    }
+
+    public boolean pointInVisualAngle(Vector2 point)
+    {
+        float beginAngle = modulo(angleFacing - VISUAL_ANGLE * 0.5f, 360.0f);
+        float endAngle = modulo(angleFacing + VISUAL_ANGLE * 0.5f, 360.0f);
+        float angleBetweenAgents = modulo((float)(getAngleBetweenTwoPos(position, point)),360.0f);
+
+        if(endAngle < beginAngle)
+            return (angleBetweenAgents >= 0 && angleBetweenAgents <= endAngle) || (angleBetweenAgents >= beginAngle && angleBetweenAgents <= 360);
+        else
+            return angleBetweenAgents >= beginAngle && angleBetweenAgents <= endAngle;
+    }
+
+    public AI getAi() {
+        return ai;
+    }
+
+    public float getMaxVelocity()
+    {
+        return maxVelocity;
     }
 
     public boolean getActive()
@@ -284,6 +362,11 @@ abstract public class Agent
 
     public float getVelocity() {
         return velocity;
+    }
+
+    public float getVisualMultiplier()
+    {
+        return visualMultiplier;
     }
 
     public World getWorld() {

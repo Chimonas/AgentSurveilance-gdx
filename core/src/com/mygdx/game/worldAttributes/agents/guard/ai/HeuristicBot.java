@@ -72,22 +72,22 @@ public class HeuristicBot extends GuardAI {
         return 1.4f;
     }
 
-    @Override
-    public float getNewAngle(float oldAngle) {
-        float max = -100;
-        float angle = oldAngle;
-        for (int i = 0; i < best_actions.length; i++) {
-            if (best_actions[i] >= max) {
-                max = best_actions[i];
-                angle = i;
-            }
-        }
-
-        if(best_actions[(int)angle] <= best_actions[(int)oldAngle])
-            angle = oldAngle;
-
-        return angle ;
-    }
+//    @Override
+//    public float getNewAngle() {
+//        float max = -100;
+//        float angle = oldAngle;
+//        for (int i = 0; i < best_actions.length; i++) {
+//            if (best_actions[i] >= max) {
+//                max = best_actions[i];
+//                angle = i;
+//            }
+//        }
+//
+//        if(best_actions[(int)angle] <= best_actions[(int)oldAngle])
+//            angle = oldAngle;
+//
+//        return angle ;
+//    }
 
     public void getSoundVec() {
         float[] soundVec = new float[360];

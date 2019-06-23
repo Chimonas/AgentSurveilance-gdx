@@ -68,12 +68,12 @@ public class HeuristicSearch extends ExplorationAI
     }
 
 //    @Override
-//    public void spawn(Map map)
+//    public void aiSpawn(Map map)
 //    {
 //        Vector2 position = new Vector2();
 //        position.x = 0.0f;
 //        position.y = divideMap*guardNumber;
 //
-//        agent.spawnPosition(position, 0.0f);
+//        agent.spawn(position, 0.0f);
 //    }
 }

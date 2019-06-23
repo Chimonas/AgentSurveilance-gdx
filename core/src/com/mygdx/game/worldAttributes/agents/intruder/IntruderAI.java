@@ -45,6 +45,11 @@ public abstract class IntruderAI extends AI
             randomPosition.y = -spawnPosition + 2 * map.getWidth() + 2 * map.getHeight();
         }
 
-        agent.spawnPosition(randomPosition, (float)Math.random() * 360.0f);
+        agent.spawn(randomPosition, (float)Math.random() * 360.0f);
+    }
+
+    public void setSprinting(boolean sprinting)
+    {
+        ((Intruder)agent).setSprinting(sprinting);
     }
 }

@@ -5,6 +5,9 @@ import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.worldAttributes.agents.AI;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.areas.Area;
+import com.mygdx.game.worldAttributes.areas.SentryTower;
+import com.mygdx.game.worldAttributes.areas.Shade;
+import com.mygdx.game.worldAttributes.areas.Structure;
 
 import java.util.ArrayList;
 
@@ -12,20 +15,31 @@ public abstract class GuardAI extends AI
 {
     public enum GuardAIType
     {
-        STUPID,PHEROMONE
+        STUPID,PHEROMONE,COMTEST
     }
 
     protected ArrayList<Area> visibleAreas;
+    protected ArrayList<SentryTower> visibleSentryTowers;
+    protected ArrayList<Structure> visibleStructures;
+    protected ArrayList<Shade> visibleShades;
 
     public GuardAI(Guard guard)
     {
         this.agent = guard;
+
+        visibleAreas = new ArrayList<>();
     }
 
     public void update()
     {
         super.update();
-        visibleAreas = ((Guard)agent).getVisibleAreas();
+        visibleSentryTowers = ((Guard)agent).getVisibleSentryTowers();
+        visibleStructures = ((Guard)agent).getVisibleStructures();
+        visibleShades = ((Guard)agent).getVisibleShades();
+
+        visibleAreas.addAll(visibleSentryTowers);
+        visibleAreas.addAll(visibleStructures);
+        visibleAreas.addAll(visibleShades);
     }
 
     @Override
@@ -35,6 +49,6 @@ public abstract class GuardAI extends AI
         randomPosition.x = (float) Math.random() * map.getWidth();
         randomPosition.y = (float) Math.random() * map.getHeight();
 
-        agent.spawnPosition(randomPosition, (float)Math.random() * 360.0f);
+        agent.spawn(randomPosition, (float)Math.random() * 360.0f);
     }
 }

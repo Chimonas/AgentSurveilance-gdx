@@ -7,6 +7,7 @@ public class Shade extends Area
 {
     protected static final Color COLOR = Color.OLIVE;
     protected static final float VISIBILITY = 12.0f;
+    public static final float VISUAL_MULTIPLIER = 0.5f;
 
     public Shade(Vector2 topLeft, Vector2 bottomRight)
     {

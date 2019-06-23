@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.worldAttributes.areas.Area;
 import com.mygdx.game.worldAttributes.areas.AreaFactory;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -64,7 +63,7 @@ public class FileHandler {
 
                 switch(parts[0]){
                     case "Structure": areaType = Area.AreaType.STRUCTURE; break;
-                    case "SentryTower": areaType = Area.AreaType.SENTRYTOWER; break;
+                    case "SentryTower": areaType = Area.AreaType.SENTRY_TOWER; break;
                     case "Shade": areaType = Area.AreaType.SHADE; break;
                     case "Target": areaType = Area.AreaType.TARGET; break;
                 }

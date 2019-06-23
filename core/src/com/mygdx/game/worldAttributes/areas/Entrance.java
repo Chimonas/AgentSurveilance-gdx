@@ -9,15 +9,19 @@ public class Entrance
 
     private enum EntranceType
     {
-        DOOR(5.0f, 5.0f),
-        WINDOW(10.0f, 3.0f);
+        DOOR(5.0f),
+        WINDOW(10.0f);
 
-        private float soundDistance, enteringTime;
+        private float soundDistance;
 
-        EntranceType(float soundDistance, float enteringTime)
+        EntranceType(float soundDistance)
         {
             this.soundDistance = soundDistance;
-            this.enteringTime = enteringTime;
+        }
+
+        public float getSoundDistance()
+        {
+            return soundDistance;
         }
     }
 
@@ -32,6 +36,11 @@ public class Entrance
     {
         this.startPosition = startPoint.cpy();
         this.endPosition = endPoint.cpy();
+    }
+
+    public float getSoundDistance()
+    {
+        return type.getSoundDistance();
     }
 
     public Vector2 getStartPosition() {

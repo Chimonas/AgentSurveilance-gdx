@@ -6,34 +6,37 @@ import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.Sound;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
-import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
 import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 
 import java.util.ArrayList;
 
 public class World
 {
-    private static final float RANDOMSOUNDVISIBILITY = 5.0f;
+    private static final float RANDOM_SOUND_VISIBILITY = 5.0f;
 
-    Map map;
-    GameLoop gameLoop;
-    Settings settings;
-    ArrayList<Guard> guards;
-    ArrayList<Intruder> intruders;
-    ArrayList<Communication> communications;
-    ArrayList<Sound> sounds;
-    ArrayList<Pheromone> pheromones;
+    private int simulationStartTick;
+
+    private Map map;
+    private GameLoop gameLoop;
+    private Settings settings;
+    private ArrayList<Guard> guards;
+    private ArrayList<Intruder> intruders;
+    private ArrayList<Communication> communications, bufferedCommunications;
+    private ArrayList<Sound> sounds, bufferedSounds;
+    private ArrayList<Pheromone> pheromones;
 
     public World(Map map, Settings settings)
     {
         this.map = map;
         this.settings = settings;
-        gameLoop = new GameLoop(this, settings.getMaxTime(), settings.isExplorationPhase(), settings.getExplorationTime());
+        gameLoop = new GameLoop(this, settings.isMultipleSimulations(), settings.getMaxTime(), settings.isExplorationPhase(), settings.getExplorationTime());
 
         guards = new ArrayList<>();
         intruders = new ArrayList<>();
         communications = new ArrayList<>();
+        bufferedCommunications = new ArrayList<>();
         sounds = new ArrayList<>();
+        bufferedSounds = new ArrayList<>();
         pheromones = new ArrayList<>();
 
         for (int i = 0; i < this.settings.getGuardAmount(); i++)
@@ -56,37 +59,24 @@ public class World
         for(Guard guard : guards)
         {
             guard.setExplorationAI(settings.getExplorationAIType());
-            guard.spawn();
+            guard.aiSpawn();
         }
-
-        // V THIS V = BIG NO NO
-//        int increment = 0;
-//        for(Guard guard : guards)
-//        {
-//            guard.setExplorationAI(settings.getExplorationAIType());
-//
-//            if(settings.getExplorationAIType() == ExplorationAI.ExplorationAIType.HEURISTIC) {
-//                divideMap = map.getWidth() / guards.size();
-//                guard.spawnLeft(map, divideMap, increment);
-//            }
-//            else
-//                guard.spawnRandom(map);
-//            increment++;
-//        }
     }
 
     public void startSimulationPhase()
     {
+        simulationStartTick = gameLoop.getTicks();
+
         for(Guard guard : guards)
         {
             guard.setSimulationAI(settings.getGuardAIType());
-            guard.spawn();
+            guard.aiSpawn();
         }
 
         for(Intruder intruder : intruders)
         {
             intruder.setIntruderAI(settings.getIntruderAIType());
-            intruder.spawn();
+            intruder.aiSpawn();
         }
 
         pheromones.clear();
@@ -94,17 +84,33 @@ public class World
 
     public void update()
     {
-        communications.clear();
-        sounds.clear();
+        //Clear communications of old update cycle and add new communications of current cycle
+        communications = new ArrayList<>(bufferedCommunications);
+        bufferedCommunications.clear();
 
+
+        //Clear sounds of old update cycle and add new sounds of current cycle
+        sounds = new ArrayList<>(bufferedSounds);
+        bufferedSounds.clear();
+
+            //Agent sounds, at a linear function with a slope of 4.0
+        for (Guard guard : guards)
+            if(guard.getActive())
+                sounds.add(new Sound(new Vector2(guard.getPosition()), guard.getVelocity() * 4.0f)); //replace magic number for sound curve
+        for (Intruder intruder : intruders)
+            if(intruder.getActive())
+                sounds.add(new Sound(new Vector2(intruder.getPosition()), intruder.getVelocity() * 4.0f)); //replace magic number for sound curve
+
+            //Random sounds, rate 0.1 / minute / 25m^2
         for(int i = 0; i < (int)(map.getWidth() * map.getHeight() / 25.0f); i++)
             if (Math.random() < 1.0f / (600.0f * GameLoop.TICK_RATE)) {
                 Vector2 randomPosition = new Vector2();
                 randomPosition.x = (float) Math.random() * map.getWidth();
                 randomPosition.y = (float) Math.random() * map.getHeight();
-                addSound(new Sound(randomPosition, RANDOMSOUNDVISIBILITY));
+                sounds.add(new Sound(randomPosition, RANDOM_SOUND_VISIBILITY));
             }
 
+        //Update the pheromones and remove the weak ones
         for(Pheromone pheromone : pheromones)
             pheromone.update();
 
@@ -115,18 +121,22 @@ public class World
                 i--;
             }
 
+        //Then update all AIs
         for (Guard guard : guards)
             guard.update();
-
         for (Intruder intruder : intruders)
             intruder.update();
 
-
+        //Then update all positions
         for (Guard guard : guards)
             guard.updatePosition();
-
         for (Intruder intruder : intruders)
             intruder.updatePosition();
+    }
+
+    public int getSimulationStartTick()
+    {
+        return simulationStartTick;
     }
 
     public Map getMap()
@@ -158,30 +168,30 @@ public class World
         return agents;
     }
 
+    public void addCommunication(Communication communication)
+    {
+        bufferedCommunications.add(communication);
+    }
+
     public ArrayList<Communication> getCommunications() {
         return communications;
     }
 
-    public void addCommunication(Communication communication)
+    public void addSound(Sound sound)
     {
-        communications.add(communication);
+        bufferedSounds.add(sound);
     }
 
     public ArrayList<Sound> getSounds() {
         return sounds;
     }
 
-    public void addSound(Sound sound)
+    public void addPheromone(Pheromone pheromone)
     {
-        sounds.add(sound);
+        pheromones.add(pheromone);
     }
 
     public ArrayList<Pheromone> getPheromones() {
         return pheromones;
-    }
-
-    public void addPheromone(Pheromone pheromone)
-    {
-        pheromones.add(pheromone);
     }
 }

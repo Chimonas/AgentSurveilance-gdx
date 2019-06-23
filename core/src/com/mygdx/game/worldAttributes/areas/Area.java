@@ -8,8 +8,7 @@ public abstract class Area
 {
     public enum AreaType
     {
-        STRUCTURE, SENTRYTOWER, SHADE, TARGET
-
+        STRUCTURE, SENTRY_TOWER, SHADE, TARGET
     }
 
     protected Vector2 topLeft, topRight, bottomLeft, bottomRight;
@@ -58,22 +57,35 @@ public abstract class Area
         bottomLeft = new Vector2(topLeft.x, bottomRight.y);
     }
 
-    public boolean intersects(Area secondArea) {
+    //This intersects with other area
+    public boolean intersects(Area secondArea)
+    {
         return !(topLeft.x >= secondArea.bottomRight.x || topLeft.y <= secondArea.bottomRight.y || bottomRight.x <= secondArea.topLeft.x || bottomRight.y >= secondArea.topLeft.y);
     }
 
+    //This intersects with a line
     public boolean intersects(Vector2 position, Vector2 newPosition)
     {
         return intersects(position, newPosition, topLeft, topRight, bottomLeft, bottomRight);
     }
 
+    //Line intersects with a rectangle
     public static boolean intersects(Vector2 position, Vector2 newPosition, Vector2 topLeft, Vector2 topRight, Vector2 bottomLeft, Vector2 bottomRight)
     {
         return intersects(position, newPosition, topLeft, topRight) || intersects(position, newPosition, topRight, bottomRight) || intersects(position, newPosition, bottomRight, bottomLeft) || intersects(position, newPosition, bottomLeft, topLeft);
     }
 
+    //Line intersects with a line
     public static boolean intersects(Vector2 position, Vector2 newPosition, Vector2 edgeStart, Vector2 edgeEnd)
     {
+        Vector2 deltaPosition = new Vector2(newPosition);
+        deltaPosition.sub(position);
+
+        Vector2 deltaEdge = new Vector2(edgeEnd);
+        deltaEdge.sub(edgeStart);
+
+        deltaPosition.dot(deltaEdge);
+
         float positionDx = newPosition.x - position.x;
         float positionDy = newPosition.y - position.y;
         float edgeDx = edgeEnd.x - edgeStart.x;
@@ -96,6 +108,7 @@ public abstract class Area
         return true;
     }
 
+    //This contains a point
     public boolean contains(Vector2 point) {
         return ((point.x < bottomRight.x) &&
                 (point.x > topLeft.x) &&
@@ -103,10 +116,12 @@ public abstract class Area
                 (point.y > bottomRight.y));
     }
 
+    //This is inside a rectangle
     public boolean isInside(Vector2 topLeft, Vector2 bottomRight) {
         return (isInside(topLeft.x, topLeft.y, bottomRight.x, bottomRight.y));
     }
 
+    //This is inside a rectangle
     public boolean isInside(float left, float top, float right, float bottom) {
         return (topLeft.x >= left &&
                 topLeft.y <= top &&
@@ -114,14 +129,17 @@ public abstract class Area
                 bottomRight.y >= bottom);
     }
 
+    //This is inside an area
     public boolean isInside(Area area) {
         return (isInside(area.topLeft, area.bottomRight));
     }
 
+    //This is inside a map
     public boolean isInside(Map map) {
         return isInside(0, map.getHeight(), map.getWidth(), 0);
     }
 
+    //This is large enough, inside a map, and not inside an other area
     public boolean isValid(Map map)
     {
         if (getWidth() < minWidth || getHeight() < minHeight)
@@ -138,9 +156,18 @@ public abstract class Area
         return true;
     }
 
-
     public Vector2 getTopLeft() {
         return topLeft;
+    }
+
+    public Vector2 getTopRight()
+    {
+        return topRight;
+    }
+
+    public Vector2 getBottomLeft()
+    {
+        return bottomLeft;
     }
 
     public Vector2 getBottomRight() {
@@ -153,5 +180,10 @@ public abstract class Area
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public float getVisibility()
+    {
+        return visibility;
     }
 }

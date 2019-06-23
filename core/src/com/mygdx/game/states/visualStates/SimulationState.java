@@ -18,12 +18,6 @@ public class SimulationState extends VisualState
     }
 
     @Override
-    public void create()
-    {
-        super.create();
-    }
-
-    @Override
     public void render()
     {
         world.getGameLoop().check();

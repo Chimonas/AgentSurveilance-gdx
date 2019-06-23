@@ -44,6 +44,8 @@ public class AgentDrawer
             else
                 visualRange = Guard.VISIBILITY;
 
+            visualRange *= agent.getVisualMultiplier();
+
             Gdx.gl.glEnable(GL20.GL_BLEND);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor(VISUALRANGECOLOR);
