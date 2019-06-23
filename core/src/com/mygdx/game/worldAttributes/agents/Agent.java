@@ -48,7 +48,6 @@ abstract public class Agent
 
     public void spawn()
     {
-
         ai.spawn(world.getMap());
     }
 
@@ -109,16 +108,14 @@ abstract public class Agent
 
             newPosition = new Vector2((float) (position.x + velocityX / GameLoop.TICK_RATE), (float) (position.y + velocityY / GameLoop.TICK_RATE));
 
-
+//            System.out.println("New angle facing: " + angleFacing);
+//            System.out.println("Old Pos : " + position.x + " " + position.y);
+//            System.out.println("New Pos : " + newPosition.x + " " + newPosition.y);
+//            System.out.println("Velocity: " + velocityX + " " + velocityY);
             if (isValidMove(position, newPosition))
                 position.set(newPosition);
             else
                 velocity = 0.0f;
-
-//            System.out.println("New angle facing: " + angleFacing);
-//            System.out.println("Old Pos : " + position.x + " " + position.y);
-//            System.out.println("New Pos : " + newPosition.x + " " + newPosition.y);
-
         }
     }
 
@@ -222,7 +219,6 @@ abstract public class Agent
                 if(getAgentVisible(intruder))
                     visibleIntruders.add(intruder);
 
-
         return visibleIntruders;
     }
 
@@ -279,11 +275,8 @@ abstract public class Agent
                 position.dst2(new Vector2(position.x,area.getTopLeft().y)) < area.getVisibility() * area.getVisibility() ) {
 
                 return true;
-
             }
-
         }
-
         return false;
     }
 
@@ -372,7 +365,6 @@ abstract public class Agent
         return visiblePheromones;
     }
 
-
     private int lastPheromoneTick = (int)(-PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE);
 
     public boolean createPheromone(Pheromone.PheromoneType pheromoneType)
@@ -439,6 +431,8 @@ abstract public class Agent
     public float getVelocity() {
         return velocity;
     }
+
+    public void setVelocity(float velocity){ this.velocity = velocity;};
 
     public World getWorld() {
         return world;

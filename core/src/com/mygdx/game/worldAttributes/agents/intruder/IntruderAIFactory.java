@@ -1,6 +1,7 @@
 package com.mygdx.game.worldAttributes.agents.intruder;
 
 import com.mygdx.game.worldAttributes.agents.AI;
+import com.mygdx.game.worldAttributes.agents.AStarAI;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.HeuristicBot;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
@@ -40,6 +41,8 @@ public class IntruderAIFactory
                         /* coefficient for structures: */ 0
                 };
                 return new HeuristicBot(agent, coefficients);
+            case A_STAR:
+                return new AStarIntruderAI(intruder);
             default:
                 return new Stupid(intruder);
 

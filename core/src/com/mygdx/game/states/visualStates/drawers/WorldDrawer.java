@@ -1,12 +1,16 @@
 package com.mygdx.game.states.visualStates.drawers;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gamelogic.World;
 import com.mygdx.game.worldAttributes.Communication;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.Sound;
+import com.mygdx.game.worldAttributes.agents.AStarAI;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
+import com.mygdx.game.worldAttributes.agents.intruder.AStarIntruderAI;
 import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
+import com.mygdx.game.worldAttributes.agents.intruder.IntruderAI;
 
 public class WorldDrawer
 {
@@ -29,8 +33,13 @@ public class WorldDrawer
             SoundDrawer.render(shapeRenderer, sound);
 
         for(Communication communication : world.getCommunications())
-        {
             CommunicationDrawer.render(shapeRenderer, communication);
-        }
+
+        for(Vector2 aStarGraphNode : world.getAStarGraphNodes())
+            AStarGraphDrawer.renderNodes(shapeRenderer, aStarGraphNode);
+
+        for(AStarAI.Pair<Vector2, Vector2> aStarGraphEdge : world.getAStarGraphEdges())
+            AStarGraphDrawer.renderEdges(shapeRenderer, aStarGraphEdge.getLeft(), aStarGraphEdge.getRight());
+
     }
 }

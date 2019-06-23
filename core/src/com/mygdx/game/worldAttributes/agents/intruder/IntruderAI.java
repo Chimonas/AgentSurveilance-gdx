@@ -8,12 +8,16 @@ public abstract class IntruderAI extends AI
 {
     public enum IntruderAIType
     {
-        STUPID, SWARM_HEURISTIC;
+        STUPID, SWARM_HEURISTIC, A_STAR;
     }
 
     public IntruderAI(Intruder intruder)
     {
         super(intruder);
+    }
+
+    public void update(){
+        super.update();
     }
 
     @Override

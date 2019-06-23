@@ -5,6 +5,7 @@ import com.mygdx.game.StateManager;
 import com.mygdx.game.worldAttributes.Communication;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.Sound;
+import com.mygdx.game.worldAttributes.agents.AStarAI;
 import com.mygdx.game.worldAttributes.agents.Agent;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
@@ -24,6 +25,8 @@ public class World
     ArrayList<Communication> communications;
     ArrayList<Sound> sounds;
     ArrayList<Pheromone> pheromones;
+    ArrayList<Vector2> aStarGraphNodes;
+    ArrayList<AStarAI.Pair<Vector2, Vector2>> aStarGraphEdges;
 
     public World(Map map, Settings settings)
     {
@@ -36,6 +39,8 @@ public class World
         communications = new ArrayList<>();
         sounds = new ArrayList<>();
         pheromones = new ArrayList<>();
+        aStarGraphNodes = new ArrayList<>();
+        aStarGraphEdges = new ArrayList<>();
 
         for (int i = 0; i < this.settings.getGuardAmount(); i++)
         {
@@ -173,6 +178,14 @@ public class World
 
         return agents;
     }
+
+    public ArrayList<Vector2> getAStarGraphNodes(){ return aStarGraphNodes; }
+
+    public void addAStarGraphNode(Vector2 node) { aStarGraphNodes.add(node); }
+
+    public ArrayList<AStarAI.Pair<Vector2, Vector2>> getAStarGraphEdges(){ return aStarGraphEdges; }
+
+    public void addAStarGraphEdge(AStarAI.Pair<Vector2, Vector2> edge) { aStarGraphEdges.add(edge); }
 
     public ArrayList<Communication> getCommunications() {
         return communications;

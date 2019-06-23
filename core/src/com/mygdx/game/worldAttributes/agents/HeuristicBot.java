@@ -39,7 +39,6 @@ public class HeuristicBot extends AI {
         super.update();
         this.pherAI.update();
 
-
         if(this.oldPosition.equals(agent.position) && !check){
 
             samePositionTick = agent.getWorld().getGameLoop().getTicks();

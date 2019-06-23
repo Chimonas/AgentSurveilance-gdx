@@ -37,6 +37,10 @@ public class GuardAIFactory
                         /* coefficient for sentry towers: */ 0,
                         /* coefficient for shade: */ 0,
                         /* coefficient for structures: */ 0
+                        //Combination of each/some variables added to this matrix
+                        //Non-linear approach for optimization - > genetic learning, particle swarm optimazation
+
+
                 };
                 return new HeuristicBot(agent, coefficients);
             default:
