@@ -437,5 +437,9 @@ abstract public class Agent
     public World getWorld() {
         return world;
     }
+    
+    public float getVisibility(){return visibility;}
+
+    public int getNumberOfGuards(){return world.getGuards().size();}
 
 }
