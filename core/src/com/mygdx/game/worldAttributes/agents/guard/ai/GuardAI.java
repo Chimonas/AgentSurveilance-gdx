@@ -45,10 +45,23 @@ public abstract class GuardAI extends AI
     @Override
     public void spawn(Map map)
     {
-        Vector2 randomPosition = new Vector2();
-        randomPosition.x = (float) Math.random() * map.getWidth();
-        randomPosition.y = (float) Math.random() * map.getHeight();
 
-        agent.spawn(randomPosition, (float)Math.random() * 360.0f);
+        Vector2 randomPosition = new Vector2();
+        boolean isInside = false;
+        do {
+            randomPosition.x = (float) Math.random() * map.getWidth();
+            randomPosition.y = (float) Math.random() * map.getHeight();
+
+            isInside = false;
+            for (Structure s : agent.getWorld().getMap().getStructures()) {
+                if (s.contains(randomPosition)) {
+                    isInside = true;
+                    break;
+                }
+            }
+        } while (isInside);
+
+        agent.spawn(randomPosition, (float) Math.random() * 360.0f);
+
     }
 }

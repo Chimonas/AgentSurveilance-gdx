@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94bc3bfc-b8c2-410e-96e5-242f68d0c5cf" name="Default Changelist" comment="Winning conditions done">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/core/core_main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/core/core_main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/core/core_test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/core/core_test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/html/html_main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/html/html_main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/html/html_test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/html/html_test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/HeuristicBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/HeuristicBot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAIFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAIFactory.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -20,6 +19,7 @@
     <ignored path="$PROJECT_DIR$/html/build/" />
     <ignored path="$PROJECT_DIR$/html/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,7 +48,7 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="AgentSurveillance" type="f1a62948:ProjectNode" />
+                <item name="AgentSurveilance-gdx" type="f1a62948:ProjectNode" />
               </path>
             </expand>
             <select />
@@ -62,49 +62,168 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/Map.java">
+      <file leaf-file-name="HeuristicBot.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/HeuristicBot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1156">
-              <caret line="80" column="23" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
+            <state relative-caret-position="98">
+              <caret line="277" column="98" selection-start-line="277" selection-start-column="98" selection-end-line="277" selection-end-column="98" />
               <folding>
-                <element signature="e#1963#1964#0" expanded="true" />
-                <element signature="e#1993#1994#0" expanded="true" />
+                <element signature="e#2397#3040#0" />
+                <element signature="e#3522#4752#0" />
+                <element signature="e#4758#5086#0" />
+                <element signature="e#5092#5883#0" />
+                <element signature="e#5889#7168#0" />
+                <element signature="e#7174#7631#0" />
+                <element signature="e#12121#13800#0" />
+                <element signature="e#13806#13969#0" />
+                <element signature="e#13974#14220#0" />
+                <element signature="e#14226#14397#0" />
+                <element signature="e#14402#15226#0" />
+                <element signature="e#16385#16555#0" />
+                <element signature="e#16560#17521#0" />
+                <element signature="e#15232#15395#0" />
+                <element signature="e#16670#16944#0" />
+                <element signature="e#15400#16385#0" />
+                <element signature="e#17939#18918#0" />
+                <element signature="e#16671#17895#0" />
+                <element signature="e#17901#19186#0" />
+                <element signature="e#19192#19382#0" />
+                <element signature="e#19388#19551#0" />
+                <element signature="e#19557#19857#0" />
+                <element signature="e#19863#20020#0" />
+                <element signature="e#20026#20782#0" />
+                <element signature="e#20788#21936#0" />
+                <element signature="e#21942#22271#0" />
+                <element signature="e#22277#22621#0" />
+                <element signature="e#22627#22865#0" />
+                <element signature="e#25404#25717#0" />
+                <element signature="e#28211#28212#0" expanded="true" />
+                <element signature="e#28276#28277#0" expanded="true" />
+                <element signature="e#28321#28322#0" expanded="true" />
+                <element signature="e#28358#28359#0" expanded="true" />
+                <element signature="e#28396#28397#0" expanded="true" />
+                <element signature="e#28431#28432#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <file leaf-file-name="Agent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1309" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.idea/modules/core/core.iml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+            <state relative-caret-position="140">
+              <caret line="44" column="26" selection-start-line="44" selection-end-line="45" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1797#3841#0" />
+                <element signature="e#6506#6806#0" />
+                <element signature="e#6812#9056#0" />
+                <element signature="e#9062#9395#0" />
+                <element signature="e#9402#9810#0" />
+                <element signature="e#12766#12767#0" expanded="true" />
+                <element signature="e#12831#12832#0" expanded="true" />
+                <element signature="e#13623#13624#0" expanded="true" />
+                <element signature="e#13648#13649#0" expanded="true" />
+                <element signature="e#13689#13690#0" expanded="true" />
+                <element signature="e#13723#13724#0" expanded="true" />
+                <element signature="e#13761#13762#0" expanded="true" />
+                <element signature="e#13790#13791#0" expanded="true" />
+                <element signature="e#13830#13831#0" expanded="true" />
+                <element signature="e#13861#13862#0" expanded="true" />
+                <element signature="e#13902#13903#0" expanded="true" />
+                <element signature="e#13936#13937#0" expanded="true" />
+                <element signature="e#13970#13971#0" expanded="true" />
+                <element signature="e#14001#14002#0" expanded="true" />
+                <element signature="e#14121#14122#0" expanded="true" />
+                <element signature="e#14160#14161#0" expanded="true" />
+                <element signature="e#14191#14192#0" expanded="true" />
+                <element signature="e#14219#14220#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.idea/modules/core/core_main.iml">
+      <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/Map.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="64" selection-start-line="2" selection-start-column="64" selection-end-line="2" selection-end-column="64" />
+            <state relative-caret-position="119">
+              <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+              <folding>
+                <element signature="e#865#866#0" expanded="true" />
+                <element signature="e#906#907#0" expanded="true" />
+                <element signature="e#1703#1704#0" expanded="true" />
+                <element signature="e#1738#1739#0" expanded="true" />
+                <element signature="e#1781#1782#0" expanded="true" />
+                <element signature="e#1810#1811#0" expanded="true" />
+                <element signature="e#1861#1862#0" expanded="true" />
+                <element signature="e#1894#1895#0" expanded="true" />
+                <element signature="e#1939#1940#0" expanded="true" />
+                <element signature="e#1969#1970#0" expanded="true" />
+                <element signature="e#2761#2762#0" expanded="true" />
+                <element signature="e#2789#2790#0" expanded="true" />
+                <element signature="e#2825#2826#0" expanded="true" />
+                <element signature="e#2854#2855#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.idea/modules/core/core_test.iml">
+      <file leaf-file-name="Area.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/areas/Area.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="64" selection-start-line="2" selection-start-column="64" selection-end-line="2" selection-end-column="64" />
+            <state relative-caret-position="672">
+              <caret line="158" selection-start-line="158" selection-end-line="158" />
+              <folding>
+                <element signature="e#5378#5379#0" expanded="true" />
+                <element signature="e#5408#5409#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/AI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="267">
+              <caret line="37" column="29" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#820#821#0" expanded="true" />
+                <element signature="e#854#855#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GuardAI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="782">
+              <caret line="58" column="26" lean-forward="true" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GuardAIFactory.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAIFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="38" column="63" lean-forward="true" selection-start-line="38" selection-start-column="63" selection-end-line="38" selection-end-column="63" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Guard.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -120,14 +239,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>System</find>
-      <find>system</find>
-      <find>visibleSounds</find>
-      <find>stateManager</find>
-      <find>exploration</find>
-      <find>syst</find>
-      <find>8</find>
-      <find>syste</find>
       <find>angleFacing</find>
       <find>exploring</find>
       <find>SimulationState</find>
@@ -137,7 +248,6 @@
       <find>sys</find>
       <find>weights</find>
       <find>szs</find>
-      <find>update</find>
       <find>start</find>
       <find>direct</find>
       <find>crossed</find>
@@ -150,7 +260,19 @@
       <find>connec</find>
       <find>connectNode</find>
       <find>normal</find>
+      <find>edgeVisible</find>
+      <find>turni</find>
+      <find>update</find>
+      <find>System.</find>
+      <find>System.out</find>
+      <find>angleDifference</find>
+      <find>System.out.println</find>
+      <find>spaw</find>
+      <find>spawn</find>
     </findStrings>
+    <replaceStrings>
+      <replace>distributedAngle</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -197,7 +319,6 @@
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/explorationAi/HeuristicSearch.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/menuStates/AISettingsState.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/AI.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/menuStates/StartSimulationState.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/Intruder.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/BuilderState.java" />
@@ -215,18 +336,19 @@
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/intruder/AStarIntruderAI.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/AStarAI.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/areas/Area.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/GameLoop.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/areas/Structure.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAIFactory.java" />
-        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/HeuristicBot.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/GeneticAlgo.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/PheromoneAI.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/SimulationState.java" />
         <option value="$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/World.java" />
         <option value="$PROJECT_DIR$/.idea/modules/core/core_main.iml" />
         <option value="$PROJECT_DIR$/.idea/modules/core/core_test.iml" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/HeuristicBot.java" />
+        <option value="$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAIFactory.java" />
       </list>
     </option>
   </component>
@@ -251,59 +373,71 @@
         <subPane>
           <expand>
             <path>
-              <item name="AgentSurveillance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveillance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AgentSurveilance-gdx" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="AgentSurveillance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveillance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveillance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveillance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveillance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveillance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AgentSurveillance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveillance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AgentSurveilance-gdx" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="AgentSurveillance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveillance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AgentSurveilance-gdx" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="AgentSurveillance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveillance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AgentSurveilance-gdx" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="game" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="AgentSurveillance" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AgentSurveillance" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AgentSurveilance-gdx" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="gamelogic" type="462c0819:PsiDirectoryNode" />
+              <item name="worldAttributes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AgentSurveilance-gdx" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="worldAttributes" type="462c0819:PsiDirectoryNode" />
+              <item name="agents" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AgentSurveilance-gdx" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="worldAttributes" type="462c0819:PsiDirectoryNode" />
+              <item name="agents" type="462c0819:PsiDirectoryNode" />
+              <item name="guard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AgentSurveilance" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AgentSurveilance-gdx" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="worldAttributes" type="462c0819:PsiDirectoryNode" />
+              <item name="agents" type="462c0819:PsiDirectoryNode" />
+              <item name="guard" type="462c0819:PsiDirectoryNode" />
+              <item name="ai" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -359,9 +493,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration name="HeuristicBot" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mygdx.game.worldAttributes.agents.HeuristicBot" />
@@ -373,30 +504,54 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
+      <method>
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+      <method>
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="TestNG">
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
       <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
       <properties />
       <listeners />
-      <method v="2">
+      <method>
         <option name="Make" enabled="true" />
       </method>
     </configuration>
@@ -613,81 +768,102 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.78986865" visible="true" weight="0.3068826" />
-      <window_info id="Image Layers" order="1" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Capture Tool" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Favorites" order="5" sideWeight="0.37553647" side_tool="true" weight="0.20566802" />
-      <window_info id="Web" order="6" side_tool="true" />
-      <window_info id="Structure" order="7" sideWeight="0.21013133" weight="0.2" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.53846157" weight="0.38721138" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.65668017" weight="0.42628774" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.06927176" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="5" sideWeight="0.49878544" weight="0.3285968" />
-      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49878544" weight="0.36412078" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49635628" visible="true" weight="0.3374778" />
-      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50364375" side_tool="true" visible="true" weight="0.3374778" />
-      <window_info anchor="bottom" id="Build" order="11" weight="0.32876712" />
-      <window_info anchor="bottom" id="Java Enterprise" order="12" />
-      <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Messages" order="14" sideWeight="0.5692308" weight="0.11171171" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.24939272" />
       <window_info anchor="right" id="Palette" order="2" />
-      <window_info anchor="right" id="Maven" order="3" weight="0.32955465" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Bean Validation" order="6" />
-      <window_info anchor="right" id="Database" order="7" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="right" id="Palette&#9;" order="9" />
-      <window_info anchor="right" id="Maven Projects" order="10" />
-      <window_info anchor="right" id="Gradle" order="11" weight="0.32955465" />
-    </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.78986865" visible="true" weight="0.1951417" />
+      <window_info anchor="bottom" id="TODO" order="4" sideWeight="0.49959514" weight="0.3285968" />
+      <window_info anchor="bottom" id="Messages" order="14" sideWeight="0.5692308" weight="0.26923078" />
+      <window_info anchor="right" id="Palette&#9;" order="10" />
       <window_info id="Image Layers" order="1" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Capture Tool" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Favorites" order="5" sideWeight="0.37553647" side_tool="true" weight="0.20566802" />
-      <window_info id="Web" order="6" side_tool="true" />
-      <window_info id="Structure" order="7" sideWeight="0.21013133" weight="0.2" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" sideWeight="0.49311742" visible="true" weight="0.06749556" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.57813764" weight="0.053285968" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.06927176" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="5" sideWeight="0.49959514" weight="0.3285968" />
-      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.42186233" side_tool="true" weight="0.053285968" />
+      <window_info anchor="right" id="Maven Projects" order="11" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.57813764" visible="true" weight="0.2934473" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49959514" weight="0.36412078" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49878544" weight="0.053285968" />
-      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.42186233" side_tool="true" weight="0.053285968" />
-      <window_info anchor="bottom" id="Build" order="11" weight="0.32876712" />
-      <window_info anchor="bottom" id="Java Enterprise" order="12" />
-      <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Messages" order="14" sideWeight="0.5692308" weight="0.26998225" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info id="Designer" order="2" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.78986865" visible="true" weight="0.22751679" />
+      <window_info anchor="right" id="Gradle" order="6" weight="0.3295302" />
+      <window_info id="Structure" order="7" sideWeight="0.21013133" side_tool="true" weight="0.20161943" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24939272" />
-      <window_info anchor="right" id="Palette" order="2" />
-      <window_info anchor="right" id="Maven" order="3" weight="0.32955465" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
+      <window_info id="UI Designer" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.23978686" />
+      <window_info id="Favorites" order="5" sideWeight="0.37553647" side_tool="true" weight="0.20566802" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Messages" order="14" sideWeight="0.5692308" weight="0.11171171" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info id="Structure" order="7" sideWeight="0.21013133" weight="0.2" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Bean Validation" order="6" />
-      <window_info anchor="right" id="Database" order="7" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info id="Favorites" order="5" sideWeight="0.37553647" side_tool="true" weight="0.20566802" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24939272" />
+      <window_info anchor="bottom" id="Java Enterprise" order="12" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50364375" side_tool="true" visible="true" weight="0.3374778" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.32955465" />
+      <window_info anchor="right" id="Palette" order="2" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
       <window_info anchor="right" id="Maven Projects" order="10" />
+      <window_info id="Web" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="13" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
+      <window_info id="Image Layers" order="1" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49878544" weight="0.36412078" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.06927176" />
+      <window_info anchor="bottom" id="TODO" order="5" sideWeight="0.49878544" weight="0.3285968" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.53846157" weight="0.38721138" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="UI Designer" order="4" />
+      <window_info anchor="right" id="Bean Validation" order="6" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.78986865" visible="true" weight="0.3068826" />
+      <window_info anchor="bottom" id="Build" order="11" weight="0.32876712" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49635628" visible="true" weight="0.3374778" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.65668017" weight="0.42628774" />
       <window_info anchor="right" id="Gradle" order="11" weight="0.32955465" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info id="Designer" order="2" />
+    </layout>
+    <layout-to-restore>
+      <window_info anchor="right" id="Maven" order="3" weight="0.32955465" />
+      <window_info anchor="bottom" id="Build" order="11" weight="0.32876712" />
+      <window_info id="Designer" order="2" />
+      <window_info anchor="right" id="Palette" order="2" />
+      <window_info id="Image Layers" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.57813764" weight="0.053285968" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.24939272" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Favorites" order="5" sideWeight="0.37553647" side_tool="true" weight="0.20566802" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49878544" weight="0.053285968" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Gradle" order="11" weight="0.32955465" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.42186233" side_tool="true" weight="0.053285968" />
+      <window_info anchor="bottom" id="TODO" order="5" sideWeight="0.49959514" weight="0.3285968" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="bottom" id="Java Enterprise" order="12" />
+      <window_info anchor="bottom" id="Database Changes" order="13" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49959514" weight="0.36412078" />
+      <window_info anchor="right" id="Maven Projects" order="10" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" sideWeight="0.49311742" visible="true" weight="0.06749556" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.78986865" visible="true" weight="0.1951417" />
+      <window_info anchor="bottom" id="Messages" order="14" sideWeight="0.5692308" weight="0.26998225" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Web" order="6" side_tool="true" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info id="Structure" order="7" sideWeight="0.21013133" weight="0.2" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.06927176" />
+      <window_info anchor="right" id="Bean Validation" order="6" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -711,20 +887,6 @@
                 </list>
               </option>
             </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list />
-          </value>
-        </entry>
-        <entry key="User">
-          <value>
-            <list />
           </value>
         </entry>
       </map>
@@ -753,6 +915,11 @@
     <MESSAGE value="Winning condition for Agents done in GameLoop" />
     <MESSAGE value="Winning conditions done" />
     <option name="LAST_COMMIT_MESSAGE" value="Winning conditions done" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -784,30 +951,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-lwjgl/1.9.9/222a6367453012e0da3caa48b892b5c8ecc42dc/gdx-backend-lwjgl-1.9.9-sources.jar!/com/badlogic/gdx/backends/lwjgl/LwjglApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="127" selection-start-line="127" selection-end-line="127" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.9.9/1409aca6a4293a7ca8dbd60281c3211a195dd39a/gdx-1.9.9-sources.jar!/com/badlogic/gdx/math/Vector2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="198" selection-start-line="198" selection-end-line="198" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-lwjgl/1.9.9/222a6367453012e0da3caa48b892b5c8ecc42dc/gdx-backend-lwjgl-1.9.9-sources.jar!/com/badlogic/gdx/backends/lwjgl/LwjglApplication.java" />
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.9.9/1409aca6a4293a7ca8dbd60281c3211a195dd39a/gdx-1.9.9-sources.jar!/com/badlogic/gdx/math/Vector2.java" />
     <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$USER_HOME$/Downloads/S0377042713006274.bib">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" selection-end-line="12" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Downloads/S0377042713006274.bib" />
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/FileHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1236">
@@ -819,11 +968,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2108">
           <caret line="124" column="13" selection-start-line="124" selection-start-column="13" selection-end-line="124" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8698#8699#0" expanded="true" />
-            <element signature="e#8725#8726#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -831,9 +975,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="31" column="65" selection-start-line="31" selection-start-column="65" selection-end-line="31" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -848,73 +989,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/AI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#820#821#0" expanded="true" />
-            <element signature="e#854#855#0" expanded="true" />
-            <element signature="e#1296#1297#0" expanded="true" />
-            <element signature="e#1327#1328#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/HeuristicBot (1).java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-510">
-          <caret line="32" column="25" lean-forward="true" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/Agent (1).java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3885" />
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Downloads/HeuristicBot (1).java" />
+    <entry file="file://$USER_HOME$/Downloads/Agent (1).java" />
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/states/menuStates/StartSimulationState.java" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="656" selection-start-line="656" selection-end-line="656" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/GameLoop.class">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_201/src.zip!/java/util/ArrayList.java" />
+    <entry file="file://$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/gamelogic/GameLoop.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/states/visualStates/drawers/AStarGraphDrawer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="21" column="48" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -929,9 +1017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="850">
           <caret line="50" column="9" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -956,30 +1041,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2703">
           <caret line="159" selection-start-line="159" selection-end-line="159" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5160#5161#0" expanded="true" />
-            <element signature="e#5191#5192#0" expanded="true" />
-            <element signature="e#5229#5230#0" expanded="true" />
-            <element signature="e#5259#5260#0" expanded="true" />
-            <element signature="e#5445#5446#0" expanded="true" />
-            <element signature="e#5477#5478#0" expanded="true" />
-            <element signature="e#5511#5512#0" expanded="true" />
-            <element signature="e#5539#5540#0" expanded="true" />
-            <element signature="e#5573#5574#0" expanded="true" />
-            <element signature="e#5602#5603#0" expanded="true" />
-            <element signature="e#5919#5920#0" expanded="true" />
-            <element signature="e#5963#5964#0" expanded="true" />
-            <element signature="e#6004#6005#0" expanded="true" />
-            <element signature="e#6048#6049#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/HeuristicBot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9707">
-          <caret line="587" column="5" selection-start-line="587" selection-start-column="5" selection-end-line="587" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -987,9 +1048,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" column="14" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1000,60 +1058,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/PheromoneAI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="19" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAIFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="41" selection-start-line="41" selection-end-line="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/areas/Area.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2737">
-          <caret line="185" selection-start-line="185" selection-end-line="185" />
-          <folding>
-            <element signature="e#1291#1292#0" expanded="true" />
-            <element signature="e#1339#1340#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="32" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/areas/Structure.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2176">
           <caret line="141" column="5" selection-start-line="141" selection-start-column="5" selection-end-line="141" selection-end-column="5" />
-          <folding>
-            <element signature="e#800#807#0" expanded="true" />
-            <element signature="e#875#876#0" expanded="true" />
-            <element signature="e#937#938#0" expanded="true" />
-            <element signature="e#5322#5323#0" expanded="true" />
-            <element signature="e#5350#5351#0" expanded="true" />
-            <element signature="e#5401#5402#0" expanded="true" />
-            <element signature="e#5431#5432#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1061,109 +1069,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
           <caret line="18" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="e#440#441#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/GameLogic/Map.class">
+    <entry file="file://$PROJECT_DIR$/core/out/production/classes/com/mygdx/game/gamelogic/Map.class">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="70" column="78" selection-start-line="70" selection-start-column="78" selection-end-line="70" selection-end-column="78" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#setCoordinates#0;class#Area#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Vegetation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" column="59" selection-start-line="8" selection-start-column="59" selection-end-line="8" selection-end-column="59" />
-          <folding>
-            <element signature="e#177#178#0" expanded="true" />
-            <element signature="e#245#246#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="79" selection-start-line="11" selection-start-column="79" selection-end-line="11" selection-end-column="79" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Target.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" column="61" selection-start-line="8" selection-start-column="61" selection-end-line="8" selection-end-column="61" />
-          <folding>
-            <element signature="e#169#170#0" expanded="true" />
-            <element signature="e#237#238#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/World.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="45" selection-start-line="6" selection-start-column="45" selection-end-line="6" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3009">
-          <caret line="197" column="62" selection-start-line="197" selection-start-column="62" selection-end-line="197" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#resize#0;class#BuilderScreen#0" />
-            <element signature="method#pause#0;class#BuilderScreen#0" />
-            <element signature="method#resume#0;class#BuilderScreen#0" />
-            <element signature="method#hide#0;class#BuilderScreen#0" />
-            <element signature="e#7694#7695#0" expanded="true" />
-            <element signature="e#7725#7726#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/BuilderTools.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1955">
-          <caret line="149" column="37" selection-start-line="149" selection-start-column="37" selection-end-line="149" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/AreaFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="55" selection-start-line="21" selection-start-column="55" selection-end-line="21" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/AI/AI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Area.java" />
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Vegetation.java" />
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/SentryTower.java" />
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/Target.java" />
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/World.java" />
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Screens/BuilderScreen.java" />
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/BuilderTools.java" />
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/Areas/AreaFactory.java" />
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/AI/AI.java" />
     <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/gamelogic/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
-          <caret line="80" column="23" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
+        <state relative-caret-position="119">
+          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
           <folding>
-            <element signature="e#1963#1964#0" expanded="true" />
-            <element signature="e#1993#1994#0" expanded="true" />
+            <element signature="e#865#866#0" expanded="true" />
+            <element signature="e#906#907#0" expanded="true" />
+            <element signature="e#1703#1704#0" expanded="true" />
+            <element signature="e#1738#1739#0" expanded="true" />
+            <element signature="e#1781#1782#0" expanded="true" />
+            <element signature="e#1810#1811#0" expanded="true" />
+            <element signature="e#1861#1862#0" expanded="true" />
+            <element signature="e#1894#1895#0" expanded="true" />
+            <element signature="e#1939#1940#0" expanded="true" />
+            <element signature="e#1969#1970#0" expanded="true" />
+            <element signature="e#2761#2762#0" expanded="true" />
+            <element signature="e#2789#2790#0" expanded="true" />
+            <element signature="e#2825#2826#0" expanded="true" />
+            <element signature="e#2854#2855#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1191,6 +1130,143 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="64" selection-start-line="2" selection-start-column="64" selection-end-line="2" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/areas/Area.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="158" selection-start-line="158" selection-end-line="158" />
+          <folding>
+            <element signature="e#5378#5379#0" expanded="true" />
+            <element signature="e#5408#5409#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/PheromoneAI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="78" column="9" lean-forward="true" selection-start-line="78" selection-start-column="9" selection-end-line="78" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/AI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="37" column="29" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#820#821#0" expanded="true" />
+            <element signature="e#854#855#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/Agent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="44" column="26" selection-start-line="44" selection-end-line="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1797#3841#0" />
+            <element signature="e#6506#6806#0" />
+            <element signature="e#6812#9056#0" />
+            <element signature="e#9062#9395#0" />
+            <element signature="e#9402#9810#0" />
+            <element signature="e#12766#12767#0" expanded="true" />
+            <element signature="e#12831#12832#0" expanded="true" />
+            <element signature="e#13623#13624#0" expanded="true" />
+            <element signature="e#13648#13649#0" expanded="true" />
+            <element signature="e#13689#13690#0" expanded="true" />
+            <element signature="e#13723#13724#0" expanded="true" />
+            <element signature="e#13761#13762#0" expanded="true" />
+            <element signature="e#13790#13791#0" expanded="true" />
+            <element signature="e#13830#13831#0" expanded="true" />
+            <element signature="e#13861#13862#0" expanded="true" />
+            <element signature="e#13902#13903#0" expanded="true" />
+            <element signature="e#13936#13937#0" expanded="true" />
+            <element signature="e#13970#13971#0" expanded="true" />
+            <element signature="e#14001#14002#0" expanded="true" />
+            <element signature="e#14121#14122#0" expanded="true" />
+            <element signature="e#14160#14161#0" expanded="true" />
+            <element signature="e#14191#14192#0" expanded="true" />
+            <element signature="e#14219#14220#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="58" column="26" lean-forward="true" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/Guard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/HeuristicBot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="277" column="98" selection-start-line="277" selection-start-column="98" selection-end-line="277" selection-end-column="98" />
+          <folding>
+            <element signature="e#2397#3040#0" />
+            <element signature="e#3522#4752#0" />
+            <element signature="e#4758#5086#0" />
+            <element signature="e#5092#5883#0" />
+            <element signature="e#5889#7168#0" />
+            <element signature="e#7174#7631#0" />
+            <element signature="e#12121#13800#0" />
+            <element signature="e#13806#13969#0" />
+            <element signature="e#13974#14220#0" />
+            <element signature="e#14226#14397#0" />
+            <element signature="e#14402#15226#0" />
+            <element signature="e#16385#16555#0" />
+            <element signature="e#16560#17521#0" />
+            <element signature="e#15232#15395#0" />
+            <element signature="e#16670#16944#0" />
+            <element signature="e#15400#16385#0" />
+            <element signature="e#17939#18918#0" />
+            <element signature="e#16671#17895#0" />
+            <element signature="e#17901#19186#0" />
+            <element signature="e#19192#19382#0" />
+            <element signature="e#19388#19551#0" />
+            <element signature="e#19557#19857#0" />
+            <element signature="e#19863#20020#0" />
+            <element signature="e#20026#20782#0" />
+            <element signature="e#20788#21936#0" />
+            <element signature="e#21942#22271#0" />
+            <element signature="e#22277#22621#0" />
+            <element signature="e#22627#22865#0" />
+            <element signature="e#25404#25717#0" />
+            <element signature="e#28211#28212#0" expanded="true" />
+            <element signature="e#28276#28277#0" expanded="true" />
+            <element signature="e#28321#28322#0" expanded="true" />
+            <element signature="e#28358#28359#0" expanded="true" />
+            <element signature="e#28396#28397#0" expanded="true" />
+            <element signature="e#28431#28432#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/mygdx/game/worldAttributes/agents/guard/ai/GuardAIFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="38" column="63" lean-forward="true" selection-start-line="38" selection-start-column="63" selection-end-line="38" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

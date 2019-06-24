@@ -10,6 +10,7 @@ import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 import com.mygdx.game.worldAttributes.areas.*;
 
+import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -102,7 +103,7 @@ abstract public class Agent
                 float angleDifference = newAngleFacing - angleFacing;
                 angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
 
-                if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICK_RATE)
+                if (Math.abs(angleDifference) > 45.0f / GameLoop.TICK_RATE)
                 {
                     lastFastTurnTick = world.getGameLoop().getTicks();
 
@@ -187,8 +188,15 @@ abstract public class Agent
                     }
                 }
 
+
                 if(position.dst2(agent.position) < (agent.visibility * visualMultiplier * agent.visibility * visualMultiplier))
-                    return pointInVisualAngle(agent.position);
+                {
+                    if (pointInVisualAngle(agent.position))
+                        for (Structure s : world.getMap().getStructures())
+                            if(!s.intersects(position,agent.position))
+                              return false;
+                    return true;
+                }
             }
 
         return false;
