@@ -47,7 +47,7 @@ public class AreaDrawer
         {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             shapeRenderer.setColor(borderColor);
-            shapeRenderer.circle(area.getTopLeft().x + SentryTower.WIDTH / 2, area.getTopLeft().y - SentryTower.WIDTH / 2, SentryTower.INNERRADIUS, 24);
+//            shapeRenderer.circle(area.getTopLeft().x + SentryTower.WIDTH / 2, area.getTopLeft().y - SentryTower.WIDTH / 2, SentryTower.INNERRADIUS, 24);
             shapeRenderer.circle(area.getTopLeft().x + SentryTower.WIDTH / 2, area.getTopLeft().y - SentryTower.WIDTH / 2, SentryTower.OUTERRADIUS, 60);
             shapeRenderer.end();
         }

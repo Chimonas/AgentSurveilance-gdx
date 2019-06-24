@@ -68,21 +68,19 @@ public class HeuristicSearch extends ExplorationAI {
 
     public float setNewVelocity() {
 
-        System.out.println(maxVelocity);
+        //System.out.println(maxVelocity);
         return maxVelocity;
     }
 
-    @Override
-    public void spawn(Map map){
-        Vector2 position = new Vector2();
-        float divideMap = map.getHeight()/(guardNumber+1);
-        position.x = 0.1f;
-        position.y = divideMap*increment;
-        increment++;
-        agent.spawnPosition(position, 0.0f);
-        startPosition = agent.getPosition();
-
-    }
+//    @Override
+//    public void aiSpawn(Map map)
+//    {
+//        Vector2 position = new Vector2();
+//        position.x = 0.0f;
+//        position.y = divideMap*guardNumber;
+//
+//        agent.spawn(position, 0.0f);
+//    }
 }
 
 

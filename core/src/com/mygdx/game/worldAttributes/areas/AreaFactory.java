@@ -14,7 +14,7 @@ public class AreaFactory
             case STRUCTURE:
                 area = new Structure(startPoint, endPoint);
                 break;
-            case SENTRYTOWER:
+            case SENTRY_TOWER:
                 area = new SentryTower(endPoint);
                 break;
             case SHADE:

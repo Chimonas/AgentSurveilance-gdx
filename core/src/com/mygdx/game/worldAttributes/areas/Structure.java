@@ -134,4 +134,10 @@ public class Structure extends Area
         return windows;
     }
 
+    public ArrayList<Entrance> getEntrances(){
+        ArrayList<Entrance> entrances = new ArrayList<Entrance>();
+        entrances.addAll(getWindows());
+        entrances.addAll(getDoors());
+        return entrances;
+    }
 }

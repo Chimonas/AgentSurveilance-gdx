@@ -17,12 +17,12 @@ abstract public class Agent
 {
     protected World world;
 
-    public final float VISUAL_ANGLE = 45.0f, MAX_VELOCITY = 1.4f, MAX_TURN_VELOCITY = 180.0f, PHEROMONE_COOL_DOWN = 20.0f;
+    public static final float VISUAL_ANGLE = 45.0f, MAX_VELOCITY = 1.4f, MAX_TURN_VELOCITY = 180.0f, PHEROMONE_COOL_DOWN = 10.0f, FAST_TURN_COOL_DOWN = 0.5f, SENTRYTOWER_COOL_DOWN = 2.0f;
     protected AI ai;
     protected float maxVelocity, visualMultiplier, visibility;
     private float maxTimeSamePosition = 3.0f;
 
-    protected boolean active;
+    protected boolean active, fastTurning;
     protected Vector2 position;
     protected float angleFacing, velocity;
 
@@ -38,7 +38,7 @@ abstract public class Agent
         active = false;
     }
 
-    public void spawnPosition(Vector2 position, float angleFacing)
+    public void spawn(Vector2 position, float angleFacing)
     {
         active = true;
         this.position = position;
@@ -46,7 +46,7 @@ abstract public class Agent
         velocity = 0f;
     }
 
-    public void spawn()
+    public void aiSpawn()
     {
         ai.spawn(world.getMap());
     }
@@ -57,40 +57,63 @@ abstract public class Agent
         velocity = 0.0f;
     }
 
+    private int lastFastTurnTick = (int)(-FAST_TURN_COOL_DOWN * GameLoop.TICK_RATE), firstSentryTowerTick = (int)(-SENTRYTOWER_COOL_DOWN * GameLoop.TICK_RATE);
+    private boolean transversingSentryTower;
+
     public void update()
     {
         if(active)
         {
+            transversingSentryTower = world.getGameLoop().getTicks() - firstSentryTowerTick < (int) (SENTRYTOWER_COOL_DOWN * GameLoop.TICK_RATE);
+
+            //Set visual multiplier
+            if(((world.getGameLoop().getTicks() - lastFastTurnTick) < (int) (FAST_TURN_COOL_DOWN * GameLoop.TICK_RATE)) || transversingSentryTower)
+            {
+                visualMultiplier = 0.0f;
+            }
+            else if(inSentryTower())
+                visualMultiplier = SentryTower.VISUAL_MULTIPLIER;
+            else if(inShade())
+                visualMultiplier = Shade.VISUAL_MULTIPLIER;
+            else
+                visualMultiplier = 1.0f;
+
+            //Update AI
             ai.update();
 
-            float newVelocity = ai.getNewVelocity();
-
-            newVelocity = newVelocity < 0.0f ? 0.0f : (newVelocity > maxVelocity ? maxVelocity : newVelocity);
-
-            velocity = newVelocity;
-
-            float newAngleFacing = ai.getNewAngle();
-
-            //MAybe fucks up
-            //IT GIVES A BIGGER ANGLE THAN 360
-
-            newAngleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
-
-            float angleDifference = newAngleFacing - angleFacing;
-            angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
-
-            if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICK_RATE)
+            if(transversingSentryTower)
             {
-                //TODO: descrease visibility, start blindness timer
-
-                if (Math.abs(angleDifference) > 180.0f / GameLoop.TICK_RATE)
-                    newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICK_RATE);
+                velocity = 0.0f;
             }
-            angleFacing = (newAngleFacing % 360.0f + 360.0f) % 360.0f;
+            else
+            {
+                //Restrict, then update velocity
+                float newVelocity = ai.getNewVelocity();
 
-//            angleFacing = newAngleFacing;
+                newVelocity = newVelocity < 0.0f ? 0.0f : (newVelocity > maxVelocity ? maxVelocity : newVelocity);
 
-            world.addSound(new Sound(new Vector2(position), velocity * 4.0f));
+                velocity = newVelocity;
+
+                //Restrict, then update angleFacing
+                float newAngleFacing = ai.getNewAngle();
+
+                newAngleFacing = modulo(newAngleFacing, 360.0f);
+
+                float angleDifference = newAngleFacing - angleFacing;
+                angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
+
+                if (Math.abs(angleDifference) >= 45.0f / GameLoop.TICK_RATE)
+                {
+                    lastFastTurnTick = world.getGameLoop().getTicks();
+
+                    if (Math.abs(angleDifference) > 180.0f / GameLoop.TICK_RATE)
+                        newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICK_RATE);
+                }
+
+                angleFacing = modulo(newAngleFacing, 360.0f);
+
+                angleFacing = newAngleFacing;
+            }
         }
     }
 
@@ -108,10 +131,6 @@ abstract public class Agent
 
             newPosition = new Vector2((float) (position.x + velocityX / GameLoop.TICK_RATE), (float) (position.y + velocityY / GameLoop.TICK_RATE));
 
-//            System.out.println("New angle facing: " + angleFacing);
-//            System.out.println("Old Pos : " + position.x + " " + position.y);
-//            System.out.println("New Pos : " + newPosition.x + " " + newPosition.y);
-//            System.out.println("Velocity: " + velocityX + " " + velocityY);
             if (isValidMove(position, newPosition))
                 position.set(newPosition);
             else
@@ -124,30 +143,56 @@ abstract public class Agent
         if(Area.intersects(position, newPosition, new Vector2(0,world.getMap().getHeight()), new Vector2(world.getMap().getWidth(),world.getMap().getHeight()), new Vector2(0,0), new Vector2(world.getMap().getWidth(), 0)))
             return false;
 
-        for (Area area : world.getMap().getAreaList())
-            if (!(area instanceof Shade || area instanceof Target) && area.intersects(position, newPosition)) return false;
+        for(SentryTower sentryTower: world.getMap().getSentryTowers())
+        {
+            if(sentryTower.intersects(position, newPosition))
+            {
+                if(this instanceof Guard)
+                {
+                    firstSentryTowerTick = world.getGameLoop().getTicks();
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+
+        for(Structure structure: world.getMap().getStructures())
+        {
+            if(structure.intersects(position, newPosition))
+            {
+                for (Entrance entrance : structure.getEntrances()) {
+                    if (Area.intersects(position, newPosition, entrance.getStartPosition(), entrance.getEndPosition())) {
+                        world.addSound(new Sound(position, entrance.getSoundDistance()));
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
 
         return true;
     }
 
-    public boolean getAgentVisible(Agent agent)
+    public boolean agentVisible(Agent agent)
     {
         if(active)
-            if (agent.active && agent != this && position.dst2(agent.position) < (agent.visibility * agent.visibility))
+            if (agent.active && agent != this)
             {
-                float beginAngle = modulo(angleFacing - VISUAL_ANGLE * 0.5f, 360.0f);
-                float endAngle = modulo(angleFacing + VISUAL_ANGLE * 0.5f, 360.0f);
-                float angleBetweenAgents = modulo((float)(getAngleBetweenTwoPos(position, agent.getPosition())),360.0f);
+                for(Structure structure: world.getMap().getStructures())
+                {
+                    if(structure.contains(position))
+                    {
+                        return structure.contains(agent.position);
+                    }
+                }
 
-                if(endAngle< beginAngle)
-                    return (angleBetweenAgents >= 0 && angleBetweenAgents <= endAngle) ||
-                            (angleBetweenAgents >= beginAngle && angleBetweenAgents <= 360);
-                else return angleBetweenAgents >= beginAngle && angleBetweenAgents <= endAngle;
+                if(position.dst2(agent.position) < (agent.visibility * visualMultiplier * agent.visibility * visualMultiplier))
+                    return pointInVisualAngle(agent.position);
             }
 
         return false;
     }
-
 
     public ArrayList<Guard> getVisibleGuards()
     {
@@ -155,7 +200,7 @@ abstract public class Agent
 
         if(active)
             for(Guard guard : world.getGuards())
-                if(getAgentVisible(guard))
+                if(agentVisible(guard))
                     visibleGuards.add(guard);
 
         return visibleGuards;
@@ -216,103 +261,12 @@ abstract public class Agent
 
         if(active)
             for(Intruder intruder : world.getIntruders())
-                if(getAgentVisible(intruder))
+                if(agentVisible(intruder))
                     visibleIntruders.add(intruder);
 
         return visibleIntruders;
     }
 
-    private ArrayList<Vector2[]> visibleSentryTowers = new ArrayList<>();
-    private ArrayList<Vector2[]> visibleShade = new ArrayList<>();
-    private ArrayList<Vector2[]> visibleStructure = new ArrayList<>();
-
-
-    public ArrayList<Vector2[]> getVisibleSentryTowers() {
-        return visibleSentryTowers;
-    }
-
-    public ArrayList<Vector2[]> getVisibleShade() {
-        return visibleShade;
-    }
-
-    public ArrayList<Vector2[]> getVisibleStructure() {
-        return visibleStructure;
-    }
-
-
-    public void updateVisibleAreas() {
-        ArrayList<Area> visibleAreas = new ArrayList<>();
-
-        if (active)
-            for (Area a : world.getMap().getAreaList()) {
-                if (getAreaVisible(a)) {
-
-                    float[] checkAngles = new float[]{(float) Math.tan(Math.toRadians(angleFacing - VISUAL_ANGLE * 0.5f)),
-                        (float) Math.tan(Math.toRadians(angleFacing + VISUAL_ANGLE * 0.5f))};
-                    //get visible bounds
-                    //set them to the arraylist corresponding their own kind of area
-                    Vector2[] visibleBounds = getVisibleBounds(checkAngles,a.getTopLeft(),a.getBottomRight());
-                    visibleSentryTowers = new ArrayList<>();
-                    visibleStructure = new ArrayList<>();
-                    visibleShade = new ArrayList<>();
-                    if (a instanceof SentryTower) visibleSentryTowers.add(visibleBounds);
-                    if (a instanceof Shade) visibleShade.add(visibleBounds);
-                    if (a instanceof Structure) visibleStructure.add(visibleBounds);
-
-
-                }
-            }
-
-    }
-
-    public boolean getAreaVisible(Area area) {
-
-        if(active) {
-
-            if ((position.dst2(new Vector2(area.getBottomRight().x,position.y)) < area.getVisibility() * area.getVisibility()) ||
-                position.dst2(new Vector2(area.getTopLeft().x,position.y)) < area.getVisibility() * area.getVisibility() ||
-                position.dst2(new Vector2(position.x,area.getBottomRight().y)) < area.getVisibility() * area.getVisibility() ||
-                position.dst2(new Vector2(position.x,area.getTopLeft().y)) < area.getVisibility() * area.getVisibility() ) {
-
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    public Vector2[] getVisibleBounds(float[] anglesToCheck,Vector2 topLeft, Vector2 botRight) {
-        Vector2[] visibleBounds = {new Vector2(-5,-5),
-                                    new Vector2(-5,-5),
-                                    new Vector2(-5,-5),
-                                    new Vector2(-5,-5),};
-
-        for (float angle : anglesToCheck) {
-            float bias = position.y - angle * position.x;
-//                System.out.println(position.x + " " + position.y);
-            if (position.dst2(new Vector2((topLeft.y-bias)/angle,topLeft.y)) < (visibility * visibility)) {
-                //check if it sees the top border
-//                    System.out.println("Detected top wall");
-                visibleBounds[0] = new Vector2((topLeft.y-bias)/angle,topLeft.y+1);
-            }
-            else if (position.dst2(new Vector2((botRight.y-bias)/angle,botRight.y)) < (visibility * visibility)) {
-                //check if it sees the bot border
-                    System.out.println("Detected bot wall");
-                visibleBounds[1] = new Vector2((botRight.y-bias)/angle,botRight.y);
-            }
-            else if (position.dst2(new Vector2(botRight.x,angle*botRight.x+bias)) < (visibility * visibility)) {
-                //check if it sees the right border
-//                    System.out.println("Detected right wall");
-                visibleBounds[2] = new Vector2(botRight.x,angle*botRight.x+bias);
-            }
-            else if (position.dst2(new Vector2(topLeft.x,angle*topLeft.x+bias)) < (visibility * visibility)) {
-                //check if it sees the left border
-//                    System.out.println("Detected left wall");
-                visibleBounds[3] = new Vector2(topLeft.x,angle*topLeft.x+bias);
-            }
-        }
-        return visibleBounds;
-    }
 
     public ArrayList<Communication> getReceivedCommunications()
     {
@@ -324,6 +278,17 @@ abstract public class Agent
                     receivedCommunications.add(communication);
 
         return receivedCommunications;
+    }
+
+    public boolean createCommunication(Agent receivingAgent, ArrayList<?> message)
+    {
+        if(active)
+            if(receivingAgent != this)
+            {
+                world.addCommunication(new Communication(this, receivingAgent, message));
+                return true;
+            }
+        return false;
     }
 
     public ArrayList<Float> getVisibleSounds()
@@ -373,7 +338,8 @@ abstract public class Agent
         {
             int currentTick = world.getGameLoop().getTicks();
 
-            if (currentTick - lastPheromoneTick >= (int) (PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE)) {
+            if (currentTick - lastPheromoneTick >= (int) (PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE))
+            {
                 world.addPheromone(new Pheromone(pheromoneType, new Vector2(position)));
                 lastPheromoneTick = currentTick;
 
@@ -383,21 +349,19 @@ abstract public class Agent
         return false;
     }
 
-    public boolean createCommunication(Agent receivingAgent, ArrayList<?> message)
+    public boolean inSentryTower()
     {
-        if(active)
-            if(receivingAgent != this)
-            {
-                world.addCommunication(new Communication(this, receivingAgent, message));
+        for(SentryTower sentryTower: world.getMap().getSentryTowers())
+            if(sentryTower.contains(position))
                 return true;
-            }
+
         return false;
     }
 
     public boolean inShade()
     {
-        for(Area area: world.getMap().getAreaList())
-            if(area instanceof Shade && area.contains(position))
+        for(Shade shade: world.getMap().getShades())
+            if(shade.contains(position))
                 return true;
 
         return false;
@@ -411,6 +375,27 @@ abstract public class Agent
     public float getAngleBetweenTwoPos(Vector2 pos1, Vector2 pos2)
     {
         return (float)(Math.toDegrees(Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x)));
+    }
+
+    public boolean pointInVisualAngle(Vector2 point)
+    {
+        float beginAngle = modulo(angleFacing - VISUAL_ANGLE * 0.5f, 360.0f);
+        float endAngle = modulo(angleFacing + VISUAL_ANGLE * 0.5f, 360.0f);
+        float angleBetweenAgents = modulo((float)(getAngleBetweenTwoPos(position, point)),360.0f);
+
+        if(endAngle < beginAngle)
+            return (angleBetweenAgents >= 0 && angleBetweenAgents <= endAngle) || (angleBetweenAgents >= beginAngle && angleBetweenAgents <= 360);
+        else
+            return angleBetweenAgents >= beginAngle && angleBetweenAgents <= endAngle;
+    }
+
+    public AI getAi() {
+        return ai;
+    }
+
+    public float getMaxVelocity()
+    {
+        return maxVelocity;
     }
 
     public boolean getActive()
@@ -434,10 +419,15 @@ abstract public class Agent
 
     public void setVelocity(float velocity){ this.velocity = velocity;};
 
+    public float getVisualMultiplier()
+    {
+        return visualMultiplier;
+    }
+
     public World getWorld() {
         return world;
     }
-    
+
     public float getVisibility(){return visibility;}
 
     public int getNumberOfGuards(){return world.getGuards().size();}

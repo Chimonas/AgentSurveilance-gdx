@@ -26,23 +26,25 @@ public class GuardAIFactory
                 //Default coefficients
                 coefficients = new float[] {
                         /* coefficient for sound: */ 0, //SOUND REALLY FUCKS UP GUARDS
-                        /* coefficient for amount of visible guards: */ -17f,
+                        /* coefficient for amount of visible guards: */ -1f,
                         /* coefficient for amount of visible intruders: */ 100.0f,
                         /* coefficient for red pheromones: */ 2f,
                         /* coefficient for green pheromones: */ 0,
                         /* coefficient for blue pheromones: */ 0,
                         /* coefficient for yellow pheromones: */ 0,
                         /* coefficient for purple pheromones: */ 0,
-                        /* coefficient for map border: */ -1.5f,
+                        /* coefficient for map border: */ 0.2f,
                         /* coefficient for sentry towers: */ 0,
                         /* coefficient for shade: */ 0,
-                        /* coefficient for structures: */ 0
+                        /* coefficient for structures: */ 1f,
+                        /* coefficient for inside structure: */ 0.3f
+                };
                         //Combination of each/some variables added to this matrix
                         //Non-linear approach for optimization - > genetic learning, particle swarm optimazation
 
-
-                };
                 return new HeuristicBot(agent, coefficients);
+            case COMTEST:
+                return new ComTestAI(guard);
             default:
                 return new Stupid(guard);
 

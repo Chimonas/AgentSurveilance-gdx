@@ -21,7 +21,7 @@ public class GeneticAlgo {
     public ArrayList<Intruder> intruders;
     public ArrayList<Intruder> newIntruders;
 
-    public int numberOfCrossovers = (int) Math.floor(guards.size()/2);
+    public int numberOfCrossovers;
     public float mutationProbability = 0.1f;
 
 
@@ -30,6 +30,7 @@ public class GeneticAlgo {
         world = guards.get(0).world;
         this.guards = guards;
         this.intruders = intruders;
+        this.numberOfCrossovers = (int) Math.floor(guards.size()/2);
 
     }
 
@@ -39,11 +40,11 @@ public class GeneticAlgo {
             g.setSimulationAI(GuardAI.GuardAIType.SWARM_HEURISTIC);
             ((HeuristicBot) g.ai).setCoefficients(
                     generateRandomCoefficients(((HeuristicBot) g.ai).getCoefficients().length));
-            g.spawn();
+            g.aiSpawn();
         }
         for(Intruder i: intruders){
             i.setSimulationAI(IntruderAI.IntruderAIType.A_STAR);
-            i.spawn();
+            i.aiSpawn();
         }
     }
 

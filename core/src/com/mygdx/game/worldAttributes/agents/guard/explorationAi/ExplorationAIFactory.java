@@ -10,8 +10,6 @@ public class ExplorationAIFactory
         {
             case STUPID:
                 return new Stupid(guard);
-//            case SWARM:
-//                return new Swarm(guard);
             case HEURISTIC:
                 return new HeuristicSearch(guard);
             default:

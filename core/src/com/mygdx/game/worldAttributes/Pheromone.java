@@ -4,9 +4,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gamelogic.GameLoop;
 
+import java.beans.Visibility;
+
 public class Pheromone
 {
-    private static final float GROWTHRATE = 0.5f, DECAYRATE = 0.05f;
+    private static final float MAX_VISIBILITY = 5.0f, DURATION = 5.0f;
 
     private PheromoneType pheromoneType;
     private Vector2 position;
@@ -43,8 +45,8 @@ public class Pheromone
 
     public void update()
     {
-        intensity -= DECAYRATE / GameLoop.TICK_RATE;
-        visibility += GROWTHRATE / GameLoop.TICK_RATE;
+        intensity -= 1.0f / (DURATION * GameLoop.TICK_RATE);
+        visibility += MAX_VISIBILITY / (DURATION * GameLoop.TICK_RATE);
     }
 
     public PheromoneType getPheromoneType() {

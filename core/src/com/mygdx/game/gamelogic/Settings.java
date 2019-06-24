@@ -9,9 +9,9 @@ public class Settings
     private GuardAI.GuardAIType guardAIType;
     private ExplorationAI.ExplorationAIType explorationAIType;
     private IntruderAI.IntruderAIType intruderAIType;
-    private int guardAmount, intruderAmount;
-    private float explorationTime, maxTime, timeWeight, movementWeight, directComWeight, indirectComWeight;
-    private boolean explorationPhase;
+    private int guardAmount, intruderAmount, simulationAmount;
+    private float explorationTime, maxTime;
+    private boolean explorationPhase, multipleSimulations;
 
     public GuardAI.GuardAIType getGuardAIType() {
         return guardAIType;
@@ -71,36 +71,12 @@ public class Settings
         this.maxTime = maxTime;
     }
 
-    public float getTimeWeight() {
-        return timeWeight;
+    public int getSimulationAmount() {
+        return simulationAmount;
     }
 
-    public void setTimeWeight(float timeWeight) {
-        this.timeWeight = timeWeight;
-    }
-
-    public float getMovementWeight() {
-        return movementWeight;
-    }
-
-    public void setMovementWeight(float movementWeight) {
-        this.movementWeight = movementWeight;
-    }
-
-    public float getDirectComWeight() {
-        return directComWeight;
-    }
-
-    public void setDirectComWeight(float directComWeight) {
-        this.directComWeight = directComWeight;
-    }
-
-    public float getIndirectComWeight() {
-        return indirectComWeight;
-    }
-
-    public void setIndirectComWeight(float indirectComWeight) {
-        this.indirectComWeight = indirectComWeight;
+    public void setSimulationAmount(int simulationAmount) {
+        this.simulationAmount = simulationAmount;
     }
 
     public boolean isExplorationPhase() {
@@ -109,5 +85,13 @@ public class Settings
 
     public void setExplorationPhase(boolean explorationPhase) {
         this.explorationPhase = explorationPhase;
+    }
+
+    public boolean isMultipleSimulations() {
+        return multipleSimulations;
+    }
+
+    public void setMultipleSimulations(boolean multipleSimulations) {
+        this.multipleSimulations = multipleSimulations;
     }
 }

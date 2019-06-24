@@ -11,15 +11,13 @@ import java.util.ArrayList;
 
 public class GameLoop
 {
-    private final long startSimulationTime;
     private World world;
-
     public static final double TICK_RATE = 30.0f, SPEED_STEP = 2.0f;
 
     private final float GUARD_WINNING_DISTANCE = 0.5f, INTRUDER_WINNING_TIME = 3.0f;
 
-    private boolean running, pause, exploration, exploring;
-    private int ticks, firstIntruderInTargetTick;
+    private boolean running, pause, multipleSimulation, exploration, exploring;
+    private int ticks, firstIntruderInTargetTick, result;
     private double time, speed, lastTickTime, timeBeforeTick, simulationTime, explorationTime; // !All time related variables have to be in double for precision!
 
     public ArrayList<AStarAI.Pair<Guard,Double>> guardWinners;
@@ -29,14 +27,16 @@ public class GameLoop
 
     Boolean geneticAlgo;
 
-    public GameLoop(World world, double simulationTime, boolean exploration, double explorationTime)
+    public GameLoop(World world, boolean multipleSimulations, double simulationTime, boolean exploration, double explorationTime)
     {
         this.world = world;
+        this.multipleSimulation = multipleSimulations;
         this.simulationTime = simulationTime;
         this.exploration = exploration;
         this.explorationTime = explorationTime;
+
+        //Olgas shit
         this.sm = sm;
-        this.startSimulationTime = System.currentTimeMillis();
         this.intruderWinners = new ArrayList<AStarAI.Pair<Intruder, Double>>();
         this.guardWinners = new ArrayList<AStarAI.Pair<Guard, Double>>();
         this.geneticAlgo = false;
@@ -55,38 +55,44 @@ public class GameLoop
         world.update();
     }
 
-    float startExplorationTIme = System.nanoTime();
-
-    public void check() {
-        if (running && !pause) {
+    public void check()
+    {
+        if(running && !pause)
+        {
             time = System.nanoTime();
 
-            if (exploring && ticks >= (int) (explorationTime * TICK_RATE)) {
-                exploring = false;
-                world.startSimulationPhase();
+            while (running && time - lastTickTime > timeBeforeTick)
+            {
+                update();
+                if(!exploring)
+                    checkWinningConditions();
             }
 
-            if (simulationTime != 0.0)
-                if (ticks >= (int) (explorationTime + simulationTime) * TICK_RATE) {
-                    System.out.println("Simulation time done");
-
-                    stop();
-                }
-
-            while (running && time - lastTickTime > timeBeforeTick) {
-                update();
-                checkWinningConditions();
+            if(exploring && ticks >= (int)(explorationTime * TICK_RATE))
+            {
+                exploring = false;
+                world.startSimulationPhase();
             }
         }
     }
 
     public void checkWinningConditions ()
     {
+        //Time Runs out
+        if(simulationTime > 0.0)
+            if (ticks >= (int)(explorationTime + simulationTime * TICK_RATE))
+            {
+                result = 0;
+                stop();
+            }
+
         //Winning condition for Guards
         for (Guard guard : world.getGuards())
             for (Intruder i : guard.getVisibleIntruders())
                 if (guard.getPosition().dst2(i.getPosition()) <= GUARD_WINNING_DISTANCE * GUARD_WINNING_DISTANCE) //Using dst2 so no squareroot has to be calculated.
                 {
+                    result = 1;
+                    //Olgas stuff
                     guardWinners.add(new AStarAI.Pair<Guard, Double>(guard, (ticks-world.getSimulationStartTick())/TICK_RATE));
                     System.out.println("Guards won" + System.nanoTime());
                     System.out.println((ticks - world.getSimulationStartTick()) / TICK_RATE);
@@ -94,12 +100,14 @@ public class GameLoop
                 }
 
         //Winning condition for Intruders
-        if (checkIntruderInTarget()) {
-            if (ticks < firstIntruderInTargetTick)
+        if(checkIntrudersInTarget())
+        {
+            if(ticks < firstIntruderInTargetTick)
                 firstIntruderInTargetTick = ticks;
 
             if (ticks - firstIntruderInTargetTick >= INTRUDER_WINNING_TIME * TICK_RATE) {
-                intruderWinners.add(new AStarAI.Pair<Intruder, Double>(getInruderInTarget(), (ticks-world.getSimulationStartTick())/TICK_RATE));
+                result = -1;
+                intruderWinners.add(new AStarAI.Pair<Intruder, Double>(getInruderInTarget(), (ticks - world.getSimulationStartTick()) / TICK_RATE));
                 System.out.println("Intruders won");
                 System.out.println((ticks - world.getSimulationStartTick()) / TICK_RATE);
                 stop();
@@ -107,13 +115,12 @@ public class GameLoop
         }
     }
 
-    public boolean checkIntruderInTarget ()
+    public boolean checkIntrudersInTarget()
     {
-        for (Area area : world.getMap().getAreaList())
-            if (area instanceof Target)
-                for (Intruder intruder : world.getIntruders())
-                    if (area.contains(intruder.getPosition()))
-                        return true;
+        for(Target target : world.getMap().getTargets())
+            for(Intruder intruder : world.getIntruders())
+                if(target.contains(intruder.getPosition()))
+                    return true;
 
         return false;
     }
@@ -149,10 +156,14 @@ public class GameLoop
     public void stop ()
     {
         running = false;
-
     }
 
-    public void setPause ( boolean pause)
+    public boolean isRunning()
+    {
+        return running;
+    }
+
+    public void setPause(boolean pause)
     {
         this.pause = pause;
 
@@ -170,12 +181,20 @@ public class GameLoop
         return ticks;
     }
 
+    public int getResult()
+    {
+        return result;
+    }
+
     public boolean getExploring (){return exploring;}
 
     public void setSpeed ( double speed)
     {
         this.speed = speed;
-        timeBeforeTick = 1.0e9f / (TICK_RATE * speed);
+        if(!multipleSimulation)
+            timeBeforeTick = 1.0e9f / (TICK_RATE * speed);
+        else
+            timeBeforeTick = 0.0f;
     }
 
     public void incrementSpeed ()

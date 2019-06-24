@@ -17,8 +17,6 @@ import com.mygdx.game.gamelogic.FileHandler;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.states.visualStates.BuilderState;
 
-//import com.mygdx.game.gamelogic.FileHandler;
-
 public class MainMenuState extends MenuState
 {
     private Stage stage;
@@ -58,7 +56,6 @@ public class MainMenuState extends MenuState
 
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
 
         titleL = new Label("Agent Surveillance", StateManager.skin, "title");
         table.add(titleL).center().top().height(100f);

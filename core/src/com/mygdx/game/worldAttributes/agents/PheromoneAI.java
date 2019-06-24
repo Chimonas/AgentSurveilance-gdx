@@ -32,7 +32,7 @@ public class PheromoneAI extends AI
         randomPosition.x = (float) Math.random() * map.getWidth();
         randomPosition.y = (float) Math.random() * map.getHeight();
 
-        agent.spawnPosition(randomPosition, (float)Math.random() * 360.0f);
+        agent.spawn(randomPosition, (float)Math.random() * 360.0f);
     }
 
     public enum PheromoneAction
