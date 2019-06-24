@@ -1,11 +1,13 @@
 package com.mygdx.game.gamelogic;
 
 import com.mygdx.game.StateManager;
-import com.mygdx.game.states.menuStates.StartSimulationState;
+import com.mygdx.game.worldAttributes.agents.AStarAI;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 import com.mygdx.game.worldAttributes.areas.Area;
 import com.mygdx.game.worldAttributes.areas.Target;
+
+import java.util.ArrayList;
 
 public class GameLoop
 {
@@ -20,7 +22,12 @@ public class GameLoop
     private int ticks, firstIntruderInTargetTick;
     private double time, speed, lastTickTime, timeBeforeTick, simulationTime, explorationTime; // !All time related variables have to be in double for precision!
 
+    public ArrayList<AStarAI.Pair<Guard,Double>> guardWinners;
+    public ArrayList<AStarAI.Pair<Intruder, Double>> intruderWinners;
+
     public StateManager sm;
+
+    Boolean geneticAlgo;
 
     public GameLoop(World world, double simulationTime, boolean exploration, double explorationTime)
     {
@@ -30,7 +37,9 @@ public class GameLoop
         this.explorationTime = explorationTime;
         this.sm = sm;
         this.startSimulationTime = System.currentTimeMillis();
-
+        this.intruderWinners = new ArrayList<AStarAI.Pair<Intruder, Double>>();
+        this.guardWinners = new ArrayList<AStarAI.Pair<Guard, Double>>();
+        this.geneticAlgo = false;
 //        pause = false;
 //        ticks = 0;
 //        time = 0.0;
@@ -60,6 +69,7 @@ public class GameLoop
             if (simulationTime != 0.0)
                 if (ticks >= (int) (explorationTime + simulationTime) * TICK_RATE) {
                     System.out.println("Simulation time done");
+
                     stop();
                 }
 
@@ -77,9 +87,10 @@ public class GameLoop
             for (Intruder i : guard.getVisibleIntruders())
                 if (guard.getPosition().dst2(i.getPosition()) <= GUARD_WINNING_DISTANCE * GUARD_WINNING_DISTANCE) //Using dst2 so no squareroot has to be calculated.
                 {
+                    guardWinners.add(new AStarAI.Pair<Guard, Double>(guard, (ticks-world.getSimulationStartTick())/TICK_RATE));
                     System.out.println("Guards won" + System.nanoTime());
                     System.out.println((ticks - world.getSimulationStartTick()) / TICK_RATE);
-                    stop(); //TODO: Message that the guards won
+                    stop();
                 }
 
         //Winning condition for Intruders
@@ -88,9 +99,10 @@ public class GameLoop
                 firstIntruderInTargetTick = ticks;
 
             if (ticks - firstIntruderInTargetTick >= INTRUDER_WINNING_TIME * TICK_RATE) {
+                intruderWinners.add(new AStarAI.Pair<Intruder, Double>(getInruderInTarget(), (ticks-world.getSimulationStartTick())/TICK_RATE));
                 System.out.println("Intruders won");
                 System.out.println((ticks - world.getSimulationStartTick()) / TICK_RATE);
-                stop(); //TODO: Message that the intruders won
+                stop();
             }
         }
     }
@@ -104,6 +116,16 @@ public class GameLoop
                         return true;
 
         return false;
+    }
+
+    public Intruder getInruderInTarget(){
+        for (Area area : world.getMap().getAreaList())
+            if (area instanceof Target)
+                for (Intruder intruder : world.getIntruders())
+                    if (area.contains(intruder.getPosition()))
+                        return intruder;
+
+        return null;
     }
 
     public void start ()
@@ -127,6 +149,7 @@ public class GameLoop
     public void stop ()
     {
         running = false;
+
     }
 
     public void setPause ( boolean pause)

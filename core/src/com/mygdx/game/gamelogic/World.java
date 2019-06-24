@@ -7,6 +7,7 @@ import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.Sound;
 import com.mygdx.game.worldAttributes.agents.AStarAI;
 import com.mygdx.game.worldAttributes.agents.Agent;
+import com.mygdx.game.worldAttributes.agents.GeneticAlgo;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
 import com.mygdx.game.worldAttributes.agents.guard.explorationAi.ExplorationAI;
 import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
@@ -27,6 +28,7 @@ public class World
     ArrayList<Pheromone> pheromones;
     ArrayList<Vector2> aStarGraphNodes;
     ArrayList<AStarAI.Pair<Vector2, Vector2>> aStarGraphEdges;
+    GeneticAlgo geneticAlgo;
 
     public World(Map map, Settings settings)
     {
@@ -41,6 +43,7 @@ public class World
         pheromones = new ArrayList<>();
         aStarGraphNodes = new ArrayList<>();
         aStarGraphEdges = new ArrayList<>();
+        geneticAlgo = new GeneticAlgo(guards, intruders);
 
         for (int i = 0; i < this.settings.getGuardAmount(); i++)
         {
@@ -83,18 +86,20 @@ public class World
 
     public void startSimulationPhase()
     {
-        for(Guard guard : guards)
-        {
-            guard.setSimulationAI(settings.getGuardAIType());
-            guard.spawn();
+        if(this.getGameLoop().geneticAlgo)
+            geneticAlgo.startSimulation();
+        else{
+            for(Guard guard : guards)
+            {
+                guard.setSimulationAI(settings.getGuardAIType());
+                guard.spawn();
+            }
+            for(Intruder intruder : intruders)
+            {
+                intruder.setIntruderAI(settings.getIntruderAIType());
+                intruder.spawn();
+            }
         }
-
-        for(Intruder intruder : intruders)
-        {
-            intruder.setIntruderAI(settings.getIntruderAIType());
-            intruder.spawn();
-        }
-
         pheromones.clear();
     }
 

@@ -18,12 +18,12 @@ public class GuardAIFactory
     {
         agent = guard;
 
-
         switch(guardAIType) //New AIs should always take guard and optionally internalAreas
         {
             case STUPID:
                 return new Stupid(guard);
             case SWARM_HEURISTIC:
+                //Default coefficients
                 coefficients = new float[] {
                         /* coefficient for sound: */ 0, //SOUND REALLY FUCKS UP GUARDS
                         /* coefficient for amount of visible guards: */ -17f,
@@ -53,10 +53,6 @@ public class GuardAIFactory
     public static AI newGuardAI(GuardAI.GuardAIType guardAIType, Guard guard)
     {
         return newGuardAI(guardAIType, guard, new ArrayList<Area>());
-    }
-
-    public void setCoefficients(float[] coeff){
-        this.coefficients = coeff;
     }
 
 }

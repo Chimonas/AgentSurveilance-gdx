@@ -117,7 +117,8 @@ public class AStarAI{
                             if(nodes.get(i).getLeft().dst(node) < 2 || nodes.get(j).getLeft().dst(node) < 2)
                                 edgeWeight += weightGuardInSight;
 
-                    this.agent.getWorld().addAStarGraphEdge(new Pair<>(nodes.get(i).left, nodes.get(j).left));
+                    //For Visualization
+   //                 this.agent.getWorld().addAStarGraphEdge(new Pair<>(nodes.get(i).left, nodes.get(j).left));
                 }
                 weights[j][i] = edgeWeight;
                 weights[i][j] = edgeWeight;
@@ -207,7 +208,7 @@ public class AStarAI{
 
 
     //Taken from https://stackoverflow.com/questions/521171/a-java-collection-of-value-pairs-tuples
-    public class Pair<L,R> {
+    public static class Pair<L,R> {
 
         private final L left;
         private final R right;

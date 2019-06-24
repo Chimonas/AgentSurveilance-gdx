@@ -5,6 +5,7 @@ import com.mygdx.game.gamelogic.GameLoop;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.worldAttributes.Pheromone;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -32,6 +33,10 @@ public class HeuristicBot extends AI {
 
         this.angles = new float[coefficients.length][DEGREE_LEVEL];
 
+    }
+
+    public void setCoefficients(float[] c){
+        this.coefficients = c;
     }
 
     public void update() {
@@ -289,7 +294,7 @@ public class HeuristicBot extends AI {
 
     private float[] distributedAngle(float[] vec, double std, int pos,int importanceLevel) {
         std = std* DEGREE_LEVEL/360;
-//        System.out.println("Visible agents angle position: " + pos);
+
         double scalar = 1/(Math.sqrt(2*Math.PI*Math.pow(std,2)));
 
         float value = (float) (Math.exp(-1/(2*Math.pow(std,2)))/(Math.sqrt(2*Math.PI*Math.pow(std,2)))/scalar);
@@ -347,6 +352,10 @@ public class HeuristicBot extends AI {
     public float getAngleBetweenTwoPos(Vector2 pos1, Vector2 pos2){
 
         return (float)(Math.toDegrees(Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x)));
+    }
+
+    public float[] getCoefficients(){
+        return coefficients;
     }
 
     public static float modulo(float dividend, float divisor)
