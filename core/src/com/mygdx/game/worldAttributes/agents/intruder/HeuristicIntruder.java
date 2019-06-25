@@ -3,6 +3,7 @@ package com.mygdx.game.worldAttributes.agents;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.worldAttributes.Pheromone;
+import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 import com.mygdx.game.worldAttributes.areas.Area;
 import com.mygdx.game.worldAttributes.areas.Shade;
 import com.mygdx.game.worldAttributes.areas.Structure;
@@ -29,12 +30,9 @@ public class HeuristicIntruder extends AI {
 
     private float imaginaryAreaIncrease;
 
-    private Vector2[] lastSeenIntruder = new Vector2[2];
-    private int ticksFromLastSeenIntruder;
 
     public HeuristicIntruder(Agent agent, float[] coefficients) {
         super(agent);
-        this.pherAI = new PheromoneAI(agent);
         this.newVelocity= agent.MAX_VELOCITY;
         this.coefficients = coefficients;
         for(int i = 0; i<best_actions.length; i++) best_actions[i] = (float)Math.random()*5;
@@ -73,27 +71,35 @@ public class HeuristicIntruder extends AI {
         this.oldPosition.set(agent.position);
     }
 
-    @Override
     public void spawn(Map map)
     {
-
+        float spawnPosition;
         Vector2 randomPosition = new Vector2();
-        boolean isInside = false;
-        do {
-            randomPosition.x = (float) Math.random() * map.getWidth();
-            randomPosition.y = (float) Math.random() * map.getHeight();
 
-            isInside = false;
-            for (Structure s : agent.getWorld().getMap().getStructures()) {
-                if (s.contains(randomPosition)) {
-                    isInside = true;
-                    break;
-                }
-            }
-        } while (isInside);
+        spawnPosition = (float)Math.random() * (2 * map.getHeight() + 2 * map.getWidth());
 
-        agent.spawn(randomPosition, (float) Math.random() * 360.0f);
+        if(spawnPosition <= map.getWidth())
+        {
+            randomPosition.x = spawnPosition;
+            randomPosition.y = .1f;
+        }
+        else if(spawnPosition <= map.getWidth() + map.getHeight())
+        {
+            randomPosition.x = map.getWidth() - .1f;
+            randomPosition.y = spawnPosition - map.getWidth();
+        }
+        else if(spawnPosition <= 2 * map.getWidth() + map.getHeight())
+        {
+            randomPosition.x = -spawnPosition + 2 * map.getWidth() + map.getHeight();
+            randomPosition.y = map.getHeight() - .1f;
+        }
+        else
+        {
+            randomPosition.x = .1f;
+            randomPosition.y = -spawnPosition + 2 * map.getWidth() + 2 * map.getHeight();
+        }
 
+        agent.spawn(randomPosition, (float)Math.random() * 360.0f);
     }
 
     public float[] evaluateActions() {
@@ -102,6 +108,7 @@ public class HeuristicIntruder extends AI {
         getAgents(); // guards, intruders
         getBorderVec();
         getAreaVec(); // sentry, shade, structures
+        getTargetVec();
 
 
         for (int i = 0; i < angles.length; i++)
@@ -116,7 +123,7 @@ public class HeuristicIntruder extends AI {
 
         for (int i = 0; i < best_actions.length; i++) {
             float value = best_actions[i];
-            best_actions[i] *= 0.95;
+            best_actions[i] *= 0.85;
             if (Math.abs(best_actions[i] - value) < Math.pow(10,-15))
                 best_actions[i] = 0;
         }
@@ -166,6 +173,9 @@ public class HeuristicIntruder extends AI {
         }
 
         System.out.println(max-min);
+        if (max - min > 50) {
+            ((Intruder)this.agent).setSprinting(true);
+        }
 
         agent.ai.newAngle = newAngle;
     }
@@ -195,7 +205,7 @@ public class HeuristicIntruder extends AI {
                 agent.createPheromone(Pheromone.PheromoneType.PURPLE);
             }
             Vector2 other = a.getPosition();
-            guardVec = distributedAngle(guardVec,50, (int) getPositiveAngleBetweenTwoPos(pos,other)*DEGREE_LEVEL/360,100);
+            guardVec = distributedAngle(guardVec,50, (int) getPositiveAngleBetweenTwoPos(pos,other)*DEGREE_LEVEL/360,80);
         }
         for (Agent a : visibleIntruders) {
             Vector2 other = a.getPosition();
@@ -298,6 +308,8 @@ public class HeuristicIntruder extends AI {
 
             if (modifiablePos) {
                 angleToInfluence = midAngle(minMax[0],minMax[1]);
+
+
                 structVec = applySideBombs(structVec,s,(int)angleToInfluence,(int)angleDistance(minMax[0],minMax[1]),isInExtension(s));
             }
 
@@ -312,16 +324,27 @@ public class HeuristicIntruder extends AI {
     public void getTargetVec() {
         ArrayList<Target> targets = agent.world.getMap().getTargets();
         float[] targetVec = new float[DEGREE_LEVEL];
-
         for (Target t : targets) {
             float[] minMax = getMinMaxAngles(t);
 
-            targetVec = distributedAngle(targetVec,20,(int)midAngle(minMax[0],minMax[1]),(int)(minMax[1]-minMax[0]));
+            if (t.contains(agent.position)) {
+                targetVec[0] += agent.position.dst(new Vector2(t.getBottomRight().x,agent.position.y));
+                targetVec[90] += agent.position.dst(new Vector2(agent.position.x,t.getTopLeft().y));
+                targetVec[180] += agent.position.dst(new Vector2(t.getBottomLeft().x,agent.position.y));
+                targetVec[270] += agent.position.dst(new Vector2(agent.position.x,t.getBottomLeft().y));
+            } else {
+                targetVec = distributedAngle(targetVec,20,(int)modulo(midAngle(minMax[0],minMax[1]),360),(int)(minMax[1]-minMax[0]));
 
+                for (Area a : agent.world.getMap().getAreaList()) {
+                    if (a.intersects(agent.position,t.getBottomLeft()) || a.intersects(agent.position,t.getBottomRight()) ||
+                        a.intersects(agent.position,t.getTopLeft()) || a.intersects(agent.position,t.getTopRight())) {
+                        for (float v : targetVec)
+                            v *= 0.8;
+                    }
+                }
+            }
         }
-
         this.angles[6] = targetVec;
-
     }
 
     private float[] distributedAngle(float[] vec, double std, int pos,int degreesToInfluence,float multiplier) {

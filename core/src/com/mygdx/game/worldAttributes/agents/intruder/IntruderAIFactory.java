@@ -25,12 +25,12 @@ public class IntruderAIFactory
             case SWARM_HEURISTIC:
                 coefficients = new float[]{
                         /* coefficient for sound: */ 0, //SOUND REALLY FUCKS UP GUARDS
-                        /* coefficient for amount of visible guards: */ -100f,
+                        /* coefficient for amount of visible guards: */ -150f,
                         /* coefficient for amount of visible intruders: */ -17.0f,
                         /* coefficient for map border: */ -1.0f,
                         /* coefficient for shade: */ 0,
-                        /* coefficient for structures: */ 20f,
-                        /* coefficient for target: */ 500f
+                        /* coefficient for structures: */ 13f,
+                        /* coefficient for target: */ 13f
                 };
                 return new HeuristicIntruder(agent, coefficients);
             case A_STAR:
