@@ -25,16 +25,16 @@ public class GuardAIFactory
             case SWARM_HEURISTIC:
                 //Default coefficients
                 coefficients = new float[] {
-                        /* coefficient for sound: */ 0, //SOUND REALLY FUCKS UP GUARDS
+                        /* coefficient for sound: */ 0.5f, //SOUND REALLY FUCKS UP GUARDS
                         /* coefficient for amount of visible guards: */ -50f,
                         /* coefficient for amount of visible intruders: */ 200.0f,
                         /* coefficient for red pheromones: */ 10f,
                         /* coefficient for green pheromones: */ 5f,
-                        /* coefficient for blue pheromones: */ 0f,
-                        /* coefficient for yellow pheromones: */ 0,
-                        /* coefficient for purple pheromones: */ 0,
-                        /* coefficient for map border: */ 10.0f,
-                        /* coefficient for sentry towers: */ 5.0f,
+                        /* coefficient for blue pheromones: */ 0.2f,
+                        /* coefficient for yellow pheromones: */ 1.0f,
+                        /* coefficient for purple pheromones: */ 2.0f,
+                        /* coefficient for map border: */ 20.0f,
+                        /* coefficient for sentry towers: */ 2.0f,
                         /* coefficient for shade: */ 1f,
                         /* coefficient for structures: */ 1.5f,
                         /* coefficient for inside structure: */ 20.0f

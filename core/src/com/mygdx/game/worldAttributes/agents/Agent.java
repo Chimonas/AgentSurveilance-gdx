@@ -18,7 +18,7 @@ abstract public class Agent
 {
     protected World world;
 
-    public static final float VISUAL_ANGLE = 45.0f, MAX_VELOCITY = 1.4f, MAX_TURN_VELOCITY = 180.0f, PHEROMONE_COOL_DOWN = 10.0f, FAST_TURN_COOL_DOWN = 0.5f, SENTRYTOWER_COOL_DOWN = 2.0f;
+    public static final float VISUAL_ANGLE = 45.0f, MAX_VELOCITY = 1.4f, MAX_TURN_VELOCITY = 180.0f, PHEROMONE_COOL_DOWN = 10.0f, /*FAST_TURN_COOL_DOWN = 0.5f,*/ SENTRYTOWER_COOL_DOWN = 2.0f;
     protected AI ai;
     protected float maxVelocity, visualMultiplier, visibility;
     private float maxTimeSamePosition = 3.0f;
@@ -58,7 +58,8 @@ abstract public class Agent
         velocity = 0.0f;
     }
 
-    private int lastFastTurnTick = (int)(-FAST_TURN_COOL_DOWN * GameLoop.TICK_RATE), firstSentryTowerTick = (int)(-SENTRYTOWER_COOL_DOWN * GameLoop.TICK_RATE);
+//    private int lastFastTurnTick = (int)(-FAST_TURN_COOL_DOWN * GameLoop.TICK_RATE),
+    private int firstSentryTowerTick = (int)(-SENTRYTOWER_COOL_DOWN * GameLoop.TICK_RATE);
     private boolean transversingSentryTower;
 
     public void update()
@@ -66,13 +67,13 @@ abstract public class Agent
         if(active)
         {
             transversingSentryTower = world.getGameLoop().getTicks() - firstSentryTowerTick < (int) (SENTRYTOWER_COOL_DOWN * GameLoop.TICK_RATE);
-
-            //Set visual multiplier
-            if(((world.getGameLoop().getTicks() - lastFastTurnTick) < (int) (FAST_TURN_COOL_DOWN * GameLoop.TICK_RATE)) || transversingSentryTower)
-            {
-                visualMultiplier = 0.0f;
-            }
-            else if(inSentryTower())
+//
+//            //Set visual multiplier
+//            if(((world.getGameLoop().getTicks() - lastFastTurnTick) < (int) (FAST_TURN_COOL_DOWN * GameLoop.TICK_RATE)) || transversingSentryTower)
+//            {
+//                visualMultiplier = 0.0f;
+//            }
+            if(inSentryTower())
                 visualMultiplier = SentryTower.VISUAL_MULTIPLIER;
             else if(inShade())
                 visualMultiplier = Shade.VISUAL_MULTIPLIER;
@@ -103,13 +104,13 @@ abstract public class Agent
                 float angleDifference = newAngleFacing - angleFacing;
                 angleDifference += angleDifference > 180.0f ? -360.0f : angleDifference <= -180.0f ? 360.0f : 0;
 
-                if (Math.abs(angleDifference) > 45.0f / GameLoop.TICK_RATE)
-                {
-                    lastFastTurnTick = world.getGameLoop().getTicks();
-
-                    if (Math.abs(angleDifference) > 180.0f / GameLoop.TICK_RATE)
-                        newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICK_RATE);
-                }
+//                if (Math.abs(angleDifference) > 45.0f / GameLoop.TICK_RATE)
+//                {
+//                    lastFastTurnTick = world.getGameLoop().getTicks();
+//
+//                    if (Math.abs(angleDifference) > 180.0f / GameLoop.TICK_RATE)
+//                        newAngleFacing = angleFacing + (float)(Math.signum(angleDifference) * 180.0f / GameLoop.TICK_RATE);
+//                }
 
                 angleFacing = modulo(newAngleFacing, 360.0f);
 
@@ -180,22 +181,24 @@ abstract public class Agent
         if(active)
             if (agent.active && agent != this)
             {
-                for(Structure structure: world.getMap().getStructures())
-                {
-                    if(structure.contains(position))
-                    {
-                        return structure.contains(agent.position);
-                    }
-                }
+//                for(Structure structure: world.getMap().getStructures())
+//                {
+//                    if(structure.contains(position))
+//                    {
+//                        return structure.contains(agent.position);
+//                    }
+//                }
 
-
-                if(position.dst2(agent.position) < (agent.visibility * visualMultiplier * agent.visibility * visualMultiplier))
+                if(position.dst2(agent.position) < (agent.visibility  * agent.visibility ))
                 {
-                    if (pointInVisualAngle(agent.position))
+                    if (pointInVisualAngle(agent.position)) {
                         for (Structure s : world.getMap().getStructures())
-                            if(!s.intersects(position,agent.position))
-                              return false;
-                    return true;
+                            if (s.intersects(position, agent.position))
+                                return false;
+                        return true;
+                    }
+
+
                 }
             }
 
@@ -275,7 +278,6 @@ abstract public class Agent
         return visibleIntruders;
     }
 
-
     public ArrayList<Communication> getReceivedCommunications()
     {
         ArrayList<Communication> receivedCommunications = new ArrayList<>();
@@ -305,7 +307,7 @@ abstract public class Agent
 
         if(active)
             for(Sound sound : world.getSounds())
-                if (position.dst2(sound.getPosition()) < (sound.getVisibility() * sound.getVisibility()))
+                if (position.dst2(sound.getPosition()) < (sound.getVisibility() * sound.getVisibility()) && sound.soundReceivable(this))
                     visibleSounds.add(sound);
 
         ArrayList<Float> soundAngles = new ArrayList<>();
@@ -332,26 +334,73 @@ abstract public class Agent
 
         if(active)
             for(Pheromone pheromone : world.getPheromones())
-                if (position.dst2(pheromone.getPosition()) < (pheromone.getVisibility() * pheromone.getVisibility()))
+                if (position.dst2(pheromone.getPosition()) < (pheromone.getVisibility() * pheromone.getVisibility()) && pheromone.signalReceivable(this))
                     visiblePheromones.add(pheromone);
 
         return visiblePheromones;
     }
 
-    private int lastPheromoneTick = (int)(-PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE);
+    private int lastRedPheromoneTick = (int)(-PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE);
+    private int lastYellowPheromoneTick = (int) (-PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE);
+    private int lastBluePheromoneTick = (int) (-PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE);
+    private int lastPurplePheromoneTick = (int) (-PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE);
+    private int lastGreenPheromoneTick = (int) (-PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE);
 
-    public boolean createPheromone(Pheromone.PheromoneType pheromoneType)
-    {
-        if(active)
-        {
-            int currentTick = world.getGameLoop().getTicks();
+    public boolean createPheromone(Pheromone.PheromoneType pheromoneType) {
+        if (active) {
+            int currentTick;
+            switch (pheromoneType) {
+                case RED:
+                    currentTick = world.getGameLoop().getTicks();
 
-            if (currentTick - lastPheromoneTick >= (int) (PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE))
-            {
-                world.addPheromone(new Pheromone(pheromoneType, new Vector2(position)));
-                lastPheromoneTick = currentTick;
+                    if (currentTick - lastRedPheromoneTick >= (int) (PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE)) {
+                        world.addPheromone(new Pheromone(pheromoneType, new Vector2(position),this));
 
-                return true;
+                        lastRedPheromoneTick = currentTick;
+
+                        return true;
+                    }
+                    break;
+                case YELLOW:
+                    currentTick = world.getGameLoop().getTicks();
+
+                    if (currentTick - lastYellowPheromoneTick >= (int) (PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE)) {
+                        world.addPheromone(new Pheromone(pheromoneType, new Vector2(position),this));
+                        lastYellowPheromoneTick = currentTick;
+
+                        return true;
+                    }
+                    break;
+                case BLUE:
+                    currentTick = world.getGameLoop().getTicks();
+
+                    if (currentTick - lastBluePheromoneTick >= (int) (PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE)) {
+                        world.addPheromone(new Pheromone(pheromoneType, new Vector2(position),this));
+                        lastBluePheromoneTick = currentTick;
+
+                        return true;
+                    }
+                    break;
+                case GREEN:
+                    currentTick = world.getGameLoop().getTicks();
+
+                    if (currentTick - lastGreenPheromoneTick >= (int) (PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE)) {
+                        world.addPheromone(new Pheromone(pheromoneType, new Vector2(position),this));
+                        lastGreenPheromoneTick = currentTick;
+
+                        return true;
+                    }
+                    break;
+                case PURPLE:
+                    currentTick = world.getGameLoop().getTicks();
+
+                    if (currentTick - lastPurplePheromoneTick >= (int) (PHEROMONE_COOL_DOWN * GameLoop.TICK_RATE)) {
+                        world.addPheromone(new Pheromone(pheromoneType, new Vector2(position),this));
+                        lastPurplePheromoneTick = currentTick;
+
+                        return true;
+                    }
+                    break;
             }
         }
         return false;

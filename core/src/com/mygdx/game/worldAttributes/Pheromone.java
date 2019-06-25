@@ -3,16 +3,19 @@ package com.mygdx.game.worldAttributes;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gamelogic.GameLoop;
+import com.mygdx.game.worldAttributes.agents.Agent;
 
-import java.beans.Visibility;
+import java.util.ArrayList;
 
 public class Pheromone
 {
-    private static final float MAX_VISIBILITY = 5.0f, DURATION = 5.0f;
+    private static final float MAX_VISIBILITY = 5.0f, DURATION = 2.0f;
 
     private PheromoneType pheromoneType;
     private Vector2 position;
     private float visibility, intensity;
+
+    private ArrayList<Agent> agentsReceived = new ArrayList<>();
 
     public Pheromone(PheromoneType pheromoneType, Vector2 position)
     {
@@ -20,6 +23,25 @@ public class Pheromone
         this.position = position;
         visibility = 0.0f;
         intensity = 1.0f;
+    }
+
+    public Pheromone(PheromoneType pheromoneType, Vector2 position, Agent agent)
+    {
+        this.pheromoneType = pheromoneType;
+        this.position = position;
+        visibility = 0.0f;
+        intensity = 1.0f;
+        agentsReceived.add(agent);
+    }
+
+    public boolean signalReceivable(Agent a) {
+        for (Agent agent : agentsReceived) {
+            if (agent == a) {
+                return false;
+            }
+        }
+        agentsReceived.add(a);
+        return true;
     }
 
     public enum PheromoneType

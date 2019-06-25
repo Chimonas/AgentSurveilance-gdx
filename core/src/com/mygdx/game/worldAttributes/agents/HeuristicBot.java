@@ -1,14 +1,16 @@
 package com.mygdx.game.worldAttributes.agents;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.gamelogic.GameLoop;
 import com.mygdx.game.gamelogic.Map;
 import com.mygdx.game.worldAttributes.Pheromone;
 import com.mygdx.game.worldAttributes.agents.guard.Guard;
+import com.mygdx.game.worldAttributes.agents.intruder.Intruder;
 import com.mygdx.game.worldAttributes.areas.Area;
 import com.mygdx.game.worldAttributes.areas.SentryTower;
 import com.mygdx.game.worldAttributes.areas.Shade;
 import com.mygdx.game.worldAttributes.areas.Structure;
+
+import java.util.ArrayList;
 
 public class HeuristicBot extends AI {
 
@@ -28,6 +30,9 @@ public class HeuristicBot extends AI {
     private Structure inside;
 
     private float imaginaryAreaIncrease;
+
+    private Vector2[] lastSeenIntruder = new Vector2[2];
+    private int ticksFromLastSeenIntruder;
 
     public HeuristicBot(Agent agent, float[] coefficients) {
         super(agent);
@@ -64,11 +69,6 @@ public class HeuristicBot extends AI {
             insideStructure = false;
             newVelocity = agent.MAX_VELOCITY;
         }
-
-        //HERE THE MEANING FOR EACH PHEROMONE IS SET
-//        this.pherAI.setPheromoneToAction(Pheromone.PheromoneType.RED, PheromoneAI.PheromoneAction.FOLLOWINTRUDER);
-//        this.pherAI.setPheromoneToAction(Pheromone.PheromoneType.BLUE, PheromoneAI.PheromoneAction.HEARDSOUND);
-//        this.pherAI.setPheromoneToAction(Pheromone.PheromoneType.GREEN, PheromoneAI.PheromoneAction.FOUNDSHADE);
 
         this.best_actions = evaluateActions();
 
@@ -148,15 +148,15 @@ public class HeuristicBot extends AI {
             else if(agent.position.y > agent.getWorld().getMap().getHeight() - 1.0f) newAngle = (float) (Math.random()*180 + 180);
             else newAngle = (float) (Math.random() * 360.0);
 
-
             samePositionTick = -1;
             check = false;
         }
 
         float angleDifference = angleDistance(oldAngle,newAngle);
-        if (Math.abs(angleDifference) > 45.0f / GameLoop.TICK_RATE) {
-            newAngle = agent.angleFacing + directionToMove(newAngle) * 45.0f / (float) GameLoop.TICK_RATE;
-        }
+//        if (Math.abs(angleDifference) > 45.0f / GameLoop.TICK_RATE) {
+//                agent.ai.newVelocity = agent.MAX_VELOCITY;
+//                newAngle = agent.angleFacing + directionToMove(newAngle) * 45.0f / (float) GameLoop.TICK_RATE;
+//        }
 
         newAngle = newAngle*360/DEGREE_LEVEL;
         agent.ai.newAngle = newAngle;
@@ -171,6 +171,7 @@ public class HeuristicBot extends AI {
             soundVec[(int) f*DEGREE_LEVEL/360] += 1;
         }
 //TODO: put order of coefficients in the constructor
+        agent.createPheromone(Pheromone.PheromoneType.BLUE);
         this.angles[0] = soundVec;
     }
 
@@ -179,15 +180,39 @@ public class HeuristicBot extends AI {
         float[] intruderVec = new float[DEGREE_LEVEL];
 
         Vector2 pos = agent.getPosition();
+        int guards = 0;
         for (Agent a : visibleGuards) {
+            guards++;
+            if (guards == 2) {
+                agent.createPheromone(Pheromone.PheromoneType.PURPLE);
+            }
             Vector2 other = a.getPosition();
             guardVec = distributedAngle(guardVec,30, (int) getPositiveAngleBetweenTwoPos(pos,other)*DEGREE_LEVEL/360,100);
         }
         for (Agent a : visibleIntruders) {
             Vector2 other = a.getPosition();
             intruderVec = distributedAngle(intruderVec, 10, (int) getPositiveAngleBetweenTwoPos(pos, other)*DEGREE_LEVEL/360,4);
+//            System.out.println("intruder spotted");
+            lastSeenIntruder[0] = lastSeenIntruder[1];
+            lastSeenIntruder[1] = a.position;
             agent.createPheromone(Pheromone.PheromoneType.RED);
+            ticksFromLastSeenIntruder = 0;
         }
+        if (visibleIntruders.size() == 0 && lastSeenIntruder[0] != null && ticksFromLastSeenIntruder < 100) {
+            //start tick time to forget about intruder
+            //as time goes, the angle grows
+            //as time goes, multiplier becomes smaller
+            ticksFromLastSeenIntruder++;
+            float multiplier = (float)Math.exp(-ticksFromLastSeenIntruder/20);
+            float std = 25 * (float)Math.log(ticksFromLastSeenIntruder) + 5;
+            float angleRange = ticksFromLastSeenIntruder * ticksFromLastSeenIntruder / 20 + 5;
+
+            float angleMoving = getPositiveAngleBetweenTwoPos(lastSeenIntruder[0],lastSeenIntruder[1]);
+            intruderVec = distributedAngle(intruderVec,std,(int) angleMoving,(int)angleRange,multiplier);
+
+        }
+
+
 
         //TODO: same shit
         this.angles[1] = guardVec;
@@ -209,14 +234,17 @@ public class HeuristicBot extends AI {
                 case RED: redVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360] += 1; agent.createPheromone(Pheromone.PheromoneType.GREEN); break;
                 case BLUE: blueVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360] += 1; break;
                 case GREEN: greenVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360] += 1; break;
-                case YELLOW: yellowVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360] += 1; break;
-                case PURPLE: purpleVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360] += 1; break;
+                case YELLOW: yellowVec = distributedAngle(yellowVec,20,(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360, (int) (160 * (1/agent.position.dst(pherPos))),-1);break;
+                case PURPLE: purpleVec[(int) getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360] += 1;
+                            purpleVec = distributedAngle(purpleVec,40,(int)getPositiveAngleBetweenTwoPos(pos, pherPos)*DEGREE_LEVEL/360,200,-(3/agent.position.dst(pherPos)));
+                break;
             }
         }
         this.angles[3] = redVec;
         this.angles[4] = greenVec;
         this.angles[5] = blueVec;
         this.angles[6] = yellowVec;
+        this.angles[7] = purpleVec;
     }
 
     public void getBorderVec() {
@@ -241,8 +269,6 @@ public class HeuristicBot extends AI {
         //the variables need fixing
         for (SentryTower s : ((Guard)agent).getVisibleSentryTowers()) {
 
-//            System.out.println("Seeing a sentry");
-            //applying side bombs
 
             if (agent.inSentryTower()) {
 //                System.out.println("Inside Sentry Tower");
@@ -254,6 +280,8 @@ public class HeuristicBot extends AI {
                 insideSentryVec[DEGREE_LEVEL/4] += vertical;
                 insideSentryVec[DEGREE_LEVEL*3/4] -= vertical;
 
+                agent.createPheromone(Pheromone.PheromoneType.YELLOW);
+
                 newVelocity = 0.04f;
 
             } else {
@@ -262,29 +290,43 @@ public class HeuristicBot extends AI {
                 sentryVec[(int) closestSide[0]] += 1 / closestSide[1];
                 for (Agent a : agent.getVisibleGuards()) {
                     if (a.inSentryTower()) {
-                        System.out.println("Seeing guard in sentry");
+//                        System.out.println("Seeing guard in sentry");
                         sentryVec = distributedAngle(sentryVec,30,(int)closestSide[0],200,-10);
                     }
                 }
-
             }
-
-
         }
 
         for (Shade s : ((Guard)agent).getVisibleShades()) {
             float[] angles = getMinMaxAngles(s);
 
-            shadeVec = distributedAngle(shadeVec,50,(int)modulo(midAngle(angles[0],angles[1]),360),(int)Math.abs(angles[0]-angles[1]),-1);
-
             if (s.contains(agent.position)) {
+                shadeVec = applyPull(shadeVec,s);
                 shadeVec = applyDiagonalPulls(shadeVec,s);
-                shadeVec = applySideBombs(shadeVec,s);
-                for (float v : shadeVec)
-                    if (v < 0)
-                        v *= -1;
             }
+            else {
 
+                float[] minMax = getMinMaxAngles(s);
+
+                //applying corner pulling
+                float[] corners = new float[]{agent.getAngleFacing(),0};
+                float val = 0;
+                if (Math.min(Math.abs(corners[0] - minMax[0]), Math.abs(corners[0] - minMax[0] - 360))
+                    < Math.min(Math.abs(corners[0] - minMax[1]), Math.abs(corners[0] - minMax[1] - 360))) {
+
+                    corners = getAnglesOfImaginaryArea(s,minMax[0]);
+
+                    val = minMax[0];
+                } else {
+                    corners = getAnglesOfImaginaryArea(s,minMax[1]);
+                    val = minMax[1];
+                }
+
+                corners = new float[]{val,val};
+
+                shadeVec[(int) corners[0]] += 1;
+                shadeVec[(int) corners[1]] += 1;
+            }
         }
 
 
@@ -299,7 +341,6 @@ public class HeuristicBot extends AI {
             float val = 0;
             if (Math.min(Math.abs(corners[0] - minMax[0]), Math.abs(corners[0] - minMax[0] - 360))
                     < Math.min(Math.abs(corners[0] - minMax[1]), Math.abs(corners[0] - minMax[1] - 360))) {
-
                 corners = getAnglesOfImaginaryArea(s,minMax[0]);
                 val = minMax[0];
             } else {
@@ -307,10 +348,7 @@ public class HeuristicBot extends AI {
                 val = minMax[1];
             }
 
-//                corners = new float[]{val,val};
-
-            structVec[(int) corners[0]] += 1;
-            structVec[(int) corners[1]] += 1;
+                corners = new float[]{val,val};
 
 
             //applying side bombs
@@ -331,6 +369,9 @@ public class HeuristicBot extends AI {
                 angleToInfluence = midAngle(minMax[0],minMax[1]);
                 structVec = applySideBombs(structVec,s,(int)angleToInfluence,(int)angleDistance(minMax[0],minMax[1]),isInExtension(s));
             }
+
+            structVec[(int) corners[0]] += 1;
+            structVec[(int) corners[1]] += 1;
         }
 
 
@@ -348,10 +389,6 @@ public class HeuristicBot extends AI {
 
         float value = (float) (Math.exp(-1/(2*Math.pow(std,2)))/(Math.sqrt(2*Math.PI*Math.pow(std,2)))/scalar)* multiplier;
         vec[pos] += value;
-//        if (pos+DEGREE_LEVEL/2 >= DEGREE_LEVEL)
-//            vec[pos-DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
-//        else
-//            vec[pos+DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
 
         for(int i=1; i< importanceLevel*DEGREE_LEVEL/720; i++){
             value = (float) (Math.exp(-Math.pow(i,2)/(2*Math.pow(std,2)))/(Math.sqrt(2*Math.PI*Math.pow(std,2)))* multiplier/scalar);
@@ -365,44 +402,16 @@ public class HeuristicBot extends AI {
             else
                 vec[pos-i] += value;
 
-//            if (pos+i+DEGREE_LEVEL/2 >= DEGREE_LEVEL)
-//                vec[pos+i-DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
-//            else
-//                vec[pos+i+DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
-//
-//            if (pos+i-DEGREE_LEVEL/2 < 0)
-//                vec[pos+i+DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
-//            else
-//                vec[pos+i-DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
-
         }
-//        System.out.println(Arrays.toString(vec));
-//        int counter = 0;
-//        for (int i = 0; i < vec.length; i++)
-//            if (vec[i] != 0)
-//                counter ++;
-//        System.out.println(counter);
-//
-//        System.out.println(vec[0]);
-//        System.out.println(vec[90]);
-//        System.out.println(vec[180]);
-//        System.out.println(vec[270]);
-//
-//        System.out.println();
         return vec;
     }
     private float[] distributedAngle(float[] vec, double std, int pos,int degreesToInfluence) {
         int importanceLevel = degreesToInfluence;
         std = std* DEGREE_LEVEL/360;
-//        System.out.println("Visible agents angle position: " + pos);
         double scalar = 1/(Math.sqrt(2*Math.PI*Math.pow(std,2)));
 
         float value = (float) (Math.exp(-1/(2*Math.pow(std,2)))/(Math.sqrt(2*Math.PI*Math.pow(std,2)))/scalar);
         vec[pos] += value;
-//        if (pos+DEGREE_LEVEL/2 >= DEGREE_LEVEL)
-//            vec[pos-DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
-//        else
-//            vec[pos+DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
 
         for(int i=1; i< importanceLevel*DEGREE_LEVEL/720; i++){
             value = (float) (Math.exp(-Math.pow(i,2)/(2*Math.pow(std,2)))/(Math.sqrt(2*Math.PI*Math.pow(std,2)))/scalar);
@@ -416,19 +425,7 @@ public class HeuristicBot extends AI {
             else
                 vec[pos-i] += value;
 
-//            if (pos+i+DEGREE_LEVEL/2 >= DEGREE_LEVEL)
-//                vec[pos+i-DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
-//            else
-//                vec[pos+i+DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
-//
-//            if (pos+i-DEGREE_LEVEL/2 < 0)
-//                vec[pos+i+DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
-//            else
-//                vec[pos+i-DEGREE_LEVEL/2] -= generateRandomNormal()*3/4;
-
         }
-//        System.out.println(Arrays.toString(vec));
-//        System.out.println();
         return vec;
     }
 
@@ -445,7 +442,7 @@ public class HeuristicBot extends AI {
     }
     private float[] applyDiagonalPulls(float[] vec, Vector2 topLeft, Vector2 topRight, Vector2 botLeft, Vector2 botRight) {
 
-        float normalizedBy = Math.max(topLeft.x - topRight.x,topLeft.y - botLeft.y);
+        float normalizedBy = 1 /*Math.max(topLeft.x - topRight.x,topLeft.y - botLeft.y);*/;
         //        testing what happens when you do the reverse thing for the four corners
         vec[(int)getPositiveAngleBetweenTwoPos(agent.getPosition(),new Vector2(botRight.x,topRight.y))] += 1/agent.position.dst(new Vector2(botRight.x,topRight.y))/normalizedBy;
         vec[(int)getPositiveAngleBetweenTwoPos(agent.getPosition(),new Vector2(0,topRight.y))] += 1/agent.position.dst(new Vector2(0,topRight.y))/normalizedBy;
@@ -549,6 +546,24 @@ public class HeuristicBot extends AI {
         if (pos.dst2(new Vector2(pos.x,0)) < agent.visibility * agent.visibility) {
             if (pos.y > topLeft.y && inExtension)  vec = distributedAngle(vec,std,angleToInfluence,degreesToInfluence,-multiplier);
         }
+        return vec;
+    }
+
+    private float[] applyPull(float[] vec, Area a) {
+        float horizontal = (a.getTopRight().x - agent.position.x) - (agent.position.x - a.getTopLeft().x);
+        float vertical = (a.getTopRight().y - agent.position.y) - (agent.position.y - a.getBottomRight().y);
+
+        float right = a.getTopRight().x - agent.position.x;
+        float up = a.getTopRight().y - agent.position.y;
+        float left = agent.position.x - a.getTopLeft().x;
+        float down = agent.position.y - a.getBottomLeft().y;
+
+        vec = distributedAngle(vec,40,0,90, 1/right);
+        vec = distributedAngle(vec,40,DEGREE_LEVEL/4,90,1/up);
+        vec = distributedAngle(vec,40,DEGREE_LEVEL/2,90,1/left);
+        vec = distributedAngle(vec,40,DEGREE_LEVEL*3/4,90,1/down);
+
+
         return vec;
     }
 
