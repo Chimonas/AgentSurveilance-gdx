@@ -99,4 +99,17 @@ public class FileHandler {
 
         return list.toArray();
     }
+
+    public static int index = 0;
+    public static void saveIntrudersResults(String results) {
+        String path = "core/results/intruders_res_test_" + index +  ".txt";
+        FileHandle file = Gdx.files.local(path);
+        file.writeString(results,false);
+    }
+
+    public static void saveGuardsResults(String results) {
+        String path = "core/results/guards_res_test_" + index +  ".txt";
+        FileHandle file = Gdx.files.local(path);
+        file.writeString(results,false);
+    }
 }

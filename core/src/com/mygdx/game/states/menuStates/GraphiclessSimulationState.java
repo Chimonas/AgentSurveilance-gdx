@@ -7,10 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.mygdx.game.StateManager;
-import com.mygdx.game.gamelogic.GameLoop;
-import com.mygdx.game.gamelogic.Map;
-import com.mygdx.game.gamelogic.Settings;
-import com.mygdx.game.gamelogic.World;
+import com.mygdx.game.gamelogic.*;
+
+import java.util.ArrayList;
 
 public class GraphiclessSimulationState extends MenuState
 {
@@ -20,6 +19,9 @@ public class GraphiclessSimulationState extends MenuState
     private World world;
 
     private int currentSimulation, guardWins, intruderWins, timeRanOut;
+
+    private String timeToWinGuards;
+    private String timeToWinIntruders;
 
     public GraphiclessSimulationState(StateManager stateManager, Settings settings, Map map)
     {
@@ -31,6 +33,10 @@ public class GraphiclessSimulationState extends MenuState
         world = new World(map, settings);
 
         System.out.println("[Starting Simulations]");
+
+        timeToWinGuards = new String();
+        timeToWinIntruders = new String();
+
     }
 
     @Override
@@ -54,13 +60,18 @@ public class GraphiclessSimulationState extends MenuState
 
     public void incrementSimulation()
     {
+
         System.out.println(currentSimulation + ": " + world.getGameLoop().getResult() + " " + (world.getGameLoop().getTicks() - world.getSimulationStartTick()) / GameLoop.TICK_RATE);
-        if(world.getGameLoop().getResult() == -1)
+        if(world.getGameLoop().getResult() == -1) {
             intruderWins++;
+            timeToWinIntruders += (world.getGameLoop().getTicks() - world.getSimulationStartTick()) / GameLoop.TICK_RATE + "\n";
+        }
         else if(world.getGameLoop().getResult() == 0)
             timeRanOut++;
-        else if(world.getGameLoop().getResult() == 1)
+        else if(world.getGameLoop().getResult() == 1) {
             guardWins++;
+            timeToWinGuards += (world.getGameLoop().getTicks() - world.getSimulationStartTick()) / GameLoop.TICK_RATE + "\n";
+        }
 
         currentSimulation++;
         world = new World(map, settings);
@@ -71,6 +82,9 @@ public class GraphiclessSimulationState extends MenuState
         System.out.println("Intruder wins: " + intruderWins);
         System.out.println("Time ran out: " + timeRanOut);
         System.out.println("Guard wins: " + guardWins);
+
+        FileHandler.saveGuardsResults(timeToWinGuards);
+        FileHandler.saveIntrudersResults(timeToWinIntruders);
     }
 
     @Override
