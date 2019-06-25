@@ -252,7 +252,7 @@ public class AStarAI{
         ArrayList<Vector2> n = new ArrayList<Vector2>();
 
         for(Guard guard: this.agent.getVisibleGuards()) {
-            System.out.println("Guard spotted");
+//            System.out.println("Guard spotted");
             for (Pair<Vector2, Float> node : nodes)
                 if (guard.getPosition().dst(node.getLeft()) < RADIUS_AROUND_GUARD) {
                     n.add(node.getLeft());

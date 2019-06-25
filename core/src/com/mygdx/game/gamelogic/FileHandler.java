@@ -111,5 +111,6 @@ public class FileHandler {
         String path = "core/results/guards_res_test_" + index +  ".txt";
         FileHandle file = Gdx.files.local(path);
         file.writeString(results,false);
+        index ++;
     }
 }

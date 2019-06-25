@@ -1,11 +1,8 @@
 package com.mygdx.game.worldAttributes.agents.intruder;
 
 import com.mygdx.game.worldAttributes.agents.AI;
-import com.mygdx.game.worldAttributes.agents.AStarAI;
 import com.mygdx.game.worldAttributes.agents.Agent;
-import com.mygdx.game.worldAttributes.agents.HeuristicBot;
-import com.mygdx.game.worldAttributes.agents.guard.Guard;
-import com.mygdx.game.worldAttributes.agents.guard.ai.GuardAI;
+import com.mygdx.game.worldAttributes.agents.HeuristicIntruder;
 import com.mygdx.game.worldAttributes.areas.Area;
 
 import java.util.ArrayList;
@@ -30,17 +27,12 @@ public class IntruderAIFactory
                         /* coefficient for sound: */ 0, //SOUND REALLY FUCKS UP GUARDS
                         /* coefficient for amount of visible guards: */ -100f,
                         /* coefficient for amount of visible intruders: */ -17.0f,
-                        /* coefficient for red pheromones: */ -2f,
-                        /* coefficient for green pheromones: */ 0,
-                        /* coefficient for blue pheromones: */ 0,
-                        /* coefficient for yellow pheromones: */ 0,
-                        /* coefficient for purple pheromones: */ 0,
                         /* coefficient for map border: */ -1.0f,
-                        /* coefficient for sentry towers: */ 0,
                         /* coefficient for shade: */ 0,
-                        /* coefficient for structures: */ 0
+                        /* coefficient for structures: */ 20f,
+                        /* coefficient for target: */ 500f
                 };
-                return new HeuristicBot(agent, coefficients);
+                return new HeuristicIntruder(agent, coefficients);
             case A_STAR:
                 return new AStarIntruderAI(intruder);
             default:

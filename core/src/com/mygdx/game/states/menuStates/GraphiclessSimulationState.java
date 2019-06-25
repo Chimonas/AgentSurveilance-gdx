@@ -23,6 +23,8 @@ public class GraphiclessSimulationState extends MenuState
     private String timeToWinGuards;
     private String timeToWinIntruders;
 
+    private float amountOfTimeToWinGuards;
+
     public GraphiclessSimulationState(StateManager stateManager, Settings settings, Map map)
     {
         super(stateManager);
@@ -36,6 +38,8 @@ public class GraphiclessSimulationState extends MenuState
 
         timeToWinGuards = new String();
         timeToWinIntruders = new String();
+
+        amountOfTimeToWinGuards = 0;
 
     }
 
@@ -65,6 +69,7 @@ public class GraphiclessSimulationState extends MenuState
         if(world.getGameLoop().getResult() == -1) {
             intruderWins++;
             timeToWinIntruders += (world.getGameLoop().getTicks() - world.getSimulationStartTick()) / GameLoop.TICK_RATE + "\n";
+            amountOfTimeToWinGuards += (world.getGameLoop().getTicks() - world.getSimulationStartTick()) / GameLoop.TICK_RATE;
         }
         else if(world.getGameLoop().getResult() == 0)
             timeRanOut++;
@@ -82,6 +87,10 @@ public class GraphiclessSimulationState extends MenuState
         System.out.println("Intruder wins: " + intruderWins);
         System.out.println("Time ran out: " + timeRanOut);
         System.out.println("Guard wins: " + guardWins);
+
+
+        System.out.println("Win Rate " + (float)(guardWins/(guardWins + intruderWins+timeRanOut)));
+        System.out.println("Average Time " + amountOfTimeToWinGuards/guardWins);
 
         FileHandler.saveGuardsResults(timeToWinGuards);
         FileHandler.saveIntrudersResults(timeToWinIntruders);
