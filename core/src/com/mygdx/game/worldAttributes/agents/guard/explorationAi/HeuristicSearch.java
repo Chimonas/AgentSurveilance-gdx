@@ -32,7 +32,7 @@ public class HeuristicSearch extends ExplorationAI {
         //look left and right at every position
 
         //special cases for start:
-        System.out.println(startPosition);
+        //System.out.println(startPosition);
         //System.out.prinln()
         if(agent.getPosition().y == startPosition.y && agent.getPosition().x == startPosition.x)
             setNewAngle(startPosition.x+visibleRange,startPosition.y);

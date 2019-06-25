@@ -74,7 +74,7 @@ public class Structure extends Area
         }
 
 
-        System.out.println(spawnPosition);
+        //System.out.println(spawnPosition);
         spawnedPositions.add(spawnPosition);
 
         if(spawnPosition <= getWidth() - size){

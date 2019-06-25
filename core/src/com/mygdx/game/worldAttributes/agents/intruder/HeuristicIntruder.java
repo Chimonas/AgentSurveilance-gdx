@@ -172,7 +172,7 @@ public class HeuristicIntruder extends AI {
             max = Math.max(max,best_actions[(int)modulo(i+1,360)]);
         }
 
-        System.out.println(max-min);
+        //System.out.println(max-min);
         if (max - min > 50) {
             ((Intruder)this.agent).setSprinting(true);
         }
